@@ -1,53 +1,44 @@
-import os
-from datetime import datetime
-
+import math
 import streamlit as st
-from fpdf import FPDF
 
-# =========================
-# App Config
-# =========================
-st.set_page_config(
-    page_title="GL Framework v2.1",
-    page_icon="📈",
-    layout="centered",
-)
+# 1. 頁面權威設定
+st.set_page_config(page_title="GFT Flow Intelligence", layout="wide")
+st.title("🛡️ GFT Flow Intelligence")
+st.caption("Founder: Ping | Strategic Risk Auditor | Boston, MA")
 
-APP_TITLE = "治理物理學診斷引擎 v2.1（GL Framework）"
-FORMULA_TEXT = "GL = (Fs × Vn) / (Pd × Cf)"
-FONT_PATH = os.path.join("assets", "fonts", "NotoSansCJKtc-Regular.otf")
+# 2. 建立標籤分頁 (讓一頁看起來像多頁網站)
+tab1, tab2, tab3 = st.tabs(["🔍 Risk Diagnostic", "📖 Methodology", "🏢 Corporate Identity"])
 
+with tab1:
+    st.header("Real-time Asset Evaporation Diagnostic")
+    st.write("Enter your organizational variables to quantify institutional friction.")
+    
+    # 這裡放妳原本的計算邏輯 (Pd, Cf 等)
+    c1, c2 = st.columns(2)
+    with c1:
+        pd = st.number_input("Latency Hours (Pd)", 0.0, 5000.0, 150.0)
+        rate = st.number_input("Avg. Hourly Rate ($)", 20.0, 2000.0, 65.0)
+    with c2:
+        raw_cf = st.number_input("Complexity Points (Raw)", 0.0, 200.0, 30.0)
+        vol = st.number_input("Monthly Volume", 1, 1000000, 2000)
 
-# =========================
-# GL Core (MVP)
-# =========================
-def compute_gl(fs: float, vn: float, pd: float, cf: float) -> float:
-    """MVP formula: GL = (Fs * Vn) / (Pd * Cf)"""
-    eps = 1e-9
-    pd = max(pd, eps)
-    cf = max(cf, eps)
-    return (fs * vn) / (pd * cf)
+    # 核心計算
+    waste = (pd * rate * vol * 12) + (raw_cf * 200 * vol * 12) 
+    st.metric("Estimated Annual Asset Evaporation", f"${waste:,.0f}")
+    
+    st.divider()
+    st.link_button("💳 Order Full Strategic Roadmap ($1,999)", "https://buy.stripe.com/your_link_here")
 
+with tab2:
+    st.header("The GFI/OFI Frameworks")
+    st.write("Our proprietary models treat administrative friction as a physics problem.")
+    st.markdown("### **GFI (Governance Flow Index)**")
+    st.write("Quantifying friction in public policy delivery to restore government legitimacy.")
+    st.markdown("### **OFI (Operational Flow Index)**")
+    st.write("Identifying the 'friction tax' in private operations to recover lost margins.")
 
-def interpret_gl(gl: float) -> str:
-    """Simple bands (tune later)."""
-    if gl < 1:
-        return "GL < 1：摩擦過高／流程對使用者不友善（合法性脆弱）"
-    if gl < 3:
-        return "1 ≤ GL < 3：可運作但摩擦偏高（建議優化）"
-    return "GL ≥ 3：流動良好／摩擦較可控（相對健康）"
-
-
-def _row_pack(name, base_gl, base_value, better_value, better_gl, worse_value, worse_gl):
-    def pct_delta(x):
-        return (x / base_gl - 1) * 100 if base_gl > 0 else 0.0
-
-    return {
-        "變數": name,
-        "基準值": base_value,
-        "改善值（±30%）": better_value,
-        "GL（改善）": round(better_gl, 6),
-        "改善幅度%": round(pct_delta(better_gl), 2),
-        "惡化值（±30%）": worse_value,
-        "GL（惡化）": round(worse_gl, 6),
-        "惡化幅度%": round(p
+with tab3:
+    st.header("About GFT Flow Intelligence")
+    st.write("Based in Boston, MA, we provide strategic interventions for high-scale institutional risk.")
+    st.write("For inquiries regarding UN P5-level economic affairs or state-level policy reform:")
+    st.link_button("✉️ Contact Principal Auditor", "mailto:YOUR_EMAIL_HERE")
