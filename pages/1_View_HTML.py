@@ -4,12 +4,19 @@ import os
 
 st.set_page_config(layout="wide")
 
-# 檢查檔案是否存在，避免程式崩潰
-if os.path.exists("index.html"):
-    with open("index.html", "r", encoding="utf-8") as f:
+st.title("GFI / OFI Method Definition")
+
+# 確保 index.html 存在
+html_path = os.path.join(os.getcwd(), "index.html")
+
+if os.path.exists(html_path):
+    with open(html_path, "r", encoding="utf-8") as f:
         html_data = f.read()
 
-    # 顯示你的 HTML 內容
-    components.html(html_data, height=1000, scrolling=True)
+    components.html(
+        html_data,
+        height=1200,
+        scrolling=True
+    )
 else:
-    st.error("找不到 index.html 檔案，請確認檔案在 GitHub 根目錄。")
+    st.error("❌ index.html not found. Please confirm the file exists in the root directory.")
