@@ -1,5 +1,10 @@
-
 import streamlit as st
+
+# =========================
+# STRIPE LINKS (REPLACE THESE)
+# =========================
+QUICK_PAY_URL = "https://buy.stripe.com/你的999連結"
+DEEP_PAY_URL  = "https://buy.stripe.com/你的4999連結"
 
 # =========================
 # PAGE CONFIG
@@ -126,8 +131,8 @@ with c1:
 """)
     st.markdown('<div class="small-note">Best for: teams that need an immediate answer for leadership.</div>', unsafe_allow_html=True)
     st.write("")
-    if st.button("Start Diagnostic"):
-        st.session_state["nav_target"] = "contact"
+    # ✅ Stripe Payment Link
+    st.link_button("Start Diagnostic — $999", QUICK_PAY_URL)
     st.markdown('</div>', unsafe_allow_html=True)
 
 with c2:
@@ -143,8 +148,8 @@ with c2:
 """)
     st.markdown('<div class="small-note">Best for: organizations seeing mixed results after AI deployment.</div>', unsafe_allow_html=True)
     st.write("")
-    if st.button("Request Deep Audit"):
-        st.session_state["nav_target"] = "contact"
+    # ✅ Stripe Payment Link
+    st.link_button("Request Deep Audit — $4,999", DEEP_PAY_URL)
     st.markdown('</div>', unsafe_allow_html=True)
 
 # =========================
@@ -203,15 +208,9 @@ with f2:
     st.markdown('<div class="card">', unsafe_allow_html=True)
     st.markdown("#### Contact / Intake")
     st.markdown("""
-Use the **Contact** page to submit your baseline + post-AI metrics.  
-We’ll confirm scope and delivery timeline.
+After payment, you will be redirected to the intake form to submit your baseline + post-AI metrics.  
+We’ll confirm scope and delivery timeline by email.
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =========================
-# OPTIONAL: SIMPLE NAV HANDOFF
-# If you have a pages/Contact.py, this will hint where to go next.
-# =========================
-if st.session_state.get("nav_target") == "contact":
-    st.info("Next step: open the **Contact** page in the sidebar to submit your intake metrics.")
-    st.session_state["nav_target"] = None
+
