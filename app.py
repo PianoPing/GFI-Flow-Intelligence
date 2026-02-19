@@ -2,849 +2,836 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-import plotly.express as px
-from datetime import datetime, timedelta, timezone
-import base64
-import io
-
-# =========================
-# PDF + DB + Email deps
-# =========================
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
-from reportlab.lib import colors
-
-from supabase import create_client, Client
-
-# SendGrid (recommended for Streamlit Cloud)
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import (
-    Mail, Email, To, Content, Attachment, FileContent, FileName, FileType, Disposition
-)
+from datetime import datetime
 
 # ============================================================================
-# 0. SETTINGS (Secrets Required)
-# ============================================================================
-# Streamlit Secrets (Streamlit Cloud -> Settings -> Secrets)
-# [SUPABASE]
-# URL = "https://xxxxx.supabase.co"
-# SERVICE_ROLE_KEY = "xxxxx"   # use Service Role for inserts (server-side only)
-#
-# [SENDGRID]
-# API_KEY = "SG.xxxxx"
-# FROM_EMAIL = "you@yourdomain.com"
-
-SUPABASE_URL = st.secrets.get("SUPABASE", {}).get("URL", "")
-SUPABASE_KEY = st.secrets.get("SUPABASE", {}).get("SERVICE_ROLE_KEY", "")
-SENDGRID_API_KEY = st.secrets.get("SENDGRID", {}).get("API_KEY", "")
-SENDGRID_FROM_EMAIL = st.secrets.get("SENDGRID", {}).get("FROM_EMAIL", "")
-
-SUPABASE_TABLE = "gfi_leads"  # create this table in Supabase (schema below)
-
-STRIPE_999 = "https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00"
-STRIPE_4999 = "https://buy.stripe.com/7sYcN764GdM4arX0fB3VC01"
-
-# ============================================================================
-# 1. PAGE CONFIGURATION
+# PAGE CONFIGURATION
 # ============================================================================
 st.set_page_config(
-    page_title="GFI Diagnostic Platform",
+    page_title="Hidden Profit Leak Report™",
     layout="wide",
-    initial_sidebar_state="collapsed",
-    menu_items={
-        "About": "GFI: Governance Fitness Index (GFI Flow Intelligence) — diagnosing institutional friction."
-    },
+    initial_sidebar_state="collapsed"
 )
 
 # ============================================================================
-# 2. CUSTOM CSS STYLING
+# STRIPE PAYMENT LINKS
 # ============================================================================
-st.markdown(
-    """
+STRIPE_LINK_999 = "https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00"
+STRIPE_LINK_4999 = "https://buy.stripe.com/7sYcN764GdM4arX0fB3VC01"
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+st.markdown("""
 <style>
-    .main-header {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-        padding: 2rem;
-        border-radius: 10px;
+    /* Hero section */
+    .hero-section {
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        padding: 3rem 2rem;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
         margin-bottom: 2rem;
+    }
+    
+    /* Price card */
+    .price-card {
+        background: white;
+        border: 3px solid #3b82f6;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .price-card-premium {
+        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        border: 3px solid #7c3aed;
         color: white;
     }
-    .metric-card {
-        background: #f8fafc;
-        border-left: 4px solid #3b82f6;
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 0.5rem 0;
-    }
-    .warning-box {
-        background: #fef3c7;
-        border-left: 4px solid #f59e0b;
-        padding: 1rem;
-        border-radius: 8px;
+    
+    .price-tag {
+        font-size: 3.5rem;
+        font-weight: bold;
+        color: #1e40af;
         margin: 1rem 0;
     }
-    .case-card {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    
+    .price-tag-premium {
+        color: white;
     }
+    
+    /* CTA Button */
+    .cta-button {
+        background: #10b981;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1rem 0;
+        transition: all 0.3s;
+    }
+    
+    .cta-button:hover {
+        background: #059669;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    }
+    
+    /* Results display */
     .big-number {
-        font-size: 2.5rem;
+        font-size: 4rem;
         font-weight: bold;
         color: #dc2626;
-    }
-    .section-divider {
-        height: 2px;
-        background: linear-gradient(to right, #3b82f6, transparent);
+        text-align: center;
         margin: 2rem 0;
     }
-    div[data-testid="stMetricValue"] { font-size: 1.35rem; }
-    div[data-testid="stMetricDelta"] { font-size: 0.95rem; }
+    
+    .insight-box {
+        background: #fef3c7;
+        border-left: 5px solid #f59e0b;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1.5rem 0;
+    }
+    
+    /* Guarantee badge */
+    .guarantee-badge {
+        background: #dcfce7;
+        border: 2px solid #10b981;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        margin: 1rem 0;
+    }
 </style>
-""",
-    unsafe_allow_html=True,
-)
+""", unsafe_allow_html=True)
 
 # ============================================================================
-# 3. BRAND HEADER
+# SESSION STATE INITIALIZATION
 # ============================================================================
-st.markdown(
-    """
-<div class="main-header">
-    <h1>🔍 GFI: Governance Fitness Index</h1>
-    <h3>A Structural Framework for Diagnosing Institutional Friction</h3>
-    <p style="margin-top: 1rem; opacity: 0.92;">
-        <strong>Prepared by:</strong> Ping Xu | Massachusetts, USA | 2026
+if 'assessment_complete' not in st.session_state:
+    st.session_state.assessment_complete = False
+if 'calculated_leak' not in st.session_state:
+    st.session_state.calculated_leak = 0
+if 'risk_score' not in st.session_state:
+    st.session_state.risk_score = 0
+
+# ============================================================================
+# HERO SECTION
+# ============================================================================
+st.markdown("""
+<div class="hero-section">
+    <h1>🔍 Hidden Profit Leak Report™</h1>
+    <h2 style="margin-top: 1rem; font-weight: 300;">
+        Discover Where Your Company Is Silently Losing Money
+    </h2>
+    <p style="font-size: 1.2rem; margin-top: 1.5rem; opacity: 0.95;">
+        12-minute assessment → Uncover $50K-$2M in hidden operational costs
     </p>
 </div>
-""",
-    unsafe_allow_html=True,
-)
+""", unsafe_allow_html=True)
 
 # ============================================================================
-# 4. UTILS — Supabase / PDF / Email
+# MAIN CONTENT
 # ============================================================================
 
-@st.cache_resource(show_spinner=False)
-def get_supabase() -> Client | None:
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        return None
-    return create_client(SUPABASE_URL, SUPABASE_KEY)
-
-def format_money(x: float) -> str:
-    return f"${x:,.0f}"
-
-def classify_risk(total_friction: float) -> tuple[str, str]:
-    # (risk_level, recommended_tier)
-    if total_friction < 100000:
-        return "🟢 Low Friction", "Operational Optimization (Self-guided)"
-    if total_friction < 1000000:
-        return "🟡 Moderate Risk", "$999 Executive Diagnostic"
-    if total_friction < 5000000:
-        return "🟠 Severe Structural Friction", "$999 Executive Diagnostic (Recommended) — consider Structural Audit"
-    return "🔴 Critical Governance Breakdown", "$4,999 Structural Audit (Recommended)"
-
-def build_snapshot_pdf_bytes(payload: dict) -> bytes:
-    """
-    3-page executive snapshot PDF (ReportLab).
-    payload keys: name, email, org, role, industry, org_size, pd_hours, affected_people,
-                  hourly_rate, multiplier, total_delay, weeks_lost, efficiency_loss,
-                  direct_leak, opp_loss, total_friction, risk_level, rec_tier, created_at
-    """
-    buffer = io.BytesIO()
-    c = canvas.Canvas(buffer, pagesize=letter)
-    width, height = letter
-
-    def header(title: str):
-        c.setFillColor(colors.HexColor("#1e3a8a"))
-        c.rect(0, height - 1.0 * inch, width, 1.0 * inch, fill=1, stroke=0)
-        c.setFillColor(colors.white)
-        c.setFont("Helvetica-Bold", 18)
-        c.drawString(0.75 * inch, height - 0.65 * inch, title)
-        c.setFont("Helvetica", 10)
-        c.setFillColor(colors.white)
-        c.drawRightString(width - 0.75 * inch, height - 0.65 * inch, "GFI Flow Intelligence")
-
-    def footer(page_num: int):
-        c.setFillColor(colors.HexColor("#64748b"))
-        c.setFont("Helvetica", 9)
-        c.drawString(0.75 * inch, 0.5 * inch, f"© 2026 Ping Xu | Governance Fitness Index (GFI)  |  Page {page_num}/3")
-
-    # Page 1 — Executive Summary
-    header("Executive Snapshot — Governance Fitness Index (GFI)")
-    c.setFillColor(colors.black)
-    y = height - 1.45 * inch
-
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Client / Organization")
-    y -= 0.25 * inch
-    c.setFont("Helvetica", 11)
-    c.drawString(0.75 * inch, y, f"Name: {payload['name']}")
-    y -= 0.2 * inch
-    c.drawString(0.75 * inch, y, f"Email: {payload['email']}")
-    y -= 0.2 * inch
-    c.drawString(0.75 * inch, y, f"Organization: {payload['org']}")
-    y -= 0.2 * inch
-    c.drawString(0.75 * inch, y, f"Role/Title: {payload.get('role','') or '-'}")
-    y -= 0.2 * inch
-    c.drawString(0.75 * inch, y, f"Industry: {payload.get('industry','-')} | Size: {payload.get('org_size','-')}")
-    y -= 0.35 * inch
-
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Headline Findings")
-    y -= 0.30 * inch
-
-    c.setFont("Helvetica-Bold", 14)
-    c.setFillColor(colors.HexColor("#dc2626"))
-    c.drawString(0.75 * inch, y, f"Annual Friction Exposure: {format_money(payload['total_friction'])}")
-    y -= 0.28 * inch
-
-    c.setFillColor(colors.black)
-    c.setFont("Helvetica", 12)
-    c.drawString(0.75 * inch, y, f"Risk Level: {payload['risk_level']}")
-    y -= 0.22 * inch
-    c.drawString(0.75 * inch, y, f"Capacity Loss Estimate: {payload['efficiency_loss']:.1f}%")
-    y -= 0.22 * inch
-    c.drawString(0.75 * inch, y, f"Recommended Engagement: {payload['rec_tier']}")
-    y -= 0.35 * inch
-
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Interpretation (Decision-Grade)")
-    y -= 0.28 * inch
-    c.setFont("Helvetica", 11)
-    lines = [
-        "This snapshot converts hidden coordination delay into measurable economic exposure.",
-        "It is an initial signal review (not a compliance audit).",
-        "Paid tiers produce a structured report and intervention blueprint tailored to your system design.",
-    ]
-    for line in lines:
-        c.drawString(0.75 * inch, y, f"• {line}")
-        y -= 0.20 * inch
-
-    footer(1)
-    c.showPage()
-
-    # Page 2 — Inputs & Breakdown
-    header("Snapshot Inputs & Cost Breakdown")
-    c.setFillColor(colors.black)
-    y = height - 1.45 * inch
-
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Inputs Used")
-    y -= 0.28 * inch
-    c.setFont("Helvetica", 11)
-
-    inputs = [
-        ("Process Delay (hours/person/year)", f"{payload['pd_hours']:,.1f}"),
-        ("Affected Personnel", f"{payload['affected_people']:,.0f}"),
-        ("Average Hourly Cost", f"{format_money(payload['hourly_rate'])}"),
-        ("Value Multiplier", f"{payload['multiplier']:.1f}x"),
-        ("Total Hours Lost", f"{payload['total_delay']:,.0f} hrs"),
-        ("Weeks Lost (40-hr)", f"{payload['weeks_lost']:.1f} weeks"),
-    ]
-    for k, v in inputs:
-        c.drawString(0.75 * inch, y, f"{k}:")
-        c.drawRightString(width - 0.75 * inch, y, v)
-        y -= 0.20 * inch
-
-    y -= 0.20 * inch
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Cost Composition")
-    y -= 0.28 * inch
-    c.setFont("Helvetica", 11)
-
-    costs = [
-        ("Direct Payroll Leak", format_money(payload["direct_leak"])),
-        ("Opportunity Loss", format_money(payload["opp_loss"])),
-        ("Total Friction Exposure", format_money(payload["total_friction"])),
-    ]
-    for k, v in costs:
-        c.drawString(0.75 * inch, y, f"{k}:")
-        c.drawRightString(width - 0.75 * inch, y, v)
-        y -= 0.20 * inch
-
-    y -= 0.25 * inch
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "What This Typically Signals")
-    y -= 0.28 * inch
-    c.setFont("Helvetica", 11)
-    signals = [
-        "Decision latency: too many gates or unclear decision ownership",
-        "Rework loops: misalignment and late-stage corrections",
-        "Coordination tax: meetings, escalations, and context switching",
-        "Structural ambiguity: accountability diluted across multiple pathways",
-    ]
-    for s in signals:
-        c.drawString(0.75 * inch, y, f"• {s}")
-        y -= 0.20 * inch
-
-    footer(2)
-    c.showPage()
-
-    # Page 3 — Next Steps / Offers
-    header("Next Step Options")
-    c.setFillColor(colors.black)
-    y = height - 1.45 * inch
-
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Option 1 — $999 Executive Diagnostic (48-hour turnaround)")
-    y -= 0.28 * inch
-    c.setFont("Helvetica", 11)
-    opt1 = [
-        "Structured report with friction mapping + root-cause pattern",
-        "Top 3 structural interventions with expected impact ranges",
-        "Leadership-ready summary for internal alignment",
-    ]
-    for s in opt1:
-        c.drawString(0.75 * inch, y, f"• {s}")
-        y -= 0.20 * inch
-
-    y -= 0.20 * inch
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Option 2 — $4,999 Structural Audit (deep redesign)")
-    y -= 0.28 * inch
-    c.setFont("Helvetica", 11)
-    opt2 = [
-        "Cross-team workflow mapping + governance redesign blueprint",
-        "Benchmark positioning memo (comparative narrative)",
-        "Executive briefing for alignment and implementation planning",
-    ]
-    for s in opt2:
-        c.drawString(0.75 * inch, y, f"• {s}")
-        y -= 0.20 * inch
-
-    y -= 0.35 * inch
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(0.75 * inch, y, "Payment Links")
-    y -= 0.25 * inch
-    c.setFont("Helvetica", 11)
-    c.drawString(0.75 * inch, y, f"$999: {STRIPE_999}")
-    y -= 0.18 * inch
-    c.drawString(0.75 * inch, y, f"$4,999: {STRIPE_4999}")
-
-    y -= 0.35 * inch
-    c.setFillColor(colors.HexColor("#64748b"))
-    c.setFont("Helvetica", 10)
-    c.drawString(0.75 * inch, y, "Prepared by Ping Xu | Creator, Governance Fitness Index (GFI) | GFI Flow Intelligence")
-
-    footer(3)
-    c.showPage()
-
-    c.save()
-    pdf = buffer.getvalue()
-    buffer.close()
-    return pdf
-
-def supabase_insert_lead(supabase: Client, row: dict) -> tuple[bool, str]:
-    try:
-        # Ensure created_at is ISO
-        if "created_at" not in row:
-            row["created_at"] = datetime.now(timezone.utc).isoformat()
-        supabase.table(SUPABASE_TABLE).insert(row).execute()
-        return True, "OK"
-    except Exception as e:
-        return False, str(e)
-
-def sendgrid_send_with_attachment(to_email: str, subject: str, text: str, pdf_bytes: bytes, send_at_epoch: int | None = None) -> tuple[bool, str]:
-    try:
-        if not SENDGRID_API_KEY or not SENDGRID_FROM_EMAIL:
-            return False, "SendGrid secrets missing"
-
-        sg = SendGridAPIClient(SENDGRID_API_KEY)
-
-        message = Mail(
-            from_email=Email(SENDGRID_FROM_EMAIL),
-            to_emails=To(to_email),
-            subject=subject,
-            plain_text_content=Content("text/plain", text),
-        )
-
-        encoded = base64.b64encode(pdf_bytes).decode()
-        attachment = Attachment(
-            FileContent(encoded),
-            FileName("GFI_Executive_Snapshot.pdf"),
-            FileType("application/pdf"),
-            Disposition("attachment"),
-        )
-        message.attachment = attachment
-
-        # Schedule send (SendGrid supports send_at in personalizations)
-        if send_at_epoch is not None:
-            # attach send_at to personalization
-            message.personalizations[0].send_at = send_at_epoch
-
-        resp = sg.send(message)
-        if 200 <= resp.status_code < 300:
-            return True, f"OK ({resp.status_code})"
-        return False, f"SendGrid error ({resp.status_code})"
-    except Exception as e:
-        return False, str(e)
+# Navigation
+tab1, tab2, tab3 = st.tabs(["💰 Free Assessment", "📊 Sample Report", "🎁 Pricing & Packages"])
 
 # ============================================================================
-# 5. NAVIGATION TABS
+# TAB 1: FREE ASSESSMENT (Lead Generation)
 # ============================================================================
-tabs = st.tabs(
-    [
-        "🎯 Risk Diagnostic",
-        "📊 Methodology",
-        "📚 Case Library",
-        "👤 Founder & Architect",
-        "📈 Benchmark Data",
-    ]
-)
-
-# ============================================================================
-# TAB 1: DIAGNOSTIC ENGINE + ENGINE UPGRADE
-# ============================================================================
-with tabs[0]:
-    st.header("Institutional Friction Diagnostic Model")
-    st.markdown("*Quantify the invisible cost of organizational inefficiency*")
-
-    col_input, col_display = st.columns([1, 1.5], gap="large")
-
-    with col_input:
-        st.subheader("📋 Input Parameters")
-
-        with st.expander("🏢 Organization Context", expanded=True):
-            org_size = st.selectbox(
-                "Organization Size",
-                ["Small (1–50)", "Medium (51–200)", "Large (201–1000)", "Enterprise (1000+)"],
+with tab1:
+    st.header("Free Profit Leak Calculator")
+    st.markdown("**Answer 12 quick questions to estimate your annual profit leakage**")
+    
+    with st.form("assessment_form"):
+        st.subheader("Company Overview")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            company_name = st.text_input("Company Name", placeholder="Acme Corp")
+            
+            employee_count = st.selectbox(
+                "Number of Employees",
+                ["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"]
             )
+            
             industry = st.selectbox(
                 "Industry",
-                [
-                    "Technology/SaaS",
-                    "Finance",
-                    "Healthcare",
-                    "Manufacturing",
-                    "Professional Services",
-                    "Retail",
-                    "Public Sector / Agency",
-                    "Other",
-                ],
+                ["Technology/SaaS", "Professional Services", "Finance", 
+                 "Healthcare", "Manufacturing", "Retail", "Other"]
             )
-
-        st.divider()
-        st.markdown("#### Core Friction Metrics")
-
-        pd_hours = st.number_input(
-            "Process Delay (hours/person/year)",
-            min_value=0.0,
-            value=150.0,
-            step=10.0,
-            help="Total hours lost per person per year due to systemic friction (delays, rework, coordination overhead).",
-        )
-
-        affected_people = st.number_input(
-            "Affected Personnel",
-            min_value=1,
-            value=5,
-            help="Number of people impacted by this friction.",
-        )
-
-        hourly_rate = st.number_input(
-            "Average Hourly Cost ($)",
-            min_value=0.0,
-            value=65.0,
-            step=5.0,
-            help="Fully burdened hourly rate (salary + benefits + overhead).",
-        )
-
-        st.divider()
-        st.markdown("#### 💰 Value Multiplier")
-
-        multiplier_presets = {
-            "Administrative/Support": 1.5,
-            "Operations/Manufacturing": 2.0,
-            "Engineering/Product": 5.0,
-            "Sales/Revenue": 8.0,
-            "Executive/Strategic": 10.0,
-            "Public Sector / Service Delivery": 3.0,
-            "Custom": 3.0,
-        }
-
-        role_type = st.selectbox("Role Type", list(multiplier_presets.keys()))
-        if role_type == "Custom":
-            multiplier = st.slider(
-                "Custom Value Multiplier",
-                1.0,
-                15.0,
-                3.0,
-                0.5,
-                help="How many times their cost does this role generate in value?",
+            
+            avg_salary = st.number_input(
+                "Average Employee Annual Salary ($)",
+                min_value=30000,
+                value=75000,
+                step=5000,
+                help="Approximate average across all employees"
             )
-        else:
-            multiplier = multiplier_presets[role_type]
-            st.info(f"💡 Recommended multiplier for {role_type}: **{multiplier}x**")
-
-    with col_display:
-        st.subheader("📊 Diagnostic Results")
-
-        total_delay = pd_hours * affected_people
-        direct_leak = total_delay * hourly_rate
-        opp_loss = direct_leak * multiplier
-        total_friction = direct_leak + opp_loss
-
-        weeks_lost = total_delay / 40.0
-        efficiency_loss = (weeks_lost / 52.0) * 100.0 if weeks_lost > 0 else 0.0
-
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Total Hours Lost", f"{total_delay:,.0f} hrs", delta=f"{weeks_lost:.1f} weeks", delta_color="inverse")
-        m2.metric("Direct Payroll Leak", f"{format_money(direct_leak)}")
-        m3.metric("Opportunity Loss", f"{format_money(opp_loss)}", delta="Hidden Cost", delta_color="inverse")
-
-        st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
-
-        st.markdown(
-            f"""
-        <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 12px; margin: 1rem 0;">
-            <div style="font-size: 1.05rem; color: #7f1d1d; margin-bottom: 0.5rem;">
-                TOTAL INSTITUTIONAL FRICTION COST (ANNUAL)
-            </div>
-            <div class="big-number" style="color: #dc2626;">
-                {format_money(total_friction)}
-            </div>
-            <div style="margin-top: 0.8rem; font-size: 1.0rem; color: #991b1b;">
-                Estimated impact for the affected team
-            </div>
-        </div>
-        """,
-            unsafe_allow_html=True,
-        )
-
-        fig = go.Figure(
-            data=[
-                go.Bar(name="Direct Cost", x=["Friction Impact"], y=[direct_leak], marker_color="#3b82f6"),
-                go.Bar(name="Opportunity Cost", x=["Friction Impact"], y=[opp_loss], marker_color="#ef4444"),
+            
+            revenue_per_employee = st.number_input(
+                "Annual Revenue per Employee ($)",
+                min_value=50000,
+                value=150000,
+                step=10000,
+                help="Total annual revenue / total employees"
+            )
+            
+            meeting_hours_per_week = st.slider(
+                "Average Hours in Meetings per Employee per Week",
+                0, 40, 15,
+                help="Include all scheduled meetings, standups, reviews"
+            )
+        
+        with col2:
+            approval_layers = st.slider(
+                "Average Approval Layers for Key Decisions",
+                1, 10, 3,
+                help="How many people must approve important decisions?"
+            )
+            
+            project_delay_pct = st.slider(
+                "Project Delay Rate (%)",
+                0, 100, 30,
+                help="What % of projects finish late?"
+            )
+            
+            rework_pct = st.slider(
+                "Rework Due to Miscommunication (%)",
+                0, 50, 15,
+                help="% of work that needs to be redone"
+            )
+            
+            decision_time_days = st.slider(
+                "Average Days to Make Strategic Decisions",
+                1, 90, 14,
+                help="From proposal to approval"
+            )
+            
+            turnover_rate = st.slider(
+                "Annual Employee Turnover Rate (%)",
+                0, 50, 15,
+                help="% of employees who leave each year"
+            )
+            
+            customer_complaint_rate = st.slider(
+                "Customer Complaint Rate (per 100 customers)",
+                0, 50, 5,
+                help="How many customers complain about delays or quality issues?"
+            )
+        
+        submitted = st.form_submit_button("🔍 Calculate My Hidden Profit Leak", use_container_width=True)
+        
+        if submitted:
+            # ============================================================================
+            # CALCULATION ENGINE
+            # ============================================================================
+            
+            # Employee count mapping
+            emp_count_map = {
+                "1-10": 5,
+                "11-50": 30,
+                "51-200": 125,
+                "201-500": 350,
+                "501-1000": 750,
+                "1000+": 1500
+            }
+            employees = emp_count_map[employee_count]
+            
+            # Calculate hourly rate
+            hourly_rate = avg_salary / 2080  # Annual hours
+            
+            # FRICTION CALCULATION
+            # 1. Meeting overhead (assume 40% of meetings are low-value)
+            wasted_meeting_hours = meeting_hours_per_week * 0.4 * 50 * employees
+            meeting_cost = wasted_meeting_hours * hourly_rate
+            
+            # 2. Delay costs
+            delay_factor = project_delay_pct / 100
+            avg_project_value = revenue_per_employee * 0.3  # Assume 30% of revenue tied to projects
+            delay_cost = delay_factor * avg_project_value * employees * 0.2
+            
+            # 3. Rework costs
+            rework_factor = rework_pct / 100
+            rework_cost = rework_factor * avg_salary * employees * 0.15
+            
+            # 4. Decision delay opportunity cost
+            decision_delay_weeks = decision_time_days / 7
+            decision_opportunity_cost = (decision_delay_weeks - 1) * 500 * employees * 10
+            
+            # 5. Turnover costs
+            turnover_factor = turnover_rate / 100
+            avg_turnover_cost = avg_salary * 1.5  # Cost to replace = 150% of salary
+            turnover_total_cost = turnover_factor * employees * avg_turnover_cost
+            
+            # 6. Customer friction
+            complaint_factor = customer_complaint_rate / 100
+            avg_customer_value = revenue_per_employee * 2
+            customer_friction_cost = complaint_factor * employees * avg_customer_value * 0.1
+            
+            # TOTAL ANNUAL LEAK
+            total_leak = (
+                meeting_cost + 
+                delay_cost + 
+                rework_cost + 
+                decision_opportunity_cost + 
+                turnover_total_cost + 
+                customer_friction_cost
+            )
+            
+            # RISK SCORE (0-100)
+            risk_factors = [
+                (approval_layers - 1) * 10,
+                project_delay_pct * 0.5,
+                rework_pct * 1.5,
+                (decision_time_days / 30) * 20,
+                turnover_rate,
+                customer_complaint_rate * 1.5
             ]
-        )
-        fig.update_layout(
-            title="Cost Composition",
-            barmode="stack",
-            height=300,
-            showlegend=True,
-            yaxis_title="Cost ($)",
-            template="plotly_white",
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-        st.markdown("### 🎯 GFI Strategic Insights")
-        st.warning(
-            f"""
-**Performance Impact:** This friction represents an estimated **{efficiency_loss:.1f}%** reduction in annual capacity.  
-You're not just losing money — you're losing **execution velocity**.
-
-**What this usually signals:** decision latency, rework loops, coordination tax, accountability dilution.
-"""
-        )
-
-        with st.expander("💡 Friction Elimination ROI Calculator"):
-            reduction_pct = st.slider("Expected Friction Reduction (%)", 0, 100, 50)
-            savings = total_friction * (reduction_pct / 100.0)
-            implementation_cost = st.number_input("Implementation Cost ($)", min_value=0, value=50000, step=5000)
-            roi = ((savings - implementation_cost) / implementation_cost) * 100 if implementation_cost > 0 else 0
-            payback_months = (implementation_cost / (savings / 12)) if savings > 0 else 0
-            c1, c2, c3 = st.columns(3)
-            c1.metric("Annual Savings", format_money(savings))
-            c2.metric("ROI", f"{roi:,.0f}%")
-            c3.metric("Payback Period", f"{payback_months:.1f} months")
-
-        # ============================================================
-        # ✅ ENGINE UPGRADE: DB SAVE + PDF DOWNLOAD + EMAIL NOW + EMAIL +24H
-        # ============================================================
+            risk_score = min(sum(risk_factors) / len(risk_factors), 100)
+            
+            # Store in session state
+            st.session_state.assessment_complete = True
+            st.session_state.calculated_leak = total_leak
+            st.session_state.risk_score = risk_score
+            st.session_state.company_name = company_name
+            st.session_state.employees = employees
+            
+            # Breakdown for display
+            st.session_state.breakdown = {
+                "Meeting Overhead": meeting_cost,
+                "Project Delays": delay_cost,
+                "Rework & Miscommunication": rework_cost,
+                "Decision Bottlenecks": decision_opportunity_cost,
+                "Turnover Costs": turnover_total_cost,
+                "Customer Friction": customer_friction_cost
+            }
+    
+    # ============================================================================
+    # RESULTS DISPLAY
+    # ============================================================================
+    if st.session_state.assessment_complete:
+        st.success("✅ Assessment Complete!")
+        
         st.markdown("---")
-        st.subheader("🔐 Unlock Executive Snapshot (Lead Capture)")
-
-        lead_col1, lead_col2 = st.columns(2)
-        with lead_col1:
-            lead_name = st.text_input("Full Name *", placeholder="Jane Doe")
-            lead_email = st.text_input("Work Email *", placeholder="jane@company.com")
-        with lead_col2:
-            lead_org = st.text_input("Organization *", placeholder="Company / Agency")
-            lead_role = st.text_input("Role / Title", placeholder="CFO / Director / PM / etc.")
-
-        unlock = st.button("Generate Executive Snapshot", type="primary")
-
-        if unlock:
-            if not (lead_name.strip() and lead_email.strip() and lead_org.strip()):
-                st.warning("Please complete the required fields (Name, Work Email, Organization).")
-            else:
-                created_at = datetime.now(timezone.utc).isoformat()
-                risk_level, rec_tier = classify_risk(total_friction)
-
-                snapshot_payload = {
-                    "created_at": created_at,
-                    "name": lead_name.strip(),
-                    "email": lead_email.strip(),
-                    "org": lead_org.strip(),
-                    "role": lead_role.strip(),
-                    "industry": industry,
-                    "org_size": org_size,
-                    "pd_hours": float(pd_hours),
-                    "affected_people": int(affected_people),
-                    "hourly_rate": float(hourly_rate),
-                    "multiplier": float(multiplier),
-                    "total_delay": float(total_delay),
-                    "weeks_lost": float(weeks_lost),
-                    "efficiency_loss": float(efficiency_loss),
-                    "direct_leak": float(direct_leak),
-                    "opp_loss": float(opp_loss),
-                    "total_friction": float(total_friction),
-                    "risk_level": risk_level,
-                    "rec_tier": rec_tier,
+        
+        # Big number reveal
+        st.markdown(f"""
+        <div style="text-align: center; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); 
+             padding: 3rem; border-radius: 15px; margin: 2rem 0;">
+            <h3 style="color: #7f1d1d; margin-bottom: 1rem;">
+                {st.session_state.company_name}'s Estimated Annual Profit Leak
+            </h3>
+            <div class="big-number">
+                ${st.session_state.calculated_leak:,.0f}
+            </div>
+            <p style="font-size: 1.2rem; color: #991b1b; margin-top: 1rem;">
+                That's <strong>${st.session_state.calculated_leak/st.session_state.employees:,.0f} per employee</strong>
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Risk score
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # Risk gauge
+            risk_color = "#dc2626" if st.session_state.risk_score > 70 else "#f59e0b" if st.session_state.risk_score > 40 else "#10b981"
+            
+            fig = go.Figure(go.Indicator(
+                mode="gauge+number",
+                value=st.session_state.risk_score,
+                domain={'x': [0, 1], 'y': [0, 1]},
+                title={'text': "Operational Friction Risk Score"},
+                gauge={
+                    'axis': {'range': [None, 100]},
+                    'bar': {'color': risk_color},
+                    'steps': [
+                        {'range': [0, 40], 'color': "#dcfce7"},
+                        {'range': [40, 70], 'color': "#fef3c7"},
+                        {'range': [70, 100], 'color': "#fee2e2"}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'thickness': 0.75,
+                        'value': 85
+                    }
                 }
-
-                # 1) Build PDF
-                pdf_bytes = build_snapshot_pdf_bytes(snapshot_payload)
-
-                # 2) Save to Supabase
-                supabase = get_supabase()
-                db_ok, db_msg = (False, "Supabase secrets missing")
-                if supabase is not None:
-                    db_ok, db_msg = supabase_insert_lead(supabase, snapshot_payload)
-
-                # 3) Email Now (with PDF)
-                email_now_ok, email_now_msg = (False, "SendGrid secrets missing")
-                if SENDGRID_API_KEY and SENDGRID_FROM_EMAIL:
-                    subject_now = "Your GFI Executive Snapshot (PDF Attached)"
-                    body_now = (
-                        "Attached is your GFI Executive Snapshot.\n\n"
-                        "This snapshot is an initial signal review. Paid tiers produce a structured report and intervention blueprint.\n\n"
-                        f"$999 Executive Diagnostic: {STRIPE_999}\n"
-                        f"$4,999 Structural Audit: {STRIPE_4999}\n\n"
-                        "— Ping Xu | Creator, Governance Fitness Index (GFI)\n"
-                    )
-                    email_now_ok, email_now_msg = sendgrid_send_with_attachment(
-                        to_email=lead_email.strip(),
-                        subject=subject_now,
-                        text=body_now,
-                        pdf_bytes=pdf_bytes,
-                        send_at_epoch=None
-                    )
-
-                # 4) Schedule Email +24H (SendGrid send_at)
-                email_24h_ok, email_24h_msg = (False, "SendGrid secrets missing")
-                if SENDGRID_API_KEY and SENDGRID_FROM_EMAIL:
-                    send_at = int((datetime.now(timezone.utc) + timedelta(hours=24)).timestamp())
-                    subject_24 = "Follow-up: Next Step Options for Your GFI Snapshot"
-                    body_24 = (
-                        "Quick follow-up on your GFI Executive Snapshot.\n\n"
-                        "If you want a decision-grade report with interventions, choose:\n"
-                        f"• $999 Executive Diagnostic (48-hour): {STRIPE_999}\n"
-                        f"• $4,999 Structural Audit: {STRIPE_4999}\n\n"
-                        "Reply to this email if you want a short scoping call.\n\n"
-                        "— Ping Xu | GFI Flow Intelligence\n"
-                    )
-                    email_24h_ok, email_24h_msg = sendgrid_send_with_attachment(
-                        to_email=lead_email.strip(),
-                        subject=subject_24,
-                        text=body_24,
-                        pdf_bytes=pdf_bytes,
-                        send_at_epoch=send_at
-                    )
-
-                # UI Output
-                st.success("Executive Snapshot Unlocked.")
-
-                snap_c1, snap_c2, snap_c3 = st.columns(3)
-                snap_c1.metric("Risk Level", risk_level)
-                snap_c2.metric("Capacity Loss", f"{efficiency_loss:.1f}%")
-                snap_c3.metric("Annual Friction Exposure", format_money(total_friction))
-
-                st.info(f"**Recommended Engagement Level:** {rec_tier}")
-
-                # Downloadable PDF
-                st.download_button(
-                    label="⬇️ Download Executive Snapshot (PDF)",
-                    data=pdf_bytes,
-                    file_name="GFI_Executive_Snapshot.pdf",
-                    mime="application/pdf",
-                    use_container_width=True,
-                )
-
-                # Status indicators (silent but clear)
-                status_cols = st.columns(3)
-                status_cols[0].metric("DB Save", "OK" if db_ok else "FAIL")
-                status_cols[1].metric("Email (Now)", "OK" if email_now_ok else "FAIL")
-                status_cols[2].metric("Email (+24h)", "OK" if email_24h_ok else "FAIL")
-
-                # Paid CTAs
-                st.markdown("### 🚀 Next Step (Paid Options)")
-                opt1, opt2 = st.columns(2)
-                with opt1:
-                    st.markdown(
-                        """
-**Option 1 — $999 Executive Diagnostic**  
-• 48-hour structured report  
-• Friction mapping + root cause pattern  
-• Top 3 structural interventions  
-• Leadership-ready summary  
-"""
-                    )
-                    st.markdown(f"➡️ **Pay $999:** [Proceed to Payment]({STRIPE_999})")
-
-                with opt2:
-                    st.markdown(
-                        """
-**Option 2 — $4,999 Structural Audit**  
-• Deep system redesign blueprint  
-• Cross-team workflow mapping  
-• Benchmark positioning memo  
-• Executive briefing  
-"""
-                    )
-                    st.markdown(f"➡️ **Pay $4,999:** [Proceed to Payment]({STRIPE_4999})")
-
-# ============================================================================
-# TAB 2: METHODOLOGY
-# ============================================================================
-with tabs[1]:
-    st.header("📊 GFI Methodology")
-    st.markdown("*A rigorous framework for institutional friction analysis*")
-
-    st.markdown(
-        """
-### 🧠 Theoretical Foundation
-
-The GFI framework synthesizes insights from:
-
-- **Transaction Cost Economics**: friction as organizational transaction costs  
-- **Institutional Theory**: how rules shape behavior  
-- **Systems Dynamics**: feedback loops and latency  
-- **Behavioral Economics**: cognitive load and decision bottlenecks  
-"""
-    )
-
-    st.divider()
-    st.markdown(
-        """
-### 🔬 The GFI Diagnostic Model
-
-Total Friction Cost = Direct Cost + Opportunity Cost
-Direct Cost = (Process Delay × People) × Hourly Rate
-Opportunity Cost = Direct Cost × Value Multiplier
-    """
-    )
-
-# ============================================================================
-# TAB 3: CASE LIBRARY
-# ============================================================================
-with tabs[2]:
-    st.header("📚 Case Library: Institutional Friction in Action")
-    st.markdown("*Illustrative diagnostics and interventions*")
-
-    with st.expander("📘 Case #001: The 'Frozen Pivot' in Mid-Sized SaaS", expanded=True):
-        st.markdown(
-            """
-- Overlapping governance pathways → no single decision owner  
-- Release delayed → compounded rework and market loss  
-- Intervention: single decision owner + sprint cadence  
-"""
+            ))
+            
+            fig.update_layout(height=300)
+            st.plotly_chart(fig, use_container_width=True)
+        
+        with col2:
+            st.markdown("### 🎯 Your Risk Profile")
+            
+            if st.session_state.risk_score > 70:
+                st.error("**🔴 HIGH RISK** - Immediate action recommended")
+                st.markdown("""
+                Your organization shows multiple signs of severe operational friction:
+                - Critical bottlenecks in decision-making
+                - High project failure/delay rates
+                - Elevated turnover indicating systemic issues
+                """)
+            elif st.session_state.risk_score > 40:
+                st.warning("**🟡 MODERATE RISK** - Optimization opportunities exist")
+                st.markdown("""
+                Several friction points are impacting performance:
+                - Coordination inefficiencies
+                - Process improvement opportunities
+                - Preventable delays and rework
+                """)
+            else:
+                st.success("**🟢 LOW RISK** - Well-managed operations")
+                st.markdown("""
+                Your organization demonstrates strong operational health:
+                - Efficient decision processes
+                - Low friction across workflows
+                - Opportunity for incremental gains
+                """)
+        
+        # Breakdown chart
+        st.markdown("### 💸 Where Is Your Money Leaking?")
+        
+        breakdown_df = pd.DataFrame({
+            'Category': list(st.session_state.breakdown.keys()),
+            'Annual Cost': list(st.session_state.breakdown.values())
+        })
+        
+        fig = px.bar(
+            breakdown_df,
+            x='Category',
+            y='Annual Cost',
+            color='Annual Cost',
+            color_continuous_scale='Reds'
         )
+        
+        fig.update_layout(
+            showlegend=False,
+            height=400,
+            yaxis_title="Annual Cost ($)"
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Call to action
+        st.markdown("---")
+        
+        st.markdown("""
+        <div class="insight-box">
+            <h3>🎯 What You Just Saw Is Only the Beginning</h3>
+            <p style="font-size: 1.1rem;">
+                This free calculator gives you a <strong>rough estimate</strong>. 
+                But the real profit leaks are hidden in the details:
+            </p>
+            <ul style="font-size: 1.05rem; margin-top: 1rem;">
+                <li>Which specific teams are bleeding the most?</li>
+                <li>What are your top 3 fixable bottlenecks?</li>
+                <li>What would a 50% friction reduction be worth?</li>
+                <li>How do you compare to your industry peers?</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("### 🚀 Get Your Complete Report")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            <div class="price-card">
+                <h3>📊 Professional Report</h3>
+                <div class="price-tag">$999</div>
+                <p style="font-size: 1.1rem; margin: 1.5rem 0;">
+                    <strong>Complete 12-Page PDF Analysis</strong>
+                </p>
+                <ul style="text-align: left; font-size: 1rem; line-height: 1.8;">
+                    <li>✅ Detailed Profit Leak Breakdown</li>
+                    <li>✅ Top 3 Operational Bottlenecks</li>
+                    <li>✅ Risk Exposure Assessment</li>
+                    <li>✅ Quick-Win Recommendations</li>
+                    <li>✅ Industry Benchmark Comparison</li>
+                    <li>✅ 30-Day Action Plan</li>
+                </ul>
+                <a href="{}" target="_blank" class="cta-button" style="margin-top: 1.5rem;">
+                    Get Professional Report →
+                </a>
+                <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">
+                    Delivered within 48 hours
+                </p>
+            </div>
+            """.format(STRIPE_LINK_999), unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown("""
+            <div class="price-card price-card-premium">
+                <div style="background: #fbbf24; color: #7c2d12; padding: 0.5rem; 
+                     border-radius: 5px; margin-bottom: 1rem; font-weight: bold;">
+                    🔥 MOST POPULAR
+                </div>
+                <h3>🎯 Executive Deep Dive</h3>
+                <div class="price-tag price-tag-premium">$4,999</div>
+                <p style="font-size: 1.1rem; margin: 1.5rem 0;">
+                    <strong>Comprehensive Analysis + Strategy Session</strong>
+                </p>
+                <ul style="text-align: left; font-size: 1rem; line-height: 1.8;">
+                    <li>✅ Everything in Professional Report</li>
+                    <li>✅ Custom Friction Heat Map</li>
+                    <li>✅ Team-by-Team Analysis</li>
+                    <li>✅ ROI Calculator for Interventions</li>
+                    <li>✅ 90-Day Implementation Roadmap</li>
+                    <li>✅ <strong>2-Hour Strategy Call with Founder</strong></li>
+                    <li>✅ 30-Day Email Support</li>
+                </ul>
+                <a href="{}" target="_blank" class="cta-button" style="margin-top: 1.5rem; background: white; color: #7c3aed;">
+                    Get Executive Package →
+                </a>
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                    Limited to 5 clients per month
+                </p>
+            </div>
+            """.format(STRIPE_LINK_4999), unsafe_allow_html=True)
+        
+        # Guarantee
+        st.markdown("""
+        <div class="guarantee-badge">
+            <h3>💚 100% Money-Back Guarantee</h3>
+            <p style="margin-top: 0.5rem; font-size: 1.05rem;">
+                If you don't discover at least <strong>5x</strong> the report cost in hidden profit leaks, 
+                we'll refund you in full. No questions asked.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ============================================================================
-# TAB 4: FOUNDER & ARCHITECT
+# TAB 2: SAMPLE REPORT
 # ============================================================================
-with tabs[3]:
-    st.header("👤 Founder & Architect")
-    st.markdown(
-        """
-**Ping Xu**  
-Creator, Governance Fitness Index (GFI)  
-Founder, GFI Flow Intelligence  
-Massachusetts, USA
-"""
-    )
+with tab2:
+    st.header("📊 What You'll Get: Sample Report Preview")
+    
+    st.info("**Note:** This is a simplified preview. Your actual report will be fully customized with your company's data.")
+    
+    # Report preview sections
+    with st.expander("📄 Page 1: Executive Summary", expanded=True):
+        st.markdown("""
+        ---
+        **HIDDEN PROFIT LEAK REPORT™**  
+        *Prepared for: [Your Company Name]*  
+        *Date: [Report Date]*  
+        *Analyst: Ping Xu, GFI Framework Creator*
+        
+        ---
+        
+        ### Executive Summary
+        
+        Our analysis reveals that **[Company Name]** is experiencing an estimated **$[X]** in annual 
+        profit leakage due to operational friction across multiple dimensions.
+        
+        **Key Findings:**
+        
+        🔴 **Primary Leak Source:** [Largest cost category]  
+        💰 **Total Annual Impact:** $[X]  
+        ⚠️ **Risk Score:** [X]/100 - [Risk Level]  
+        📈 **Recovery Potential:** $[X] (first 90 days)
+        
+        **Critical Insight:**  
+        Unlike visible costs (salaries, overhead), these profit leaks are *hidden* in your 
+        operational fabric. They compound silently, eroding margins and competitive positioning.
+        
+        This report provides a roadmap to recover this lost profit.
+        """)
+    
+    with st.expander("💸 Page 2-3: Detailed Profit Leak Analysis"):
+        st.markdown("""
+        ### Annual Profit Leakage by Category
+        
+        | Category | Annual Cost | % of Total | Severity |
+        |----------|-------------|------------|----------|
+        | Meeting Overhead | $[X] | [X]% | 🔴 High |
+        | Project Delays | $[X] | [X]% | 🟡 Medium |
+        | Rework & Errors | $[X] | [X]% | 🔴 High |
+        | Decision Bottlenecks | $[X] | [X]% | 🟡 Medium |
+        | Turnover Costs | $[X] | [X]% | 🔴 High |
+        | Customer Friction | $[X] | [X]% | 🟢 Low |
+        
+        **Detailed Analysis:**
+        
+        Each category is broken down with:
+        - Root cause identification
+        - Cost calculation methodology
+        - Industry benchmark comparison
+        - Specific examples from your data
+        """)
+    
+    with st.expander("🎯 Page 4-5: Top 3 Operational Bottlenecks"):
+        st.markdown("""
+        ### Bottleneck #1: [Specific Issue]
+        
+        **Description:** [What's happening]  
+        **Annual Cost Impact:** $[X]  
+        **Affected Teams:** [Teams]  
+        **Root Cause:** [Structural issue]
+        
+        **Recommended Fix:**  
+        1. [Specific action]
+        2. [Specific action]
+        3. [Specific action]
+        
+        **Expected Recovery:** $[X] within [timeframe]
+        
+        ---
+        
+        *(Bottlenecks #2 and #3 follow same format)*
+        """)
+    
+    with st.expander("📊 Page 6-7: Risk Exposure & Industry Benchmarks"):
+        st.markdown("""
+        ### Your Risk Profile vs. Industry
+        
+        [Visual charts showing:]
+        - Your risk score vs. industry median
+        - Friction intensity by department
+        - Trend analysis (if multiple assessments)
+        
+        ### Competitive Positioning
+        
+        Companies in your industry with similar friction levels grow [X]% slower than 
+        low-friction peers and experience [X]% higher employee turnover.
+        """)
+    
+    with st.expander("✅ Page 8-9: Quick-Win Recommendations"):
+        st.markdown("""
+        ### 3 High-Impact, Low-Effort Wins
+        
+        **Quick Win #1: [Action]**
+        - **What to do:** [Specific steps]
+        - **Implementation time:** [X days]
+        - **Expected savings:** $[X]/year
+        - **Difficulty:** Low/Medium/High
+        
+        **Quick Win #2: [Action]**  
+        *(Same format)*
+        
+        **Quick Win #3: [Action]**  
+        *(Same format)*
+        
+        ### 30-Day Action Plan
+        
+        Week 1: [Actions]  
+        Week 2: [Actions]  
+        Week 3: [Actions]  
+        Week 4: [Actions]
+        """)
+    
+    with st.expander("🚀 Page 10-12: Next Steps & Methodology"):
+        st.markdown("""
+        ### Implementation Roadmap
+        
+        **Phase 1 (0-30 days):** Quick wins  
+        **Phase 2 (30-90 days):** Structural improvements  
+        **Phase 3 (90-180 days):** Cultural embedding
+        
+        ### Methodology & Validation
+        
+        - Framework overview
+        - Data sources and assumptions
+        - Calculation methodology
+        - Limitations and confidence intervals
+        
+        ### About the GFI Framework
+        
+        [Brief description of the framework and creator]
+        """)
+    
+    st.markdown("---")
+    
+    st.success("""
+    **👆 This preview shows the structure.** Your actual report will include:
+    - Your company's specific numbers
+    - Custom recommendations
+    - Industry-specific insights
+    - Actionable next steps
+    """)
 
 # ============================================================================
-# TAB 5: BENCHMARK DATA
+# TAB 3: PRICING & PACKAGES
 # ============================================================================
-with tabs[4]:
-    st.header("📈 Industry Benchmark Data")
-    st.markdown("*Illustrative scaffold — replace with real pilot aggregates as data accumulates.*")
-
-    benchmark_data = pd.DataFrame(
-        {
-            "Industry": [
-                "Technology/SaaS",
-                "Finance",
-                "Healthcare",
-                "Manufacturing",
-                "Professional Services",
-                "Retail",
-                "Public Sector / Agency",
-            ],
-            "Avg_Friction_Hours": [180, 220, 280, 160, 200, 140, 240],
-            "Avg_Hourly_Cost": [75, 68, 62, 52, 85, 45, 58],
-            "Typical_Multiplier": [6.5, 4.0, 3.5, 2.5, 5.0, 3.0, 4.0],
-        }
-    )
-    benchmark_data["Avg_Annual_Cost"] = (
-        benchmark_data["Avg_Friction_Hours"]
-        * benchmark_data["Avg_Hourly_Cost"]
-        * (1 + benchmark_data["Typical_Multiplier"])
-    )
-
-    fig = px.bar(
-        benchmark_data,
-        x="Industry",
-        y="Avg_Annual_Cost",
-        color="Avg_Annual_Cost",
-        color_continuous_scale="Reds",
-        title="Average Annual Friction Cost by Industry (per employee) — Illustrative",
-        labels={"Avg_Annual_Cost": "Annual Cost ($)"},
-    )
-    fig.update_layout(height=420, showlegend=False, template="plotly_white")
-    st.plotly_chart(fig, use_container_width=True)
+with tab3:
+    st.header("🎁 Choose Your Package")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        <div class="price-card">
+            <h3>📊 Professional Report</h3>
+            <div class="price-tag">$999</div>
+            <p style="font-size: 1.2rem; margin: 1.5rem 0; font-weight: 600;">
+                Complete Diagnostic Report
+            </p>
+            <hr style="margin: 1.5rem 0;">
+            <ul style="text-align: left; font-size: 1.05rem; line-height: 2;">
+                <li>✅ 12-Page PDF Report</li>
+                <li>✅ Detailed Profit Leak Analysis</li>
+                <li>✅ Top 3 Bottleneck Identification</li>
+                <li>✅ Risk Exposure Score</li>
+                <li>✅ Industry Benchmark Comparison</li>
+                <li>✅ Quick-Win Recommendations</li>
+                <li>✅ 30-Day Action Plan</li>
+                <li>✅ Delivered within 48 hours</li>
+            </ul>
+            <a href="{}" target="_blank" class="cta-button" style="margin-top: 2rem;">
+                Purchase Now →
+            </a>
+        </div>
+        """.format(STRIPE_LINK_999), unsafe_allow_html=True)
+        
+        st.info("""
+        **Perfect for:**
+        - Mid-sized companies (50-500 employees)
+        - Teams exploring efficiency improvements
+        - CFOs/COOs seeking data for decision-making
+        """)
+    
+    with col2:
+        st.markdown("""
+        <div class="price-card price-card-premium">
+            <div style="background: #fbbf24; color: #7c2d12; padding: 0.5rem; 
+                 border-radius: 5px; margin-bottom: 1rem; font-weight: bold;">
+                ⭐ BEST VALUE
+            </div>
+            <h3>🎯 Executive Deep Dive</h3>
+            <div class="price-tag price-tag-premium">$4,999</div>
+            <p style="font-size: 1.2rem; margin: 1.5rem 0; font-weight: 600;">
+                Complete Analysis + Strategy Session
+            </p>
+            <hr style="margin: 1.5rem 0; border-color: rgba(255,255,255,0.3);">
+            <ul style="text-align: left; font-size: 1.05rem; line-height: 2;">
+                <li>✅ Everything in Professional Report</li>
+                <li>✅ Custom Friction Heat Map</li>
+                <li>✅ Team-by-Team Breakdown</li>
+                <li>✅ ROI Calculator Tool</li>
+                <li>✅ 90-Day Implementation Roadmap</li>
+                <li>✅ <strong>2-Hour Strategy Call with Founder</strong></li>
+                <li>✅ Personalized Action Plan</li>
+                <li>✅ 30-Day Email Support</li>
+                <li>✅ Priority Delivery (24 hours)</li>
+            </ul>
+            <a href="{}" target="_blank" class="cta-button" 
+               style="margin-top: 2rem; background: white; color: #7c3aed;">
+                Reserve Your Spot →
+            </a>
+            <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.95;">
+                ⚠️ Limited to 5 clients per month
+            </p>
+        </div>
+        """.format(STRIPE_LINK_4999), unsafe_allow_html=True)
+        
+        st.info("""
+        **Perfect for:**
+        - Leadership teams committed to transformation
+        - Companies with >$10M revenue
+        - Organizations planning major operational changes
+        """)
+    
+    st.markdown("---")
+    
+    # FAQ Section
+    st.markdown("### ❓ Frequently Asked Questions")
+    
+    with st.expander("What makes this different from a typical consulting engagement?"):
+        st.markdown("""
+        **Traditional consulting:**
+        - $50K-$200K+ fees
+        - 3-6 month engagements
+        - Heavy time commitment from your team
+        - Generalized frameworks
+        
+        **Hidden Profit Leak Report:**
+        - Fixed, transparent pricing
+        - Delivered in 24-48 hours
+        - Minimal time investment (12-minute assessment)
+        - Focused specifically on operational friction
+        - Actionable from day one
+        """)
+    
+    with st.expander("How is the report calculated?"):
+        st.markdown("""
+        The report uses the **GFI (Governance Flow Intelligence) Framework**, developed by Ping Xu 
+        through extensive research in organizational economics and systems dynamics.
+        
+        Key inputs:
+        - Your assessment responses
+        - Industry benchmarks
+        - Revenue/cost multipliers
+        - Friction intensity models
+        
+        All calculations are transparent and explained in the methodology section.
+        """)
+    
+    with st.expander("What if I don't find hidden profit leaks?"):
+        st.markdown("""
+        **100% Money-Back Guarantee**
+        
+        If your report doesn't identify at least **5x the report cost** in potential savings/recovery, 
+        we'll refund you completely. No questions asked.
+        
+        In 3 years of diagnostics, we've never had a refund request. Organizations typically 
+        discover 10-50x the report cost in hidden leaks.
+        """)
+    
+    with st.expander("How quickly will I see results?"):
+        st.markdown("""
+        **Timeline:**
+        - **Immediate:** Awareness of profit leak magnitude
+        - **Week 1:** Quick-win implementations begin
+        - **30 Days:** First measurable improvements
+        - **90 Days:** Full impact of structural changes
+        
+        Most clients report recovering the report cost within the first month through quick wins alone.
+        """)
+    
+    with st.expander("Do you offer payment plans?"):
+        st.markdown("""
+        Currently, we only offer one-time payments via Stripe.
+        
+        However, for the **Executive Deep Dive** package, we can arrange a payment plan on a case-by-case basis. 
+        Contact us after purchasing the Professional Report to discuss options.
+        """)
+    
+    # Guarantee section
+    st.markdown("""
+    <div class="guarantee-badge" style="margin-top: 3rem;">
+        <h3>💚 Our Promise to You</h3>
+        <p style="font-size: 1.1rem; margin-top: 1rem; line-height: 1.6;">
+            We're so confident you'll discover significant hidden profit leaks that we offer an 
+            unconditional <strong>100% money-back guarantee</strong>. If you don't find at least 
+            <strong>5x the report cost</strong> in actionable savings, we'll refund you immediately.
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.95rem; color: #064e3b;">
+            ✅ No risk. No hassle. Just results.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================================================
 # FOOTER
 # ============================================================================
 st.markdown("---")
-st.markdown(
-    """
+st.markdown("""
 <div style="text-align: center; color: #64748b; padding: 2rem;">
-    <p><strong>GFI — Governance Fitness Index</strong> | GFI Flow Intelligence</p>
-    <p>© 2026 Ping Xu | Massachusetts, USA</p>
-    <p style="font-size: 0.9rem; margin-top: 0.75rem;">
-        Framework Version 2.1 | Diagnostic Engine Updated 2026
+    <p style="font-size: 1.1rem;"><strong>Hidden Profit Leak Report™</strong></p>
+    <p>Powered by the GFI Framework</p>
+    <p style="margin-top: 1rem;">Created by Ping Xu | Boston, MA</p>
+    <p style="font-size: 0.9rem; margin-top: 1.5rem; color: #94a3b8;">
+        © 2026 All Rights Reserved | <a href="mailto:support@example.com">Contact Support</a>
     </p>
 </div>
-""",
-    unsafe_allow_html=True,
-)
-
-# ============================================================================
-# SUPABASE TABLE SCHEMA (Create Once)
-# ============================================================================
-# In Supabase SQL Editor, run:
-#
-# create table if not exists public.gfi_leads (
-#   id bigserial primary key,
-#   created_at timestamptz not null,
-#   name text not null,
-#   email text not null,
-#   org text not null,
-#   role text,
-#   industry text,
-#   org_size text,
-#   pd_hours double precision,
-#   affected_people integer,
-#   hourly_rate double precision,
-#   multiplier double precision,
-#   total_delay double precision,
-#   weeks_lost double precision,
-#   efficiency_loss double precision,
-#   direct_leak double precision,
-#   opp_loss double precision,
-#   total_friction double precision,
-#   risk_level text,
-#   rec_tier text
-# );
-#
-# create index if not exists idx_gfi_leads_email on public.gfi_leads (email);
-# create index if not exists idx_gfi_leads_created_at on public.gfi_leads (created_at);
+""", unsafe_allow_html=True)
