@@ -1,4 +1,6 @@
 streamlit
-fpdf2
+pandas
+plotly
+reportlab
 supabase
-plotly 
+sendgrid
