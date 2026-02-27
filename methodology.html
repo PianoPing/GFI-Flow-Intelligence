@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GL Framework Methodology | Capital Efficiency Verification</title>
+
+<style>
+:root{
+  --bg:#0e1116;
+  --panel:#151922;
+  --text:#e8ecf1;
+  --muted:#9aa4b2;
+  --accent:#4da3ff;
+  --line:#232a36;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.6;
+}
+
+header{
+  padding:28px 40px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+h1,h2,h3{margin-top:0}
+
+.container{
+  max-width:1100px;
+  margin:60px auto;
+  padding:0 24px;
+}
+
+.section{
+  margin-bottom:60px;
+  background:var(--panel);
+  padding:40px;
+  border-radius:10px;
+  border:1px solid var(--line);
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:16px;
+}
+
+.table th,.table td{
+  padding:12px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  font-size:14px;
+}
+
+.muted{color:var(--muted)}
+.langblock{display:none}
+.langblock.active{display:block}
+
+.langswitch{
+  cursor:pointer;
+  margin-left:14px;
+  font-size:14px;
+  color:var(--muted);
+}
+.langswitch:hover{color:var(--accent)}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div><strong>GL Framework Methodology</strong></div>
+  <div>
+    <span class="langswitch" onclick="setLang('en')">EN</span>
+    <span class="langswitch" onclick="setLang('zh-tw')">繁</span>
+    <span class="langswitch" onclick="setLang('zh-cn')">简</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ================= ENGLISH ================= -->
+
+<div class="langblock active" data-lang="en">
+
+<div class="section">
+<h1>Nine International Case Studies</h1>
+<h3>Concept Validation of the Governance Friction Index (GFI)</h3>
+
+<p class="muted">
+This report documents cross-domain application of the GL formula across education, digital governance, healthcare, housing, climate, and identity systems.
+</p>
+</div>
+
+<div class="section">
+<h2>Core Formula</h2>
+
+<p><strong>(1)</strong></p>
+<p style="font-size:18px">
+GL = (Fs × Vn) / (Pd × Cf)
+</p>
+
+<p><strong>Extended Formula for Resilience:</strong></p>
+<p><strong>(2)</strong></p>
+<p style="font-size:18px">
+GL<sub>resilient</sub> = (Fs × Vn) / (Pd × Cf × SRF)
+</p>
+
+<p class="muted">
+SRF = Systemic Risk Factor, applied to critical infrastructure systems.
+</p>
+</div>
+
+<div class="section">
+<h2>Variable Definitions</h2>
+
+<table class="table">
+<tr>
+<th>Variable</th>
+<th>Definition</th>
+</tr>
+<tr>
+<td>Fs</td>
+<td>Flow Success Rate — % of eligible users completing core process.</td>
+</tr>
+<tr>
+<td>Vn</td>
+<td>Strategic Value — weighted policy impact (0–10).</td>
+</tr>
+<tr>
+<td>Pd</td>
+<td>Pain Duration — annual hours spent navigating system.</td>
+</tr>
+<tr>
+<td>Cf</td>
+<td>Cognitive Friction — mental load index (0–10).</td>
+</tr>
+<tr>
+<td>SRF</td>
+<td>Systemic Risk Factor — crisis vulnerability multiplier.</td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>Research Limitations</h2>
+<ul>
+<li>Secondary data reliance</li>
+<li>Potential survivor bias</li>
+<li>Cross-country measurement variation</li>
+<li>Partial subjectivity in Vn & Cf scoring</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Policy Implications</h2>
+<ul>
+<li>Set minimum GL thresholds by policy type</li>
+<li>Mandatory GL impact assessment before reform</li>
+<li>Complexity budgeting mechanisms</li>
+<li>Resilience-adjusted evaluation for digital systems</li>
+</ul>
+</div>
+
+</div>
+
+<!-- ================= 繁體中文 ================= -->
+
+<div class="langblock" data-lang="zh-tw">
+
+<div class="section">
+<h1>九個國際案例研究</h1>
+<h3>治理摩擦指數（GFI）概念驗證</h3>
+<p class="muted">
+本頁說明 GL 公式在多元政策領域之實際應用。
+</p>
+</div>
+
+<div class="section">
+<h2>核心公式</h2>
+<p><strong>(1)</strong></p>
+<p style="font-size:18px">
+GL = (Fs × Vn) / (Pd × Cf)
+</p>
+
+<p><strong>韌性擴展公式：</strong></p>
+<p><strong>(2)</strong></p>
+<p style="font-size:18px">
+GL<sub>resilient</sub> = (Fs × Vn) / (Pd × Cf × SRF)
+</p>
+</div>
+
+<div class="section">
+<h2>變數定義</h2>
+
+<table class="table">
+<tr>
+<th>變數</th>
+<th>說明</th>
+</tr>
+<tr>
+<td>Fs</td>
+<td>流程成功率</td>
+</tr>
+<tr>
+<td>Vn</td>
+<td>戰略價值</td>
+</tr>
+<tr>
+<td>Pd</td>
+<td>痛點持續時間</td>
+</tr>
+<tr>
+<td>Cf</td>
+<td>認知摩擦</td>
+</tr>
+<tr>
+<td>SRF</td>
+<td>系統性風險因子</td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>研究限制</h2>
+<ul>
+<li>資料來源為次級資料</li>
+<li>可能存在倖存者偏差</li>
+<li>跨國比較存在口徑差異</li>
+<li>部分指標含研究者判斷</li>
+</ul>
+</div>
+
+</div>
+
+<!-- ================= 简体中文 ================= -->
+
+<div class="langblock" data-lang="zh-cn">
+
+<div class="section">
+<h1>九个国际案例研究</h1>
+<h3>治理摩擦指数（GFI）概念验证</h3>
+<p class="muted">
+本页说明 GL 公式在多领域政策场景中的应用。
+</p>
+</div>
+
+<div class="section">
+<h2>核心公式</h2>
+<p><strong>(1)</strong></p>
+<p style="font-size:18px">
+GL = (Fs × Vn) / (Pd × Cf)
+</p>
+
+<p><strong>韧性扩展公式：</strong></p>
+<p><strong>(2)</strong></p>
+<p style="font-size:18px">
+GL<sub>resilient</sub> = (Fs × Vn) / (Pd × Cf × SRF)
+</p>
+</div>
+
+<div class="section">
+<h2>变量定义</h2>
+
+<table class="table">
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+<tr>
+<td>Fs</td>
+<td>流程成功率</td>
+</tr>
+<tr>
+<td>Vn</td>
+<td>战略价值</td>
+</tr>
+<tr>
+<td>Pd</td>
+<td>痛点持续时间</td>
+</tr>
+<tr>
+<td>Cf</td>
+<td>认知摩擦</td>
+</tr>
+<tr>
+<td>SRF</td>
+<td>系统性风险因子</td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>研究限制</h2>
+<ul>
+<li>依赖次级数据</li>
+<li>可能存在幸存者偏差</li>
+<li>跨国数据口径差异</li>
+<li>部分评分含研究判断</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll('.langblock').forEach(el=>{
+    el.classList.remove('active');
+  });
+  document.querySelector('.langblock[data-lang="'+lang+'"]').classList.add('active');
+}
+</script>
+
+</body>
+</html>
