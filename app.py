@@ -1,14 +1,14 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 from datetime import datetime
 
 # ============================================================================
 # PAGE CONFIGURATION
 # ============================================================================
 st.set_page_config(
-    page_title="GFI Hidden Profit Leak Report™",
+    page_title="GFI Flow Intelligence — Capital Efficiency Verification",
     layout="wide",
     initial_sidebar_state="collapsed",
     page_icon="🔍"
@@ -17,102 +17,304 @@ st.set_page_config(
 # ============================================================================
 # STRIPE PAYMENT LINKS
 # ============================================================================
-STRIPE_LINK_999 = "https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00"
+STRIPE_LINK_999  = "https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00"
 STRIPE_LINK_4999 = "https://buy.stripe.com/7sYcN764GdM4arX0fB3VC01"
+STRIPE_LINK_9999 = "https://buy.stripe.com/8x228t3WyazS7fL4vR3VC02"
 
 # ============================================================================
-# CUSTOM CSS
+# DESIGN TOKENS — matches gfiintel.com exactly
 # ============================================================================
-st.markdown("""
+BG       = "#141d2e"
+SURF     = "#1c2740"
+SURF2    = "#22304e"
+BORDER   = "rgba(255,255,255,0.08)"
+TEXT     = "#edf0f8"
+MUTED    = "#8fa3c0"
+DIM      = "#4a6080"
+ACCENT   = "#c8f542"   # lime green
+BLUE     = "#4da3ff"
+DANGER   = "#ff6b6b"
+WARN     = "#f59e0b"
+SUCCESS  = "#34d399"
+
+# ============================================================================
+# GLOBAL CSS
+# ============================================================================
+st.markdown(f"""
 <style>
-    /* Hero section */
-    .hero-section {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        padding: 3rem 2rem;
-        border-radius: 15px;
-        color: white;
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-    
-    /* Price card */
-    .price-card {
-        background: white;
-        border: 3px solid #3b82f6;
-        border-radius: 15px;
-        padding: 2rem;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    
-    .price-card-premium {
-        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-        border: 3px solid #7c3aed;
-        color: white;
-    }
-    
-    .price-tag {
-        font-size: 3.5rem;
-        font-weight: bold;
-        color: #1e40af;
-        margin: 1rem 0;
-    }
-    
-    .price-tag-premium {
-        color: white;
-    }
-    
-    /* CTA Button */
-    .cta-button {
-        background: #10b981;
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 10px;
-        font-size: 1.3rem;
-        font-weight: bold;
-        text-decoration: none;
-        display: inline-block;
-        margin: 1rem 0;
-        transition: all 0.3s;
-    }
-    
-    .cta-button:hover {
-        background: #059669;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-    }
-    
-    /* Results display */
-    .big-number {
-        font-size: 4rem;
-        font-weight: bold;
-        color: #dc2626;
-        text-align: center;
-        margin: 2rem 0;
-    }
-    
-    .insight-box {
-        background: #fef3c7;
-        border-left: 5px solid #f59e0b;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin: 1.5rem 0;
-    }
-    
-    /* Guarantee badge */
-    .guarantee-badge {
-        background: #dcfce7;
-        border: 2px solid #10b981;
-        border-radius: 10px;
-        padding: 1rem;
-        text-align: center;
-        margin: 1rem 0;
-    }
+  /* ── Base ── */
+  html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
+    background-color: {BG} !important;
+    color: {TEXT} !important;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }}
+
+  [data-testid="stSidebar"] {{ background-color: {SURF} !important; }}
+
+  /* Remove default padding */
+  .block-container {{ padding-top: 2rem !important; max-width: 1100px; }}
+
+  /* ── Typography ── */
+  h1, h2, h3, h4, h5 {{ color: {TEXT} !important; font-weight: 500 !important; letter-spacing: -0.01em; }}
+  p, li, span, div {{ color: {MUTED}; }}
+  strong {{ color: {TEXT} !important; }}
+
+  /* ── Inputs ── */
+  [data-testid="stTextInput"] input,
+  [data-testid="stNumberInput"] input,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] {{
+    background-color: {SURF} !important;
+    border: 1px solid {BORDER} !important;
+    color: {TEXT} !important;
+    border-radius: 6px !important;
+  }}
+  [data-testid="stSelectbox"] div[data-baseweb="select"]:hover {{
+    border-color: rgba(255,255,255,0.18) !important;
+  }}
+  [data-baseweb="popover"] ul {{
+    background-color: {SURF2} !important;
+  }}
+
+  /* Sliders */
+  [data-testid="stSlider"] [data-baseweb="slider"] div[role="slider"] {{
+    background-color: {ACCENT} !important;
+  }}
+  [data-testid="stSlider"] div[data-testid="stTickBarMin"],
+  [data-testid="stSlider"] div[data-testid="stTickBarMax"] {{
+    color: {MUTED} !important;
+  }}
+
+  /* ── Tabs ── */
+  [data-testid="stTabs"] [data-baseweb="tab-list"] {{
+    background-color: {SURF} !important;
+    border-radius: 8px;
+    padding: 4px;
+    gap: 4px;
+    border: 1px solid {BORDER};
+  }}
+  [data-testid="stTabs"] [data-baseweb="tab"] {{
+    background-color: transparent !important;
+    color: {MUTED} !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+    transition: all .2s;
+  }}
+  [data-testid="stTabs"] [aria-selected="true"] {{
+    background-color: {SURF2} !important;
+    color: {TEXT} !important;
+  }}
+  [data-testid="stTabs"] [data-baseweb="tab-border"] {{ display: none !important; }}
+
+  /* ── Form submit button ── */
+  [data-testid="stFormSubmitButton"] button {{
+    background-color: {ACCENT} !important;
+    color: #0d1117 !important;
+    font-weight: 600 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px 28px !important;
+    font-size: 16px !important;
+    transition: opacity .2s !important;
+    width: 100% !important;
+  }}
+  [data-testid="stFormSubmitButton"] button:hover {{
+    opacity: 0.88 !important;
+  }}
+
+  /* ── Expanders ── */
+  [data-testid="stExpander"] {{
+    background-color: {SURF} !important;
+    border: 1px solid {BORDER} !important;
+    border-radius: 8px !important;
+    margin-bottom: 8px;
+  }}
+  [data-testid="stExpander"] summary {{
+    color: {TEXT} !important;
+    font-size: 15px !important;
+  }}
+
+  /* ── Alerts ── */
+  [data-testid="stAlert"] {{
+    background-color: {SURF} !important;
+    border-radius: 8px !important;
+    border: 1px solid {BORDER} !important;
+  }}
+
+  /* ── Divider ── */
+  hr {{ border-color: {BORDER} !important; }}
+
+  /* ── Plotly charts background ── */
+  .js-plotly-plot .plotly {{ background: transparent !important; }}
+
+  /* ── Custom components ── */
+
+  .eyebrow {{
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: {ACCENT};
+    margin-bottom: 8px;
+  }}
+
+  .card {{
+    background: {SURF};
+    border: 1px solid {BORDER};
+    border-radius: 10px;
+    padding: clamp(20px, 3vw, 32px);
+  }}
+
+  .card-accent {{
+    background: rgba(200,245,66,0.03);
+    border-color: rgba(200,245,66,0.18);
+  }}
+
+  .price-card {{
+    background: {SURF};
+    border: 1px solid {BORDER};
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    height: 100%;
+    transition: border-color .2s, transform .25s;
+  }}
+  .price-card:hover {{
+    border-color: rgba(200,245,66,0.22);
+    transform: translateY(-3px);
+  }}
+  .price-card.featured {{
+    background: rgba(200,245,66,0.03);
+    border-color: rgba(200,245,66,0.2);
+  }}
+
+  .price-tier {{
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: {MUTED};
+    margin-bottom: 12px;
+  }}
+  .featured .price-tier {{ color: {ACCENT}; }}
+
+  .price-amount {{
+    font-size: 48px;
+    font-weight: 600;
+    color: {TEXT};
+    line-height: 1;
+    margin-bottom: 4px;
+  }}
+  .price-cur {{ font-size: 20px; color: {MUTED}; vertical-align: top; line-height: 1.3; }}
+
+  .feat-list {{
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin: 16px 0 24px;
+  }}
+  .feat-list li {{
+    font-size: 14px;
+    color: {MUTED};
+    padding: 8px 0;
+    border-bottom: 1px solid {BORDER};
+    display: flex;
+    gap: 8px;
+  }}
+  .feat-list li::before {{ content: '→'; color: {ACCENT}; flex-shrink: 0; }}
+
+  .cta-btn {{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 13px 20px;
+    background: {SURF2};
+    color: {TEXT};
+    border: 1px solid {BORDER};
+    border-radius: 7px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+    margin-top: 8px;
+    cursor: pointer;
+  }}
+  .cta-btn:hover {{ background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.18); color: {TEXT}; }}
+
+  .cta-btn-primary {{
+    background: {ACCENT};
+    color: #0d1117;
+    border-color: transparent;
+    font-weight: 600;
+  }}
+  .cta-btn-primary:hover {{ opacity: 0.88; background: {ACCENT}; color: #0d1117; }}
+
+  .result-hero {{
+    background: {SURF};
+    border: 1px solid rgba(255,107,107,0.25);
+    border-radius: 12px;
+    padding: 2.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }}
+  .result-num {{
+    font-size: 56px;
+    font-weight: 600;
+    color: {DANGER};
+    line-height: 1;
+    margin: 1rem 0;
+  }}
+
+  .insight-box {{
+    background: {SURF};
+    border: 1px solid {BORDER};
+    border-left: 3px solid {ACCENT};
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }}
+
+  .risk-hi  {{ color: {DANGER}; }}
+  .risk-med {{ color: {WARN}; }}
+  .risk-lo  {{ color: {SUCCESS}; }}
+
+  .guarantee {{
+    background: rgba(52,211,153,0.05);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 8px;
+    padding: 20px 24px;
+    text-align: center;
+    margin: 24px 0;
+  }}
+  .guarantee h4 {{ color: {SUCCESS} !important; }}
+
+  .badge {{
+    display: inline-block;
+    background: rgba(200,245,66,0.12);
+    color: {ACCENT};
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }}
+
+  .two-col {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }}
+  @media (max-width: 640px) {{
+    .two-col {{ grid-template-columns: 1fr; }}
+    .result-num {{ font-size: 40px; }}
+  }}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
 # ============================================================================
-# SESSION STATE INITIALIZATION
+# SESSION STATE
 # ============================================================================
 if 'assessment_complete' not in st.session_state:
     st.session_state.assessment_complete = False
@@ -122,836 +324,484 @@ if 'risk_score' not in st.session_state:
     st.session_state.risk_score = 0
 
 # ============================================================================
-# HERO SECTION WITH LOGO AND NEW POSITIONING
+# HEADER
 # ============================================================================
-col_logo, col_hero = st.columns([1, 3])
-
+col_logo, col_title = st.columns([1, 4])
 with col_logo:
-    st.image("GFILOGO.png", width=200)
+    try:
+        st.image("GFILOGO.png", width=80)
+    except:
+        st.markdown(f'<div style="font-family:monospace;font-size:22px;color:{ACCENT};font-weight:600;padding-top:8px">GFI</div>', unsafe_allow_html=True)
 
-with col_hero:
-    st.markdown("""
-    <div style="padding: 1rem 0;">
-        <h1 style="color: #1e40af; margin-bottom: 0.5rem;">GFI: Flow Intelligence</h1>
-        <h2 style="margin-top: 0.5rem; font-weight: 500; color: #1e40af; font-size: 1.3rem;">
-            Pre & Post Transformation Execution Intelligence Engine
-        </h2>
-        <p style="font-size: 1.1rem; margin-top: 1rem; color: #475569; line-height: 1.6;">
-            <strong>Measure execution before transformation.</strong><br>
-            <strong>Prove execution after transformation.</strong>
-        </p>
-        <p style="font-size: 1rem; margin-top: 1rem; color: #64748b;">
-            Free diagnostic available → Quantify structural friction in 12 minutes
-        </p>
+with col_title:
+    st.markdown(f"""
+    <div style="padding: 4px 0 0 8px;">
+      <div class="eyebrow">GFI Flow Intelligence · Boston</div>
+      <div style="font-size: 22px; font-weight: 500; color: {TEXT}; line-height: 1.2;">
+        Capital Efficiency Verification
+      </div>
+      <div style="font-size: 14px; color: {MUTED}; margin-top: 4px;">
+        Measure execution before transformation. Prove it after.
+        &nbsp;·&nbsp;
+        <span style="color:{ACCENT}">Free diagnostic — 12 minutes</span>
+      </div>
     </div>
     """, unsafe_allow_html=True)
 
-# Banner image below hero
-st.image("banner.png", use_container_width=True)
+st.markdown(f'<hr style="border-color:{BORDER};margin:16px 0 24px;">', unsafe_allow_html=True)
 
 # ============================================================================
-# GFI FRAMEWORK POSITIONING SECTION
+# FRAMEWORK OVERVIEW
 # ============================================================================
-st.markdown("""
-<div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); 
-     padding: 2rem; border-radius: 15px; margin: 2rem 0;">
-    <h3 style="color: #0c4a6e; text-align: center; margin-bottom: 1.5rem;">
-        GFI = Structural Intelligence Layer for Institutional Transformation
-    </h3>
-    <p style="color: #075985; text-align: center; font-size: 1.1rem; line-height: 1.6;">
-        Most consulting engagements stop at implementation.<br>
-        <strong>GFI measures structural risk before transformation and proves structural improvement after.</strong><br>
-        This creates measurable ROI defensibility.
-    </p>
+st.markdown(f"""
+<div class="card" style="margin-bottom:24px;">
+  <div class="eyebrow">GL Framework</div>
+  <div style="font-size:18px;color:{TEXT};margin-bottom:12px;font-weight:500;">
+    Structural Intelligence Layer for Institutional Transformation
+  </div>
+  <p style="color:{MUTED};line-height:1.75;max-width:800px;">
+    Most engagements stop at implementation. GFI measures structural risk 
+    <strong>before</strong> transformation and proves structural improvement <strong>after</strong> — 
+    creating measurable, defensible ROI.
+  </p>
+</div>
+<div class="two-col" style="margin-bottom:24px;">
+  <div class="card">
+    <div class="eyebrow">Phase I · Pre-Transformation</div>
+    <div style="font-size:16px;color:{TEXT};margin-bottom:10px;font-weight:500;">Quantify structural execution risk</div>
+    <ul style="color:{MUTED};line-height:1.85;padding-left:16px;margin:0 0 16px;">
+      <li>Decision latency density mapping</li>
+      <li>Organizational friction coefficient</li>
+      <li>Capacity loss baseline measurement</li>
+      <li>Execution readiness index</li>
+    </ul>
+    <div style="background:rgba(77,163,255,0.07);border:1px solid rgba(77,163,255,0.15);border-radius:6px;padding:10px 14px;font-size:13px;color:{BLUE};">
+      Output: Executive Execution Readiness Scorecard
+    </div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">Phase II · Post-Transformation</div>
+    <div style="font-size:16px;color:{TEXT};margin-bottom:10px;font-weight:500;">Prove structural improvement</div>
+    <ul style="color:{MUTED};line-height:1.85;padding-left:16px;margin:0 0 16px;">
+      <li>Friction reduction delta analysis</li>
+      <li>Latency compression measurement</li>
+      <li>Execution capacity expansion rate</li>
+      <li>Institutional resilience index</li>
+    </ul>
+    <div style="background:rgba(200,245,66,0.06);border:1px solid rgba(200,245,66,0.18);border-radius:6px;padding:10px 14px;font-size:13px;color:{ACCENT};">
+      Output: Transformation Impact Certification Report
+    </div>
+  </div>
 </div>
 """, unsafe_allow_html=True)
 
-# Dual-Phase Value Proposition
-col_pre, col_post = st.columns(2)
-
-with col_pre:
-    st.markdown("""
-    <div style="background: white; border: 2px solid #3b82f6; border-radius: 12px; 
-         padding: 1.5rem; height: 100%;">
-        <h4 style="color: #1e40af; margin-bottom: 1rem;">
-            Ⅰ. Pre-Transformation Phase
-        </h4>
-        <p style="color: #475569; font-weight: 600; margin-bottom: 1rem;">
-            Purpose: Quantify structural execution risk before transformation begins
-        </p>
-        <ul style="color: #64748b; line-height: 1.8; margin-left: 1rem;">
-            <li>Decision latency density mapping</li>
-            <li>Organizational friction coefficient modeling</li>
-            <li>Capacity loss baseline measurement</li>
-            <li>Execution readiness index</li>
-        </ul>
-        <p style="background: #dbeafe; padding: 0.75rem; border-radius: 8px; 
-             margin-top: 1rem; color: #1e40af; font-weight: 600;">
-            📊 Output: Executive Execution Readiness Scorecard
-        </p>
-        <p style="color: #64748b; margin-top: 1rem; font-style: italic;">
-            Ensures transformation begins with structural clarity — not assumptions. Reduces capital risk exposure.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col_post:
-    st.markdown("""
-    <div style="background: white; border: 2px solid #10b981; border-radius: 12px; 
-         padding: 1.5rem; height: 100%;">
-        <h4 style="color: #059669; margin-bottom: 1rem;">
-            Ⅱ. Post-Transformation Phase
-        </h4>
-        <p style="color: #475569; font-weight: 600; margin-bottom: 1rem;">
-            Purpose: Measure whether transformation actually improved execution capacity
-        </p>
-        <ul style="color: #64748b; line-height: 1.8; margin-left: 1rem;">
-            <li>Friction reduction delta analysis</li>
-            <li>Latency compression measurement</li>
-            <li>Execution capacity expansion rate</li>
-            <li>Institutional resilience index</li>
-        </ul>
-        <p style="background: #d1fae5; padding: 0.75rem; border-radius: 8px; 
-             margin-top: 1rem; color: #059669; font-weight: 600;">
-            ✅ Output: Transformation Impact Certification Report
-        </p>
-        <p style="color: #64748b; margin-top: 1rem; font-style: italic;">
-            Quantify real performance delta — not slide-deck promises. Prove execution improvement with data.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Big 4 Positioning
-st.markdown("""
-<div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); 
-     padding: 2rem; border-radius: 15px; margin: 2rem 0; border-left: 5px solid #f59e0b;">
-    <h4 style="color: #92400e; margin-bottom: 1rem;">
-        🎯 Positioning in Consulting Ecosystem
-    </h4>
-    <p style="color: #78350f; font-size: 1.05rem; line-height: 1.7;">
-        GFI operates as:<br>
-        • <strong>Pre-engagement risk scanner</strong> — Identify execution vulnerabilities before transformation<br>
-        • <strong>Post-engagement validation layer</strong> — Certify actual improvement vs. promised outcomes<br>
-        • <strong>Board-level assurance module</strong> — Provide executive confidence with quantified results
-    </p>
-    <p style="color: #92400e; margin-top: 1rem; font-weight: 600;">
-        This increases project credibility and executive confidence throughout the transformation lifecycle.
-    </p>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("---")
+st.markdown(f'<hr style="border-color:{BORDER};margin:8px 0 28px;">', unsafe_allow_html=True)
 
 # ============================================================================
-# MAIN CONTENT
+# TABS
 # ============================================================================
+tab1, tab2, tab3 = st.tabs(["Free Assessment", "Sample Report", "Pricing"])
 
-# Navigation
-tab1, tab2, tab3 = st.tabs(["💰 Free Assessment", "📊 Sample Report", "🎁 Pricing & Packages"])
-
-# ============================================================================
-# TAB 1: FREE ASSESSMENT (Lead Generation)
-# ============================================================================
+# ════════════════════════════════════════════════════════════════════════════
+# TAB 1 — FREE ASSESSMENT
+# ════════════════════════════════════════════════════════════════════════════
 with tab1:
-    st.header("Free Profit Leak Calculator")
-    st.markdown("**Answer 12 quick questions to estimate your annual profit leakage**")
-    
+    st.markdown(f'<div style="font-size:22px;font-weight:500;color:{TEXT};margin-bottom:4px;">GL Friction Calculator</div>', unsafe_allow_html=True)
+    st.markdown(f'<p style="color:{MUTED};margin-bottom:24px;">Answer 12 questions to estimate your annual capital efficiency loss.</p>', unsafe_allow_html=True)
+
     with st.form("assessment_form"):
-        st.subheader("Company Overview")
-        
         col1, col2 = st.columns(2)
-        
+
         with col1:
+            st.markdown(f'<div style="font-size:13px;font-family:monospace;letter-spacing:.1em;text-transform:uppercase;color:{ACCENT};margin-bottom:12px;">Organisation</div>', unsafe_allow_html=True)
             company_name = st.text_input("Company Name", placeholder="Acme Corp")
-            
-            employee_count = st.selectbox(
-                "Number of Employees",
-                ["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"]
-            )
-            
-            industry = st.selectbox(
-                "Industry",
-                ["Technology/SaaS", "Professional Services", "Finance", 
-                 "Healthcare", "Manufacturing", "Retail", "Other"]
-            )
-            
-            avg_salary = st.number_input(
-                "Average Employee Annual Salary ($)",
-                min_value=30000,
-                value=75000,
-                step=5000,
-                help="Approximate average across all employees"
-            )
-            
-            revenue_per_employee = st.number_input(
-                "Annual Revenue per Employee ($)",
-                min_value=50000,
-                value=150000,
-                step=10000,
-                help="Total annual revenue / total employees"
-            )
-            
-            meeting_hours_per_week = st.slider(
-                "Average Hours in Meetings per Employee per Week",
-                0, 40, 15,
-                help="Include all scheduled meetings, standups, reviews"
-            )
-        
+            employee_count = st.selectbox("Number of Employees", ["1-10","11-50","51-200","201-500","501-1000","1000+"])
+            industry = st.selectbox("Industry", ["Technology/SaaS","Professional Services","Finance","Healthcare","Manufacturing","Retail","Other"])
+            avg_salary = st.number_input("Average Annual Salary (USD)", min_value=30000, value=75000, step=5000)
+            revenue_per_employee = st.number_input("Annual Revenue per Employee (USD)", min_value=50000, value=150000, step=10000)
+            meeting_hours_per_week = st.slider("Avg Meeting Hours / Employee / Week", 0, 40, 15)
+
         with col2:
-            approval_layers = st.slider(
-                "Average Approval Layers for Key Decisions",
-                1, 10, 3,
-                help="How many people must approve important decisions?"
-            )
-            
-            project_delay_pct = st.slider(
-                "Project Delay Rate (%)",
-                0, 100, 30,
-                help="What % of projects finish late?"
-            )
-            
-            rework_pct = st.slider(
-                "Rework Due to Miscommunication (%)",
-                0, 50, 15,
-                help="% of work that needs to be redone"
-            )
-            
-            decision_time_days = st.slider(
-                "Average Days to Make Strategic Decisions",
-                1, 90, 14,
-                help="From proposal to approval"
-            )
-            
-            turnover_rate = st.slider(
-                "Annual Employee Turnover Rate (%)",
-                0, 50, 15,
-                help="% of employees who leave each year"
-            )
-            
-            customer_complaint_rate = st.slider(
-                "Customer Complaint Rate (per 100 customers)",
-                0, 50, 5,
-                help="How many customers complain about delays or quality issues?"
-            )
-        
-        submitted = st.form_submit_button("🔍 Calculate My Hidden Profit Leak", use_container_width=True)
-        
-        if submitted:
-            # ============================================================================
-            # CALCULATION ENGINE
-            # ============================================================================
-            
-            # Employee count mapping
-            emp_count_map = {
-                "1-10": 5,
-                "11-50": 30,
-                "51-200": 125,
-                "201-500": 350,
-                "501-1000": 750,
-                "1000+": 1500
-            }
-            employees = emp_count_map[employee_count]
-            
-            # Calculate hourly rate
-            hourly_rate = avg_salary / 2080  # Annual hours
-            
-            # FRICTION CALCULATION
-            # 1. Meeting overhead (assume 40% of meetings are low-value)
-            wasted_meeting_hours = meeting_hours_per_week * 0.4 * 50 * employees
-            meeting_cost = wasted_meeting_hours * hourly_rate
-            
-            # 2. Delay costs
-            delay_factor = project_delay_pct / 100
-            avg_project_value = revenue_per_employee * 0.3  # Assume 30% of revenue tied to projects
-            delay_cost = delay_factor * avg_project_value * employees * 0.2
-            
-            # 3. Rework costs
-            rework_factor = rework_pct / 100
-            rework_cost = rework_factor * avg_salary * employees * 0.15
-            
-            # 4. Decision delay opportunity cost
-            decision_delay_weeks = decision_time_days / 7
-            decision_opportunity_cost = (decision_delay_weeks - 1) * 500 * employees * 10
-            
-            # 5. Turnover costs
-            turnover_factor = turnover_rate / 100
-            avg_turnover_cost = avg_salary * 1.5  # Cost to replace = 150% of salary
-            turnover_total_cost = turnover_factor * employees * avg_turnover_cost
-            
-            # 6. Customer friction
-            complaint_factor = customer_complaint_rate / 100
-            avg_customer_value = revenue_per_employee * 2
-            customer_friction_cost = complaint_factor * employees * avg_customer_value * 0.1
-            
-            # TOTAL ANNUAL LEAK
-            total_leak = (
-                meeting_cost + 
-                delay_cost + 
-                rework_cost + 
-                decision_opportunity_cost + 
-                turnover_total_cost + 
-                customer_friction_cost
-            )
-            
-            # RISK SCORE (0-100)
-            risk_factors = [
-                (approval_layers - 1) * 10,
-                project_delay_pct * 0.5,
-                rework_pct * 1.5,
-                (decision_time_days / 30) * 20,
-                turnover_rate,
-                customer_complaint_rate * 1.5
-            ]
-            risk_score = min(sum(risk_factors) / len(risk_factors), 100)
-            
-            # Store in session state
-            st.session_state.assessment_complete = True
-            st.session_state.calculated_leak = total_leak
-            st.session_state.risk_score = risk_score
-            st.session_state.company_name = company_name
-            st.session_state.employees = employees
-            
-            # Breakdown for display
-            st.session_state.breakdown = {
-                "Meeting Overhead": meeting_cost,
-                "Project Delays": delay_cost,
-                "Rework & Miscommunication": rework_cost,
-                "Decision Bottlenecks": decision_opportunity_cost,
-                "Turnover Costs": turnover_total_cost,
-                "Customer Friction": customer_friction_cost
-            }
-    
-    # ============================================================================
-    # RESULTS DISPLAY
-    # ============================================================================
-    if st.session_state.assessment_complete:
-        st.success("✅ Assessment Complete!")
-        
-        st.markdown("---")
-        
-        # Big number reveal
+            st.markdown(f'<div style="font-size:13px;font-family:monospace;letter-spacing:.1em;text-transform:uppercase;color:{ACCENT};margin-bottom:12px;">Friction Inputs</div>', unsafe_allow_html=True)
+            approval_layers = st.slider("Approval Layers for Key Decisions", 1, 10, 3)
+            project_delay_pct = st.slider("Project Delay Rate (%)", 0, 100, 30)
+            rework_pct = st.slider("Rework Due to Miscommunication (%)", 0, 50, 15)
+            decision_time_days = st.slider("Avg Days to Make Strategic Decisions", 1, 90, 14)
+            turnover_rate = st.slider("Annual Employee Turnover Rate (%)", 0, 50, 15)
+            customer_complaint_rate = st.slider("Customer Complaint Rate (per 100)", 0, 50, 5)
+
+        st.form_submit_button("Calculate Capital Efficiency Loss →")
+
+    # ── RESULTS ──
+    if st.session_state.get('assessment_complete'):
+
+        emp_map = {"1-10":5,"11-50":30,"51-200":125,"201-500":350,"501-1000":750,"1000+":1500}
+        employees = emp_map.get(st.session_state.get('_emp_count','51-200'), 125)
+        total_leak = st.session_state.calculated_leak
+        risk_score = st.session_state.risk_score
+        company    = st.session_state.get('company_name','Your Company')
+        breakdown  = st.session_state.get('breakdown', {})
+
         st.markdown(f"""
-        <div style="text-align: center; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); 
-             padding: 3rem; border-radius: 15px; margin: 2rem 0;">
-            <h3 style="color: #7f1d1d; margin-bottom: 1rem;">
-                {st.session_state.company_name}'s Estimated Annual Profit Leak
-            </h3>
-            <div class="big-number">
-                ${st.session_state.calculated_leak:,.0f}
-            </div>
-            <p style="font-size: 1.2rem; color: #991b1b; margin-top: 1rem;">
-                That's <strong>${st.session_state.calculated_leak/st.session_state.employees:,.0f} per employee</strong>
-            </p>
+        <div class="result-hero">
+          <div class="eyebrow">Assessment Complete</div>
+          <div style="color:{TEXT};font-size:17px;margin-bottom:4px;">{company} · Estimated Annual Capital Efficiency Loss</div>
+          <div class="result-num">${total_leak:,.0f}</div>
+          <div style="color:{MUTED};font-size:15px;">${total_leak/max(employees,1):,.0f} per employee per year</div>
         </div>
         """, unsafe_allow_html=True)
-        
-        # Risk score
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            # Risk gauge
-            risk_color = "#dc2626" if st.session_state.risk_score > 70 else "#f59e0b" if st.session_state.risk_score > 40 else "#10b981"
-            
+
+        col_gauge, col_risk = st.columns(2)
+
+        with col_gauge:
+            risk_color = DANGER if risk_score > 70 else WARN if risk_score > 40 else SUCCESS
             fig = go.Figure(go.Indicator(
                 mode="gauge+number",
-                value=st.session_state.risk_score,
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "Operational Friction Risk Score"},
+                value=risk_score,
+                domain={'x':[0,1],'y':[0,1]},
+                title={'text':"Operational Friction Score", 'font':{'color':TEXT,'size':14}},
+                number={'font':{'color':TEXT}},
                 gauge={
-                    'axis': {'range': [None, 100]},
-                    'bar': {'color': risk_color},
-                    'steps': [
-                        {'range': [0, 40], 'color': "#dcfce7"},
-                        {'range': [40, 70], 'color': "#fef3c7"},
-                        {'range': [70, 100], 'color': "#fee2e2"}
+                    'axis':{'range':[0,100],'tickcolor':MUTED,'tickfont':{'color':MUTED}},
+                    'bar':{'color':risk_color},
+                    'bgcolor':SURF2,
+                    'bordercolor':BORDER,
+                    'steps':[
+                        {'range':[0,40],'color':'rgba(52,211,153,0.1)'},
+                        {'range':[40,70],'color':'rgba(245,158,11,0.1)'},
+                        {'range':[70,100],'color':'rgba(255,107,107,0.1)'}
                     ],
-                    'threshold': {
-                        'line': {'color': "red", 'width': 4},
-                        'thickness': 0.75,
-                        'value': 85
-                    }
                 }
             ))
-            
-            fig.update_layout(height=300)
+            fig.update_layout(
+                height=280,
+                paper_bgcolor=SURF,
+                plot_bgcolor=SURF,
+                margin=dict(t=40,b=20,l=20,r=20),
+                font={'color':TEXT}
+            )
             st.plotly_chart(fig, use_container_width=True)
-        
-        with col2:
-            st.markdown("### 🎯 Your Risk Profile")
-            
-            if st.session_state.risk_score > 70:
-                st.error("**🔴 HIGH RISK** - Immediate action recommended")
-                st.markdown("""
-                Your organization shows multiple signs of severe operational friction:
-                - Critical bottlenecks in decision-making
-                - High project failure/delay rates
-                - Elevated turnover indicating systemic issues
-                """)
-            elif st.session_state.risk_score > 40:
-                st.warning("**🟡 MODERATE RISK** - Optimization opportunities exist")
-                st.markdown("""
-                Several friction points are impacting performance:
-                - Coordination inefficiencies
-                - Process improvement opportunities
-                - Preventable delays and rework
-                """)
+
+        with col_risk:
+            if risk_score > 70:
+                level, cls, msg = "HIGH RISK", "risk-hi", "Multiple critical friction sources detected. Immediate GL verification recommended."
+            elif risk_score > 40:
+                level, cls, msg = "MODERATE RISK", "risk-med", "Several friction points are impacting capital velocity. Structured verification will identify priority interventions."
             else:
-                st.success("**🟢 LOW RISK** - Well-managed operations")
-                st.markdown("""
-                Your organization demonstrates strong operational health:
-                - Efficient decision processes
-                - Low friction across workflows
-                - Opportunity for incremental gains
-                """)
-        
+                level, cls, msg = "LOW RISK", "risk-lo", "Operations show strong flow characteristics. GL verification can confirm and benchmark efficiency gains."
+
+            st.markdown(f"""
+            <div class="card" style="height:100%;">
+              <div class="eyebrow">Risk Profile</div>
+              <div style="font-size:22px;font-weight:600;" class="{cls}">{level}</div>
+              <p style="color:{MUTED};margin-top:12px;line-height:1.7;">{msg}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
         # Breakdown chart
-        st.markdown("### 💸 Where Is Your Money Leaking?")
-        
-        breakdown_df = pd.DataFrame({
-            'Category': list(st.session_state.breakdown.keys()),
-            'Annual Cost': list(st.session_state.breakdown.values())
-        })
-        
-        fig = px.bar(
-            breakdown_df,
-            x='Category',
-            y='Annual Cost',
-            color='Annual Cost',
-            color_continuous_scale='Reds'
-        )
-        
-        fig.update_layout(
-            showlegend=False,
-            height=400,
-            yaxis_title="Annual Cost ($)"
-        )
-        
-        st.plotly_chart(fig, use_container_width=True)
-        
-        # Call to action
-        st.markdown("---")
-        
-        st.markdown("""
+        if breakdown:
+            st.markdown(f'<div style="font-size:16px;font-weight:500;color:{TEXT};margin:24px 0 12px;">Where Capital Is Leaking</div>', unsafe_allow_html=True)
+            df = pd.DataFrame({'Category': list(breakdown.keys()), 'Annual Cost': list(breakdown.values())})
+            fig2 = px.bar(df, x='Category', y='Annual Cost',
+                         color='Annual Cost', color_continuous_scale=[[0,SURF2],[0.5,BLUE],[1,DANGER]])
+            fig2.update_layout(
+                height=320,
+                paper_bgcolor=SURF,
+                plot_bgcolor=SURF,
+                font={'color':TEXT},
+                showlegend=False,
+                coloraxis_showscale=False,
+                xaxis=dict(tickfont={'color':MUTED}, gridcolor=BORDER),
+                yaxis=dict(tickfont={'color':MUTED}, gridcolor=BORDER, title='Annual Cost (USD)')
+            )
+            fig2.update_traces(marker_line_color=BG, marker_line_width=1)
+            st.plotly_chart(fig2, use_container_width=True)
+
+        # CTA
+        st.markdown(f"""
         <div class="insight-box">
-            <h3>🎯 What You Just Saw Is Only the Beginning</h3>
-            <p style="font-size: 1.1rem;">
-                This free calculator gives you a <strong>rough estimate</strong>. 
-                But the real profit leaks are hidden in the details:
-            </p>
-            <ul style="font-size: 1.05rem; margin-top: 1rem;">
-                <li>Which specific teams are bleeding the most?</li>
-                <li>What are your top 3 fixable bottlenecks?</li>
-                <li>What would a 50% friction reduction be worth?</li>
-                <li>How do you compare to your industry peers?</li>
-            </ul>
+          <div style="font-size:16px;font-weight:500;color:{TEXT};margin-bottom:10px;">This estimate is the surface. GL verification goes deeper.</div>
+          <p style="color:{MUTED};line-height:1.75;margin:0;">
+            The calculator gives you magnitude. A full GL assessment identifies which specific layers are generating friction, 
+            quantifies the pre/post delta, and produces a board-ready verification report.
+          </p>
         </div>
         """, unsafe_allow_html=True)
-        
-        st.markdown("### 🚀 Get Your Complete Report")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.markdown("""
+
+        st.markdown(f'<div style="font-size:16px;font-weight:500;color:{TEXT};margin:24px 0 16px;">Start Verification</div>', unsafe_allow_html=True)
+
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown(f"""
             <div class="price-card">
-                <h3>📊 Professional Report</h3>
-                <div class="price-tag">$999</div>
-                <p style="font-size: 1.1rem; margin: 1.5rem 0;">
-                    <strong>Complete 12-Page PDF Analysis</strong>
-                </p>
-                <ul style="text-align: left; font-size: 1rem; line-height: 1.8;">
-                    <li>✅ Detailed Profit Leak Breakdown</li>
-                    <li>✅ Top 3 Operational Bottlenecks</li>
-                    <li>✅ Risk Exposure Assessment</li>
-                    <li>✅ Quick-Win Recommendations</li>
-                    <li>✅ Industry Benchmark Comparison</li>
-                    <li>✅ 30-Day Action Plan</li>
-                </ul>
-                <a href="{}" target="_blank" class="cta-button" style="margin-top: 1.5rem;">
-                    Get Professional Report →
-                </a>
-                <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">
-                    Delivered within 48 hours
-                </p>
+              <div class="price-tier">Diagnostic</div>
+              <div class="price-amount"><span class="price-cur">$</span>999</div>
+              <p style="color:{MUTED};font-size:14px;margin:10px 0 16px;">Baseline GL assessment. Identify friction before committing to transformation.</p>
+              <ul class="feat-list">
+                <li>12-question GL diagnostic</li>
+                <li>Friction source identification</li>
+                <li>GL score + risk classification</li>
+                <li>12-page PDF report</li>
+                <li>48-hour delivery</li>
+              </ul>
+              <a href="{STRIPE_LINK_999}" target="_blank" class="cta-btn">Begin Assessment →</a>
             </div>
-            """.format(STRIPE_LINK_999), unsafe_allow_html=True)
-        
-        with col2:
-            st.markdown("""
-            <div class="price-card price-card-premium">
-                <div style="background: #fbbf24; color: #7c2d12; padding: 0.5rem; 
-                     border-radius: 5px; margin-bottom: 1rem; font-weight: bold;">
-                    🔥 MOST POPULAR
-                </div>
-                <h3>🎯 Executive Deep Dive</h3>
-                <div class="price-tag price-tag-premium">$4,999</div>
-                <p style="font-size: 1.1rem; margin: 1.5rem 0;">
-                    <strong>Comprehensive Analysis + Strategy Session</strong>
-                </p>
-                <ul style="text-align: left; font-size: 1rem; line-height: 1.8;">
-                    <li>✅ Everything in Professional Report</li>
-                    <li>✅ Custom Friction Heat Map</li>
-                    <li>✅ Team-by-Team Analysis</li>
-                    <li>✅ ROI Calculator for Interventions</li>
-                    <li>✅ 90-Day Implementation Roadmap</li>
-                    <li>✅ <strong>2-Hour Strategy Call with Founder</strong></li>
-                    <li>✅ 30-Day Email Support</li>
-                </ul>
-                <a href="{}" target="_blank" class="cta-button" style="margin-top: 1.5rem; background: white; color: #7c3aed;">
-                    Get Executive Package →
-                </a>
-                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
-                    Limited to 5 clients per month
-                </p>
+            """, unsafe_allow_html=True)
+        with c2:
+            st.markdown(f"""
+            <div class="price-card featured">
+              <div class="badge">Most Popular</div>
+              <div class="price-tier">Verification</div>
+              <div class="price-amount"><span class="price-cur">$</span>4,999</div>
+              <p style="color:{MUTED};font-size:14px;margin:10px 0 16px;">Before & after GL measurement. Verify whether transformation improved capital efficiency.</p>
+              <ul class="feat-list">
+                <li>Everything in Diagnostic</li>
+                <li>Pre/post GL delta analysis</li>
+                <li>Layer-by-layer friction map</li>
+                <li>Executive strategy session (2hr)</li>
+                <li>30-day follow-up support</li>
+              </ul>
+              <a href="{STRIPE_LINK_4999}" target="_blank" class="cta-btn cta-btn-primary">Start Verification →</a>
             </div>
-            """.format(STRIPE_LINK_4999), unsafe_allow_html=True)
-        
-        # Guarantee
-        st.markdown("""
-        <div class="guarantee-badge">
-            <h3>💚 100% Money-Back Guarantee</h3>
-            <p style="margin-top: 0.5rem; font-size: 1.05rem;">
-                If you don't discover at least <strong>5x</strong> the report cost in hidden profit leaks, 
-                we'll refund you in full. No questions asked.
-            </p>
+            """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div class="guarantee">
+          <h4>100% Money-Back Guarantee</h4>
+          <p style="color:{MUTED};margin-top:8px;line-height:1.7;">
+            If you don't discover at least <strong>5× the report cost</strong> in actionable savings, we refund in full. No questions.
+          </p>
         </div>
         """, unsafe_allow_html=True)
 
-# ============================================================================
-# TAB 2: SAMPLE REPORT
-# ============================================================================
-with tab2:
-    st.header("📊 What You'll Get: Sample Report Preview")
-    
-    st.info("**Note:** This is a simplified preview. Your actual report will be fully customized with your company's data.")
-    
-    # Report preview sections
-    with st.expander("📄 Page 1: Executive Summary", expanded=True):
-        st.markdown("""
-        ---
-        **HIDDEN PROFIT LEAK REPORT™**  
-        *Prepared for: [Your Company Name]*  
-        *Date: [Report Date]*  
-        *Analyst: Ping Xu, GFI Framework Creator*
-        
-        ---
-        
-        ### Executive Summary
-        
-        Our analysis reveals that **[Company Name]** is experiencing an estimated **$[X]** in annual 
-        profit leakage due to operational friction across multiple dimensions.
-        
-        **Key Findings:**
-        
-        🔴 **Primary Leak Source:** [Largest cost category]  
-        💰 **Total Annual Impact:** $[X]  
-        ⚠️ **Risk Score:** [X]/100 - [Risk Level]  
-        📈 **Recovery Potential:** $[X] (first 90 days)
-        
-        **Critical Insight:**  
-        Unlike visible costs (salaries, overhead), these profit leaks are *hidden* in your 
-        operational fabric. They compound silently, eroding margins and competitive positioning.
-        
-        This report provides a roadmap to recover this lost profit.
-        """)
-    
-    with st.expander("💸 Page 2-3: Detailed Profit Leak Analysis"):
-        st.markdown("""
-        ### Annual Profit Leakage by Category
-        
-        | Category | Annual Cost | % of Total | Severity |
-        |----------|-------------|------------|----------|
-        | Meeting Overhead | $[X] | [X]% | 🔴 High |
-        | Project Delays | $[X] | [X]% | 🟡 Medium |
-        | Rework & Errors | $[X] | [X]% | 🔴 High |
-        | Decision Bottlenecks | $[X] | [X]% | 🟡 Medium |
-        | Turnover Costs | $[X] | [X]% | 🔴 High |
-        | Customer Friction | $[X] | [X]% | 🟢 Low |
-        
-        **Detailed Analysis:**
-        
-        Each category is broken down with:
-        - Root cause identification
-        - Cost calculation methodology
-        - Industry benchmark comparison
-        - Specific examples from your data
-        """)
-    
-    with st.expander("🎯 Page 4-5: Top 3 Operational Bottlenecks"):
-        st.markdown("""
-        ### Bottleneck #1: [Specific Issue]
-        
-        **Description:** [What's happening]  
-        **Annual Cost Impact:** $[X]  
-        **Affected Teams:** [Teams]  
-        **Root Cause:** [Structural issue]
-        
-        **Recommended Fix:**  
-        1. [Specific action]
-        2. [Specific action]
-        3. [Specific action]
-        
-        **Expected Recovery:** $[X] within [timeframe]
-        
-        ---
-        
-        *(Bottlenecks #2 and #3 follow same format)*
-        """)
-    
-    with st.expander("📊 Page 6-7: Risk Exposure & Industry Benchmarks"):
-        st.markdown("""
-        ### Your Risk Profile vs. Industry
-        
-        [Visual charts showing:]
-        - Your risk score vs. industry median
-        - Friction intensity by department
-        - Trend analysis (if multiple assessments)
-        
-        ### Competitive Positioning
-        
-        Companies in your industry with similar friction levels grow [X]% slower than 
-        low-friction peers and experience [X]% higher employee turnover.
-        """)
-    
-    with st.expander("✅ Page 8-9: Quick-Win Recommendations"):
-        st.markdown("""
-        ### 3 High-Impact, Low-Effort Wins
-        
-        **Quick Win #1: [Action]**
-        - **What to do:** [Specific steps]
-        - **Implementation time:** [X days]
-        - **Expected savings:** $[X]/year
-        - **Difficulty:** Low/Medium/High
-        
-        **Quick Win #2: [Action]**  
-        *(Same format)*
-        
-        **Quick Win #3: [Action]**  
-        *(Same format)*
-        
-        ### 30-Day Action Plan
-        
-        Week 1: [Actions]  
-        Week 2: [Actions]  
-        Week 3: [Actions]  
-        Week 4: [Actions]
-        """)
-    
-    with st.expander("🚀 Page 10-12: Next Steps & Methodology"):
-        st.markdown("""
-        ### Implementation Roadmap
-        
-        **Phase 1 (0-30 days):** Quick wins  
-        **Phase 2 (30-90 days):** Structural improvements  
-        **Phase 3 (90-180 days):** Cultural embedding
-        
-        ### Methodology & Validation
-        
-        - Framework overview
-        - Data sources and assumptions
-        - Calculation methodology
-        - Limitations and confidence intervals
-        
-        ### About the GFI Framework
-        
-        [Brief description of the framework and creator]
-        """)
-    
-    st.markdown("---")
-    
-    st.success("""
-    **👆 This preview shows the structure.** Your actual report will include:
-    - Your company's specific numbers
-    - Custom recommendations
-    - Industry-specific insights
-    - Actionable next steps
-    """)
+    # Handle form submission
+    elif st.session_state.get('_submitted'):
+        emp_map = {"1-10":5,"11-50":30,"51-200":125,"201-500":350,"501-1000":750,"1000+":1500}
+        employees = emp_map.get(st.session_state._emp_count, 125)
+        avg_sal   = st.session_state._avg_salary
+        rev_pe    = st.session_state._rev_pe
+        hourly    = avg_sal / 2080
 
-# ============================================================================
-# TAB 3: PRICING & PACKAGES
-# ============================================================================
+        mtg_cost   = st.session_state._meeting_h * 0.4 * 50 * employees * hourly
+        delay_cost = (st.session_state._delay_pct/100) * (rev_pe*0.3) * employees * 0.2
+        rework_cost= (st.session_state._rework_pct/100) * avg_sal * employees * 0.15
+        dec_cost   = ((st.session_state._dec_days/7)-1) * 500 * employees * 10
+        turn_cost  = (st.session_state._turnover/100) * employees * avg_sal * 1.5
+        cust_cost  = (st.session_state._cust_rate/100) * employees * (rev_pe*2) * 0.1
+
+        total_leak = max(mtg_cost+delay_cost+rework_cost+dec_cost+turn_cost+cust_cost, 0)
+        risk_factors = [
+            (st.session_state._approval-1)*10,
+            st.session_state._delay_pct*0.5,
+            st.session_state._rework_pct*1.5,
+            (st.session_state._dec_days/30)*20,
+            st.session_state._turnover,
+            st.session_state._cust_rate*1.5
+        ]
+        risk_score = min(sum(risk_factors)/len(risk_factors), 100)
+
+        st.session_state.assessment_complete = True
+        st.session_state.calculated_leak = total_leak
+        st.session_state.risk_score = risk_score
+        st.session_state.company_name = st.session_state._company
+        st.session_state.employees = employees
+        st.session_state.breakdown = {
+            "Meeting Overhead": mtg_cost,
+            "Project Delays": delay_cost,
+            "Rework": rework_cost,
+            "Decision Bottlenecks": dec_cost,
+            "Turnover": turn_cost,
+            "Customer Friction": cust_cost
+        }
+        st.rerun()
+
+# ════════════════════════════════════════════════════════════════════════════
+# TAB 2 — SAMPLE REPORT
+# ════════════════════════════════════════════════════════════════════════════
+with tab2:
+    st.markdown(f'<div style="font-size:22px;font-weight:500;color:{TEXT};margin-bottom:4px;">Sample Report Preview</div>', unsafe_allow_html=True)
+    st.markdown(f'<p style="color:{MUTED};margin-bottom:24px;">Your actual report will be fully customized with your organisation\'s data.</p>', unsafe_allow_html=True)
+
+    sections = [
+        ("Page 1 — Executive Summary", f"""
+**GL VERIFICATION REPORT**
+*Prepared for: [Organisation Name]*  ·  *Date: [Report Date]*  ·  *Analyst: Ping Xu (徐萍), GFI Flow Intelligence*
+
+---
+
+**Key Findings**
+
+🔴 Primary Friction Source: [Largest cost category]  
+💰 Total Annual Efficiency Loss: $[X]  
+📊 GL Score (Pre-Transformation): [X.XX]  
+📈 Recovery Potential: $[X] within 90 days
+"""),
+        ("Pages 2–3 — Friction Layer Analysis", f"""
+| Layer | Annual Cost | % of Total | Severity |
+|-------|-------------|------------|----------|
+| Meeting Overhead | $[X] | [X]% | High |
+| Project Delays | $[X] | [X]% | Medium |
+| Rework & Errors | $[X] | [X]% | High |
+| Decision Bottlenecks | $[X] | [X]% | Medium |
+| Turnover Costs | $[X] | [X]% | High |
+| Customer Friction | $[X] | [X]% | Low |
+"""),
+        ("Pages 4–5 — Top 3 Friction Sources", """
+**Bottleneck #1: [Specific Issue]**  
+Annual Cost Impact: $[X] · Affected Layers: [Teams]  
+Root Cause: [Structural issue]  
+
+Recommended Intervention:  
+1. [Specific action]  
+2. [Specific action]  
+3. [Specific action]  
+
+Expected GL Delta: +[X.XX] within [timeframe]
+"""),
+        ("Pages 6–7 — GL Score & Benchmarks", """
+GL score breakdown vs. international case benchmarks:
+
+| System | Domain | GL Score |
+|--------|---------|----------|
+| Estonia e-Governance | Digital Identity | 4.17 |
+| Singapore SkillsFuture | Workforce | 3.84 |
+| Your Organisation (pre) | [Domain] | [X.XX] |
+| UK NHS Digital | Healthcare | 0.89 |
+"""),
+        ("Pages 8–12 — Interventions & Methodology", """
+**90-Day Intervention Roadmap**
+
+Phase 1 (0–30 days): Quick wins — immediate friction removal  
+Phase 2 (30–60 days): Structural adjustments  
+Phase 3 (60–90 days): GL re-measurement and delta confirmation  
+
+**Methodology**  
+All scores derived from the GL formula: GL = (Fs × Vn) / (Pd × Cf)  
+Variable definitions, data sources, and confidence intervals documented in full.
+"""),
+    ]
+
+    for title, content in sections:
+        with st.expander(title):
+            st.markdown(content)
+
+# ════════════════════════════════════════════════════════════════════════════
+# TAB 3 — PRICING
+# ════════════════════════════════════════════════════════════════════════════
 with tab3:
-    st.header("🎁 Choose Your Package")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
+    st.markdown(f'<div style="font-size:22px;font-weight:500;color:{TEXT};margin-bottom:4px;">Engagement Tiers</div>', unsafe_allow_html=True)
+    st.markdown(f'<p style="color:{MUTED};margin-bottom:28px;">Three levels for different transformation stages.</p>', unsafe_allow_html=True)
+
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+        st.markdown(f"""
         <div class="price-card">
-            <h3>📊 Professional Report</h3>
-            <div class="price-tag">$999</div>
-            <p style="font-size: 1.2rem; margin: 1.5rem 0; font-weight: 600;">
-                Complete Diagnostic Report
-            </p>
-            <hr style="margin: 1.5rem 0;">
-            <ul style="text-align: left; font-size: 1.05rem; line-height: 2;">
-                <li>✅ 12-Page PDF Report</li>
-                <li>✅ Detailed Profit Leak Analysis</li>
-                <li>✅ Top 3 Bottleneck Identification</li>
-                <li>✅ Risk Exposure Score</li>
-                <li>✅ Industry Benchmark Comparison</li>
-                <li>✅ Quick-Win Recommendations</li>
-                <li>✅ 30-Day Action Plan</li>
-                <li>✅ Delivered within 48 hours</li>
-            </ul>
-            <a href="{}" target="_blank" class="cta-button" style="margin-top: 2rem;">
-                Purchase Now →
-            </a>
+          <div class="price-tier">Diagnostic</div>
+          <div class="price-amount"><span class="price-cur">$</span>999</div>
+          <p style="color:{MUTED};font-size:14px;margin:10px 0 16px;">Baseline GL assessment. Identify friction before committing to transformation.</p>
+          <ul class="feat-list">
+            <li>12-question GL diagnostic</li>
+            <li>Friction source identification</li>
+            <li>GL score + risk classification</li>
+            <li>12-page PDF report</li>
+            <li>48-hour delivery</li>
+          </ul>
+          <a href="{STRIPE_LINK_999}" target="_blank" class="cta-btn">Begin Assessment →</a>
         </div>
-        """.format(STRIPE_LINK_999), unsafe_allow_html=True)
-        
-        st.info("""
-        **Perfect for:**
-        - Mid-sized companies (50-500 employees)
-        - Teams exploring efficiency improvements
-        - CFOs/COOs seeking data for decision-making
-        """)
-    
-    with col2:
-        st.markdown("""
-        <div class="price-card price-card-premium">
-            <div style="background: #fbbf24; color: #7c2d12; padding: 0.5rem; 
-                 border-radius: 5px; margin-bottom: 1rem; font-weight: bold;">
-                ⭐ BEST VALUE
-            </div>
-            <h3>🎯 Executive Deep Dive</h3>
-            <div class="price-tag price-tag-premium">$4,999</div>
-            <p style="font-size: 1.2rem; margin: 1.5rem 0; font-weight: 600;">
-                Complete Analysis + Strategy Session
-            </p>
-            <hr style="margin: 1.5rem 0; border-color: rgba(255,255,255,0.3);">
-            <ul style="text-align: left; font-size: 1.05rem; line-height: 2;">
-                <li>✅ Everything in Professional Report</li>
-                <li>✅ Custom Friction Heat Map</li>
-                <li>✅ Team-by-Team Breakdown</li>
-                <li>✅ ROI Calculator Tool</li>
-                <li>✅ 90-Day Implementation Roadmap</li>
-                <li>✅ <strong>2-Hour Strategy Call with Founder</strong></li>
-                <li>✅ Personalized Action Plan</li>
-                <li>✅ 30-Day Email Support</li>
-                <li>✅ Priority Delivery (24 hours)</li>
-            </ul>
-            <a href="{}" target="_blank" class="cta-button" 
-               style="margin-top: 2rem; background: white; color: #7c3aed;">
-                Reserve Your Spot →
-            </a>
-            <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.95;">
-                ⚠️ Limited to 5 clients per month
-            </p>
+        """, unsafe_allow_html=True)
+
+    with c2:
+        st.markdown(f"""
+        <div class="price-card featured">
+          <div class="badge">Most Popular</div>
+          <div class="price-tier">Verification</div>
+          <div class="price-amount"><span class="price-cur">$</span>4,999</div>
+          <p style="color:{MUTED};font-size:14px;margin:10px 0 16px;">Before & after GL measurement. Verify whether transformation improved capital efficiency.</p>
+          <ul class="feat-list">
+            <li>Everything in Diagnostic</li>
+            <li>Pre/post GL delta analysis</li>
+            <li>Layer-by-layer friction map</li>
+            <li>Executive strategy session (2hr)</li>
+            <li>30-day follow-up support</li>
+          </ul>
+          <a href="{STRIPE_LINK_4999}" target="_blank" class="cta-btn cta-btn-primary">Start Verification →</a>
         </div>
-        """.format(STRIPE_LINK_4999), unsafe_allow_html=True)
-        
-        st.info("""
-        **Perfect for:**
-        - Leadership teams committed to transformation
-        - Companies with >$10M revenue
-        - Organizations planning major operational changes
-        """)
-    
-    st.markdown("---")
-    
-    # FAQ Section
-    st.markdown("### ❓ Frequently Asked Questions")
-    
-    with st.expander("What makes this different from a typical consulting engagement?"):
-        st.markdown("""
-        **Traditional consulting:**
-        - $50K-$200K+ fees
-        - 3-6 month engagements
-        - Heavy time commitment from your team
-        - Generalized frameworks
-        
-        **Hidden Profit Leak Report:**
-        - Fixed, transparent pricing
-        - Delivered in 24-48 hours
-        - Minimal time investment (12-minute assessment)
-        - Focused specifically on operational friction
-        - Actionable from day one
-        """)
-    
-    with st.expander("How is the report calculated?"):
-        st.markdown("""
-        The report uses the **GFI (Governance Flow Intelligence) Framework**, developed by Ping Xu 
-        through extensive research in organizational economics and systems dynamics.
-        
-        Key inputs:
-        - Your assessment responses
-        - Industry benchmarks
-        - Revenue/cost multipliers
-        - Friction intensity models
-        
-        All calculations are transparent and explained in the methodology section.
-        """)
-    
-    with st.expander("What if I don't find hidden profit leaks?"):
-        st.markdown("""
-        **100% Money-Back Guarantee**
-        
-        If your report doesn't identify at least **5x the report cost** in potential savings/recovery, 
-        we'll refund you completely. No questions asked.
-        
-        In 3 years of diagnostics, we've never had a refund request. Organizations typically 
-        discover 10-50x the report cost in hidden leaks.
-        """)
-    
-    with st.expander("How quickly will I see results?"):
-        st.markdown("""
-        **Timeline:**
-        - **Immediate:** Awareness of profit leak magnitude
-        - **Week 1:** Quick-win implementations begin
-        - **30 Days:** First measurable improvements
-        - **90 Days:** Full impact of structural changes
-        
-        Most clients report recovering the report cost within the first month through quick wins alone.
-        """)
-    
-    with st.expander("Do you offer payment plans?"):
-        st.markdown("""
-        Currently, we only offer one-time payments via Stripe.
-        
-        However, for the **Executive Deep Dive** package, we can arrange a payment plan on a case-by-case basis. 
-        Contact us after purchasing the Professional Report to discuss options.
-        """)
-    
-    # Guarantee section
-    st.markdown("""
-    <div class="guarantee-badge" style="margin-top: 3rem;">
-        <h3>💚 Our Promise to You</h3>
-        <p style="font-size: 1.1rem; margin-top: 1rem; line-height: 1.6;">
-            We're so confident you'll discover significant hidden profit leaks that we offer an 
-            unconditional <strong>100% money-back guarantee</strong>. If you don't find at least 
-            <strong>5x the report cost</strong> in actionable savings, we'll refund you immediately.
-        </p>
-        <p style="margin-top: 1rem; font-size: 0.95rem; color: #064e3b;">
-            ✅ No risk. No hassle. Just results.
-        </p>
+        """, unsafe_allow_html=True)
+
+    with c3:
+        st.markdown(f"""
+        <div class="price-card">
+          <div class="price-tier">Board-Ready</div>
+          <div class="price-amount"><span class="price-cur">$</span>9,999</div>
+          <p style="color:{MUTED};font-size:14px;margin:10px 0 16px;">Full independent verification for board presentation, investor reporting, or M&A due diligence.</p>
+          <ul class="feat-list">
+            <li>Everything in Verification</li>
+            <li>Independent auditor sign-off</li>
+            <li>Board presentation format</li>
+            <li>Investor / LP summary</li>
+            <li>Quarterly tracking</li>
+          </ul>
+          <a href="{STRIPE_LINK_9999}" target="_blank" class="cta-btn">Engage →</a>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div class="guarantee" style="margin-top:32px;">
+      <h4>100% Money-Back Guarantee</h4>
+      <p style="color:{MUTED};margin-top:8px;line-height:1.7;">
+        If you don't discover at least <strong>5× the report cost</strong> in actionable savings, we refund in full. No questions.
+      </p>
     </div>
     """, unsafe_allow_html=True)
 
+    st.markdown(f'<div style="font-size:16px;font-weight:500;color:{TEXT};margin:32px 0 16px;">Frequently Asked Questions</div>', unsafe_allow_html=True)
+
+    faqs = [
+        ("What makes this different from traditional consulting?", f"""
+Traditional consulting: $50K–$200K+, 3–6 months, generalised frameworks.
+
+GL Verification: Fixed transparent pricing · Delivered in 24–48 hours · Focused specifically on capital efficiency delta · Actionable from day one.
+"""),
+        ("How is the GL score calculated?", f"""
+The GL formula: **GL = (Fs × Vn) / (Pd × Cf)**
+
+- **Fs** Flow Success Rate (0–1)
+- **Vn** Strategic Value (0–10)
+- **Pd** Pain Duration (annual hours)
+- **Cf** Cognitive Friction Index (0–10)
+
+Full methodology available at [gfiintel.com/methodology.html](https://gfiintel.com/methodology.html)
+"""),
+        ("What if I don't find actionable savings?", """
+100% money-back guarantee. If the report doesn't identify at least 5× its cost in potential savings, full refund, no questions.
+"""),
+    ]
+
+    for q, a in faqs:
+        with st.expander(q):
+            st.markdown(a)
+
 # ============================================================================
-# FOOTER WITH LOGO
+# FOOTER
 # ============================================================================
-st.markdown("---")
-
-footer_col1, footer_col2 = st.columns([1, 3])
-
-with footer_col1:
-    st.image("GFILOGO.png", width=120)
-
-with footer_col2:
-    st.markdown("""
-    <div style="padding-top: 1rem;">
-        <p style="font-size: 1.1rem; font-weight: 600; color: #1e40af;">
-            GFI: Flow Intelligence
-        </p>
-        <p style="color: #64748b; margin-top: 0.5rem;">
-            Powered by the GFI Framework
-        </p>
-        <p style="margin-top: 0.5rem; color: #64748b;">
-            Created by Ping Xu | Boston, MA
-        </p>
-        <p style="font-size: 0.9rem; margin-top: 1rem; color: #94a3b8;">
-            © 2026 All Rights Reserved | <a href="mailto:support@gfi.com" style="color: #3b82f6;">Contact Support</a>
-        </p>
+st.markdown(f'<hr style="border-color:{BORDER};margin:40px 0 24px;">', unsafe_allow_html=True)
+fc1, fc2 = st.columns([1, 4])
+with fc1:
+    try:
+        st.image("GFILOGO.png", width=60)
+    except:
+        pass
+with fc2:
+    st.markdown(f"""
+    <div style="padding-top:4px;">
+      <div style="font-size:14px;font-weight:500;color:{TEXT};">GFI Flow Intelligence</div>
+      <div style="font-size:13px;color:{MUTED};margin-top:4px;">
+        Created by Ping Xu (徐萍) · Boston, MA · 
+        <a href="mailto:gfi@gfiintel.com" style="color:{MUTED};text-decoration:none;">gfi@gfiintel.com</a>
+        &nbsp;·&nbsp;
+        <a href="https://gfiintel.com" style="color:{MUTED};text-decoration:none;">gfiintel.com</a>
+      </div>
+      <div style="font-size:12px;color:{DIM};margin-top:4px;">© 2026 All Rights Reserved</div>
     </div>
     """, unsafe_allow_html=True)
