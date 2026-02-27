@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GFI Flow Intelligence</title>
+<title>Capital Efficiency Verification | GFI</title>
 
 <style>
 :root{
@@ -15,6 +15,7 @@
 }
 
 *{box-sizing:border-box}
+
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
@@ -26,22 +27,25 @@ header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px 40px;
+padding:20px 48px;
 border-bottom:1px solid var(--line);
 }
 
-.logo img{height:56px}
+.logo img{
+height:60px;
+}
 
 .lang{
 display:flex;
-gap:8px;
+gap:10px;
+flex-wrap:wrap;
 }
 
 .lang button{
 background:none;
 border:1px solid var(--line);
 color:var(--muted);
-padding:6px 12px;
+padding:6px 14px;
 border-radius:20px;
 cursor:pointer;
 font-size:12px;
@@ -49,41 +53,45 @@ font-size:12px;
 
 .lang button.active{
 background:var(--brand);
-color:#fff;
+color:white;
 border:none;
 }
 
 main{
-max-width:900px;
+max-width:980px;
 margin:0 auto;
-padding:100px 30px;
+padding:120px 30px 100px 30px;
 text-align:center;
 }
 
 h1{
-font-size:40px;
-margin-bottom:20px;
-letter-spacing:-0.5px;
+font-size:42px;
+letter-spacing:-0.6px;
+margin-bottom:24px;
 }
 
 p{
-font-size:18px;
+font-size:20px;
 color:var(--muted);
-max-width:650px;
-margin:0 auto 40px auto;
+max-width:720px;
+margin:0 auto 50px auto;
+line-height:1.6;
 }
 
 .btn{
 display:inline-block;
-padding:14px 36px;
+padding:16px 42px;
 background:var(--brand);
-color:#fff;
+color:white;
 text-decoration:none;
 border-radius:8px;
 font-weight:600;
+font-size:16px;
 }
 
-.btn:hover{opacity:.9}
+.btn:hover{
+opacity:.9;
+}
 
 footer{
 margin-top:120px;
@@ -99,48 +107,64 @@ padding-bottom:40px;
 
 <header>
 <div class="logo">
-<img src="https://gfiintel.com/GFILOGO.png">
+<img src="https://gfiintel.com/GFILOGO.png" alt="GFI Logo">
 </div>
 
 <div class="lang">
 <button class="active" onclick="setLang('en')">EN</button>
-<button onclick="setLang('zh')">中文</button>
+<button onclick="setLang('zh-tw')">繁體</button>
+<button onclick="setLang('zh-cn')">简体</button>
 <button onclick="setLang('es')">ES</button>
 </div>
 </header>
 
 <main>
 
+<!-- ENGLISH -->
 <div id="en">
-<h1>Structural Friction After Automation</h1>
+<h1>Capital Efficiency Verification</h1>
 <p>
-Automation should accelerate execution.  
-When it slows capital instead, something is structurally wrong.
+We independently verify whether organizational change increases or decreases capital efficiency.  
+Measure capital velocity before and after transformation.
 </p>
 <a href="https://gfi-intelligence.streamlit.app" class="btn">
-Enter Diagnostic Platform
+Enter Verification Platform
 </a>
 </div>
 
-<div id="zh" style="display:none">
-<h1>自動化後的結構性摩擦</h1>
+<!-- TRADITIONAL CHINESE -->
+<div id="zh-tw" style="display:none;">
+<h1>資本效率驗證</h1>
 <p>
-自動化應該讓流程更快。  
-如果反而拖慢資本流動，代表結構出了問題。
+我們獨立驗證組織變動是否提升或削弱資本效率。  
+量測轉型前後的資本流動速度。
 </p>
 <a href="https://gfi-intelligence.streamlit.app" class="btn">
-進入診斷平台
+進入驗證平台
 </a>
 </div>
 
-<div id="es" style="display:none">
-<h1>Fricción Estructural Tras la Automatización</h1>
+<!-- SIMPLIFIED CHINESE -->
+<div id="zh-cn" style="display:none;">
+<h1>资本效率验证</h1>
 <p>
-La automatización debe acelerar la ejecución.  
-Si ralentiza el capital, existe un problema estructural.
+我们独立验证组织变动是否提升或削弱资本效率。  
+衡量转型前后的资本流动速度。
 </p>
 <a href="https://gfi-intelligence.streamlit.app" class="btn">
-Iniciar Diagnóstico
+进入验证平台
+</a>
+</div>
+
+<!-- SPANISH -->
+<div id="es" style="display:none;">
+<h1>Verificación de Eficiencia de Capital</h1>
+<p>
+Verificamos de forma independiente si el cambio organizacional aumenta o reduce la eficiencia del capital.  
+Medimos la velocidad del capital antes y después de la transformación.
+</p>
+<a href="https://gfi-intelligence.streamlit.app" class="btn">
+Ingresar a la Plataforma
 </a>
 </div>
 
@@ -152,14 +176,17 @@ Iniciar Diagnóstico
 
 <script>
 function setLang(lang){
+
 document.getElementById('en').style.display='none';
-document.getElementById('zh').style.display='none';
+document.getElementById('zh-tw').style.display='none';
+document.getElementById('zh-cn').style.display='none';
 document.getElementById('es').style.display='none';
 
 document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('active'));
 
 if(lang==='en'){document.getElementById('en').style.display='block';}
-if(lang==='zh'){document.getElementById('zh').style.display='block';}
+if(lang==='zh-tw'){document.getElementById('zh-tw').style.display='block';}
+if(lang==='zh-cn'){document.getElementById('zh-cn').style.display='block';}
 if(lang==='es'){document.getElementById('es').style.display='block';}
 
 event.target.classList.add('active');
