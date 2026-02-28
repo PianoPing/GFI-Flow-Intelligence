@@ -183,6 +183,22 @@ footer a:hover{color:var(--text)}
   .pub-date{display:none}
   footer{flex-direction:column;text-align:center}
 }
+/* Mobile lang bar — always visible below header */
+.mobile-lang{
+  display:none;
+  position:fixed;
+  top:60px;left:0;right:0;
+  z-index:98;
+  background:rgba(20,29,46,0.97);
+  border-bottom:1px solid var(--border);
+  padding:8px 20px;
+  gap:8px;
+  align-items:center;
+}
+@media(max-width:768px){
+  .mobile-lang{display:flex}
+  .hero{padding-top:40px}
+}
 </style>
 </head>
 <body>
@@ -194,6 +210,7 @@ footer a:hover{color:var(--text)}
     <a href="#validation" onclick="navTo('validation',event)">Validation</a>
     <a href="#method"     onclick="navTo('method',event)">Method</a>
     <a href="#pricing"    onclick="navTo('pricing',event)">Pricing</a>
+    <a href="about.html">Founder</a>
     <div class="lang-grp">
       <button class="lb-btn on"  onclick="setLang('en',this)">EN</button>
       <button class="lb-btn"     onclick="setLang('tw',this)">繁</button>
@@ -206,11 +223,18 @@ footer a:hover{color:var(--text)}
   </button>
 </header>
 
-<div class="drawer" id="drawer">
+<!-- 手機專用語言列 — 固定在 header 下方 -->
+<div class="mobile-lang">
+  <span style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin-right:4px">Lang</span>
+  <button class="lb-btn on"  onclick="setLang('en',this)">EN</button>
+  <button class="lb-btn"     onclick="setLang('tw',this)">繁</button>
+  <button class="lb-btn"     onclick="setLang('cn',this)">简</button>
+</div>
   <a href="#measures"   onclick="navTo('measures',event);closeDrawer()">What GL Measures</a>
   <a href="#validation" onclick="navTo('validation',event);closeDrawer()">Validation</a>
   <a href="#method"     onclick="navTo('method',event);closeDrawer()">Method</a>
   <a href="#pricing"    onclick="navTo('pricing',event);closeDrawer()">Pricing</a>
+  <a href="about.html"  onclick="closeDrawer()">Founder</a>
   <div class="drawer-lang">
     <button class="lb-btn on" onclick="setLang('en',this)">EN</button>
     <button class="lb-btn"    onclick="setLang('tw',this)">繁</button>
