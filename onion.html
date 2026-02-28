@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GFI Flow Intelligence — Governance Legitimacy & Friction Diagnostics</title>
+  <meta name="description" content="GFI Flow Intelligence quantifies administrative friction and governance legitimacy after automation using the GL Framework and GFI Index." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#111a2e;
+      --panel2:#0f1a30;
+      --text:#e9eefc;
+      --muted:#9fb0cc;
+      --line:rgba(255,255,255,.10);
+      --brand:#7dd3fc;
+      --brand2:#a78bfa;
+      --ok:#34d399;
+      --shadow:0 18px 60px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,"PingFang TC","Microsoft JhengHei","Noto Sans CJK TC",sans-serif;
+      background:radial-gradient(1200px 700px at 10% 10%, rgba(125,211,252,.18), transparent 60%),
+                 radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,.16), transparent 55%),
+                 var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(11,18,32,.75);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:16px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;min-width:260px;
+      text-decoration:none;
+    }
+    .brand img{height:44px;width:auto;display:block}
+    .brand .t{
+      display:flex;flex-direction:column;gap:2px;
+    }
+    .brand .t .name{font-weight:800;letter-spacing:.2px}
+    .brand .t .tag{font-size:12.5px;color:var(--muted)}
+    .nav-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .lang{
+      display:flex;gap:8px;align-items:center;
+      padding:6px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+    }
+    .lang button{
+      border:0;cursor:pointer;
+      padding:10px 12px;
+      border-radius:999px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .lang button.active{
+      color:var(--text);
+      background:linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.20));
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .pill{
+      padding:10px 14px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      text-decoration:none;
+      font-weight:750;
+      font-size:13px;
+      letter-spacing:.2px;
+      display:inline-flex;align-items:center;gap:8px;
+      white-space:nowrap;
+    }
+    .pill:hover{background:rgba(255,255,255,.06)}
+    .pill.primary{
+      background:linear-gradient(135deg, rgba(125,211,252,.25), rgba(167,139,250,.22));
+      border-color:rgba(255,255,255,.20);
+    }
+
+    main{padding:34px 0 74px}
+    section{margin:26px 0}
+    .hero{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero-inner{padding:34px 26px}
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:750;
+      font-size:13px;
+    }
+    .kdot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+    h1{
+      margin:14px 0 10px;
+      font-size:clamp(30px, 4.2vw, 48px);
+      line-height:1.12;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:clamp(16px, 1.7vw, 19px);
+      max-width:920px;
+    }
+    .split{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:14px;margin-top:18px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(17,26,46,.55);
+      padding:18px 16px;
+    }
+    .card .h{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-bottom:8px;
+    }
+    .card .h strong{font-size:15px}
+    .badge{
+      font-size:12px;color:rgba(255,255,255,.85);
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.04);
+      padding:6px 10px;border-radius:999px;
+      white-space:nowrap;
+    }
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 16px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.04);
+      text-decoration:none;
+      font-weight:850;
+      letter-spacing:.2px;
+      min-width:240px;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(125,211,252,.26), rgba(167,139,250,.24));
+      border-color:rgba(255,255,255,.20);
+    }
+    .btn:hover{background:rgba(255,255,255,.06)}
+    .btn.primary:hover{filter:brightness(1.06)}
+
+    .grid{
+      display:grid;grid-template-columns:1.2fr .8fr;
+      gap:14px;
+    }
+    .panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(17,26,46,.42);
+      padding:22px 18px;
+      box-shadow:0 10px 34px rgba(0,0,0,.22);
+    }
+    h2{margin:0 0 10px;font-size:22px;letter-spacing:-.2px}
+    .muted{color:var(--muted)}
+    .quote{
+      margin:14px 0 0;
+      padding:14px 14px;
+      border-left:3px solid rgba(125,211,252,.65);
+      background:rgba(255,255,255,.03);
+      border-radius:12px;
+      font-weight:800;
+    }
+    .formula{
+      margin:12px 0 0;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      font-size:14px;
+      color:rgba(255,255,255,.92);
+      padding:14px 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.22);
+      border-radius:14px;
+      overflow:auto;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;border-spacing:0;
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background:rgba(17,26,46,.42);
+    }
+    th,td{
+      padding:14px 12px;
+      vertical-align:top;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:rgba(255,255,255,.86);
+      background:rgba(255,255,255,.04);
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    tr:last-child td{border-bottom:0}
+    td b{display:block;margin-bottom:6px}
+    footer{
+      border-top:1px solid var(--line);
+      padding:26px 0 36px;
+      color:var(--muted);
+    }
+    .foot{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap
+    }
+    .small{font-size:12.5px}
+    .lang-block{display:none}
+    .lang-block.active{display:block}
+
+    @media (max-width: 920px){
+      .split{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .brand{min-width:auto}
+      .btn{min-width:0;flex:1}
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="https://gfiintel.com">
+        <img src="https://gfiintel.com/GFILOGO.png" alt="GFI Flow Intelligence" />
+        <div class="t">
+          <div class="name">GFI Flow Intelligence</div>
+          <div class="tag">GL Framework · GFI Index · Structural Friction Diagnostics</div>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <div class="lang" aria-label="Language switch">
+          <button id="btn-en" class="active" type="button" data-lang="en">EN</button>
+          <button id="btn-zh-hant" type="button" data-lang="zh-hant">繁</button>
+          <button id="btn-zh-hans" type="button" data-lang="zh-hans">简</button>
+        </div>
+        <a class="pill" href="mailto:info@gfiintel.com">info@gfiintel.com</a>
+        <a class="pill primary" href="#cta">Start</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <!-- EN -->
+      <div class="lang-block active" data-lang="en">
+        <div class="kicker"><span class="kdot"></span> Automation Guardrail · Governance & Operations</div>
+        <h1>Automation: Does It Open the Door of Governance — or Close the Window of Service?</h1>
+        <p class="sub">
+          Policies written on paper do not guarantee service delivered at the doorstep.
+          Through the <b>GL Framework</b> and the <b>GFI Index</b>, we quantify hidden administrative friction —
+          and the invisible frustration that silently erodes legitimacy and capital.
+        </p>
+
+        <div class="split">
+          <div class="card">
+            <div class="h">
+              <strong>For Public Institutions</strong>
+              <span class="badge">Governance Legitimacy (GL)</span>
+            </div>
+            <div class="muted">Measure whether automation strengthens or weakens due process — before trust collapses.</div>
+          </div>
+
+          <div class="card">
+            <div class="h">
+              <strong>For Enterprises</strong>
+              <span class="badge">Invisible Cost Erosion</span>
+            </div>
+            <div class="muted">Detect structural friction draining capital post-automation — before margin quietly disappears.</div>
+          </div>
+        </div>
+
+        <div class="cta-row" id="cta">
+          <a class="btn primary" href="#assessment-public">Begin Governance Legitimacy Assessment</a>
+          <a class="btn" href="#assessment-enterprise">Detect Operational Capital Erosion</a>
+        </div>
+      </div>
+
+      <!-- ZH-HANT -->
+      <div class="lang-block" data-lang="zh-hant">
+        <div class="kicker"><span class="kdot"></span> 自動化守門員 · 治理 × 營運</div>
+        <h1>自動化，是開啟治理的門，還是關上服務的窗？</h1>
+        <p class="sub">
+          政策掛在牆上，不等於服務進入家庭。
+          我們透過 <b>GL Framework</b> 與 <b>GFI 指數</b>，量化那些被隱藏的「行政摩擦」與「說不出來的挫折感」——
+          它們會悄悄侵蝕治理合法性與資本效率。
+        </p>
+
+        <div class="split">
+          <div class="card">
+            <div class="h">
+              <strong>公營機構</strong>
+              <span class="badge">治理合法性 (GL) 檢測</span>
+            </div>
+            <div class="muted">在信任崩塌之前，測量自動化是否正在削弱正當程序與服務可及性。</div>
+          </div>
+
+          <div class="card">
+            <div class="h">
+              <strong>營利企業</strong>
+              <span class="badge">隱形成本流失檢測</span>
+            </div>
+            <div class="muted">在利潤被悄悄吃掉之前，找出自動化後的結構摩擦與資本蒸發點。</div>
+          </div>
+        </div>
+
+        <div class="cta-row" id="cta-zh-hant">
+          <a class="btn primary" href="#assessment-public">開始您的治理合法性檢測</a>
+          <a class="btn" href="#assessment-enterprise">檢測您的營運成本流失</a>
+        </div>
+      </div>
+
+      <!-- ZH-HANS -->
+      <div class="lang-block" data-lang="zh-hans">
+        <div class="kicker"><span class="kdot"></span> 自动化守门员 · 治理 × 运营</div>
+        <h1>自动化，是开启治理的门，还是关上服务的窗？</h1>
+        <p class="sub">
+          政策挂在墙上，不等于服务进入家庭。
+          我们通过 <b>GL Framework</b> 与 <b>GFI 指数</b>，量化那些被隐藏的「行政摩擦」与「说不出来的挫折感」——
+          它们会悄悄侵蚀治理合法性与资本效率。
+        </p>
+
+        <div class="split">
+          <div class="card">
+            <div class="h">
+              <strong>公共机构</strong>
+              <span class="badge">治理合法性 (GL) 检测</span>
+            </div>
+            <div class="muted">在信任崩塌之前，衡量自动化是否正在削弱正当程序与服务可及性。</div>
+          </div>
+
+          <div class="card">
+            <div class="h">
+              <strong>营利企业</strong>
+              <span class="badge">隐形成本流失检测</span>
+            </div>
+            <div class="muted">在利润被悄悄吞噬之前，定位自动化后的结构摩擦与资本蒸发点。</div>
+          </div>
+        </div>
+
+        <div class="cta-row" id="cta-zh-hans">
+          <a class="btn primary" href="#assessment-public">开始您的治理合法性检测</a>
+          <a class="btn" href="#assessment-enterprise">检测您的运营成本流失</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT + AUTHORITY -->
+  <section class="grid">
+    <div class="panel" id="about">
+      <!-- EN -->
+      <div class="lang-block active" data-lang="en">
+        <h2>Why We Exist</h2>
+        <p class="muted">
+          This work did not begin in a boardroom. It began in a family.
+          When long-term care systems fail, the collapse does not appear first in a spreadsheet —
+          it appears in the body of a caregiver.
+        </p>
+        <p class="muted">
+          Structural failure is not a data point. It is a life sentence delivered quietly.
+          That experience shaped a single conviction:
+          <b>administrative friction is not neutral</b> — it transfers cost, stress, and risk downward until someone absorbs it.
+        </p>
+      </div>
+
+      <!-- ZH-HANT -->
+      <div class="lang-block" data-lang="zh-hant">
+        <h2>我們為什麼存在</h2>
+        <p class="muted">
+          這份工作不是從會議室開始的，而是從家庭開始的。
+          當長照系統失靈，崩潰不會先出現在報表上——而是出現在照顧者的身體裡。
+        </p>
+        <p class="muted">
+          結構性失敗不是一個數據點，而是一種悄無聲息的生命判決。
+          這段經驗讓我們堅定一件事：
+          <b>行政摩擦從來不是中性的</b>——它會把成本、壓力與風險往下轉嫁，直到有人被迫承擔。
+        </p>
+      </div>
+
+      <!-- ZH-HANS -->
+      <div class="lang-block" data-lang="zh-hans">
+        <h2>我们为什么存在</h2>
+        <p class="muted">
+          这份工作不是从会议室开始的，而是从家庭开始的。
+          当长照系统失灵，崩溃不会先出现在报表上——而是出现在照顾者的身体里。
+        </p>
+        <p class="muted">
+          结构性失败不是一个数据点，而是一种悄无声息的生命判决。
+          这段经历让我们坚定一件事：
+          <b>行政摩擦从来不是中性的</b>——它会把成本、压力与风险向下转嫁，直到有人被迫承担。
+        </p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <!-- EN -->
+      <div class="lang-block active" data-lang="en">
+        <h2>Professional Authority</h2>
+        <p class="muted">
+          Founder of GFI Flow Intelligence · Global governance contributor · Published author across governance and structural execution.
+        </p>
+        <div class="quote">The most expensive waste is not fraud. It is spending one hundred dollars to protect ten.</div>
+      </div>
+
+      <!-- ZH-HANT -->
+      <div class="lang-block" data-lang="zh-hant">
+        <h2>專業背書</h2>
+        <p class="muted">
+          GFI Flow Intelligence 創辦人 · 全球治理議題貢獻者 · 多部著作作者（治理、政策設計、結構執行）。
+        </p>
+        <div class="quote">最昂貴的浪費不是欺詐，而是花一百塊去保護十塊錢的資產。</div>
+      </div>
+
+      <!-- ZH-HANS -->
+      <div class="lang-block" data-lang="zh-hans">
+        <h2>专业背书</h2>
+        <p class="muted">
+          GFI Flow Intelligence 创办人 · 全球治理议题贡献者 · 多部著作作者（治理、政策设计、结构执行）。
+        </p>
+        <div class="quote">最昂贵的浪费不是欺诈，而是花一百块去保护十块钱的资产。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE LOGIC -->
+  <section class="panel" id="core-logic">
+    <!-- EN -->
+    <div class="lang-block active" data-lang="en">
+      <h2>Core Logic — The Denominator Revolution</h2>
+      <p class="muted">
+        Every organization manages cost. Few measure structural friction.
+        When the denominator expands, legitimacy and profitability shrink.
+      </p>
+      <div class="formula">
+        GL = (Flow Strength × Service Velocity) ÷ (Process Density × Compliance Friction × Structural Rebound)
+      </div>
+
+      <div class="split" style="margin-top:14px">
+        <div class="card">
+          <div class="h"><strong>Layer 1 — Denominator Misallocation</strong><span class="badge">Book I</span></div>
+          <div class="muted">Detect where resource protection exceeds asset value (“protecting ten with one hundred”).</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>Layer 2 — Structural Rebound</strong><span class="badge">Book II</span></div>
+          <div class="muted">Explain why good policies can produce painful outcomes after automation.</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>Layer 3 — Architectural Redesign</strong><span class="badge">Book III</span></div>
+          <div class="muted">Design systems that greet rather than deflect — true “denominator reform.”</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>What You Get</strong><span class="badge" style="border-color:rgba(52,211,153,.35);color:rgba(52,211,153,.9)">Verdict-grade</span></div>
+          <div class="muted">A diagnostic that converts friction into measurable risk signals and decision-ready priorities.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZH-HANT -->
+    <div class="lang-block" data-lang="zh-hant">
+      <h2>核心邏輯：分母革命</h2>
+      <p class="muted">
+        每個組織都會管成本，但很少有人量化「結構摩擦」。
+        當分母膨脹，合法性與獲利能力就會同步縮水。
+      </p>
+      <div class="formula">
+        GL = (流程強度 × 服務速度) ÷ (流程密度 × 合規摩擦 × 結構反彈)
+      </div>
+
+      <div class="split" style="margin-top:14px">
+        <div class="card">
+          <div class="h"><strong>第一層：分母識別（資源誤配）</strong><span class="badge">Book I</span></div>
+          <div class="muted">診斷「花百元護十元」的資源配置錯位。</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>第二層：結構反彈</strong><span class="badge">Book II</span></div>
+          <div class="muted">解析為何好政策在自動化後反而帶來痛苦與積壓。</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>第三層：架構重設計</strong><span class="badge">Book III</span></div>
+          <div class="muted">真正的分母改革：讓系統具備「迎賓式」主動性，而不是甩鍋式流程。</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>你拿到的是</strong><span class="badge" style="border-color:rgba(52,211,153,.35);color:rgba(52,211,153,.9)">判決級</span></div>
+          <div class="muted">把摩擦轉成可量化風險訊號與決策優先順序的診斷報告。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZH-HANS -->
+    <div class="lang-block" data-lang="zh-hans">
+      <h2>核心逻辑：分母革命</h2>
+      <p class="muted">
+        每个组织都会管成本，但很少有人量化「结构摩擦」。
+        当分母膨胀，合法性与获利能力就会同步缩水。
+      </p>
+      <div class="formula">
+        GL = (流程强度 × 服务速度) ÷ (流程密度 × 合规摩擦 × 结构反弹)
+      </div>
+
+      <div class="split" style="margin-top:14px">
+        <div class="card">
+          <div class="h"><strong>第一层：分母识别（资源误配）</strong><span class="badge">Book I</span></div>
+          <div class="muted">诊断「花百元护十元」的资源配置错位。</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>第二层：结构反弹</strong><span class="badge">Book II</span></div>
+          <div class="muted">解析为何好政策在自动化后反而带来痛苦与积压。</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>第三层：架构重设计</strong><span class="badge">Book III</span></div>
+          <div class="muted">真正的分母改革：让系统具备「迎宾式」主动性，而不是甩锅式流程。</div>
+        </div>
+        <div class="card">
+          <div class="h"><strong>你拿到的是</strong><span class="badge" style="border-color:rgba(52,211,153,.35);color:rgba(52,211,153,.9)">判决级</span></div>
+          <div class="muted">把摩擦转成可量化风险信号与决策优先顺序的诊断报告。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="panel" id="case-studies">
+    <!-- EN -->
+    <div class="lang-block active" data-lang="en">
+      <h2>Case Diagnostics</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>The Verdict</th>
+            <th>Structural Insight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Digital Administration (Customer Service)</b></td>
+            <td><b>Deflection, Not Service</b></td>
+            <td>Link-forwarding shifts administrative cost to users, accelerating denominator growth and backend congestion.</td>
+          </tr>
+          <tr>
+            <td><b>Massachusetts DUA</b></td>
+            <td><b>Denominator Acceleration</b></td>
+            <td>Automation accelerated error production; appeals backlog multiplied instead of shrinking.</td>
+          </tr>
+          <tr>
+            <td><b>Long-Term Care vs. Health Insurance</b></td>
+            <td><b>Invisible Denominator</b></td>
+            <td>Reliance on unpaid caregivers masked structural weakness until collapse became visible.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ZH-HANT -->
+    <div class="lang-block" data-lang="zh-hant">
+      <h2>案例分析（診斷報告格式）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>案例場景</th>
+            <th>診斷結果（The Verdict）</th>
+            <th>核心洞察</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>數位行政（客服）</b></td>
+            <td><b>應付與敷衍</b></td>
+            <td>甩連結不是服務，是行政成本轉嫁，導致分母加速與後端癱瘓。</td>
+          </tr>
+          <tr>
+            <td><b>麻州 DUA 案</b></td>
+            <td><b>分母加速</b></td>
+            <td>自動化加速了錯誤的產生，讓上訴積壓不減反增。</td>
+          </tr>
+          <tr>
+            <td><b>長照 vs 健保</b></td>
+            <td><b>不可見的分母</b></td>
+            <td>長照依賴家庭照顧者（不可見資源）掩蓋結構弱點，直到崩潰才顯影。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ZH-HANS -->
+    <div class="lang-block" data-lang="zh-hans">
+      <h2>案例分析（诊断报告格式）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>案例场景</th>
+            <th>诊断结果（The Verdict）</th>
+            <th>核心洞察</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>数字行政（客服）</b></td>
+            <td><b>应付与敷衍</b></td>
+            <td>甩链接不是服务，是行政成本转嫁，导致分母加速与后端瘫痪。</td>
+          </tr>
+          <tr>
+            <td><b>麻州 DUA 案</b></td>
+            <td><b>分母加速</b></td>
+            <td>自动化加速了错误的产生，让上诉积压不减反增。</td>
+          </tr>
+          <tr>
+            <td><b>长照 vs 医保</b></td>
+            <td><b>不可见的分母</b></td>
+            <td>长照依赖家庭照顾者（不可见资源）掩盖结构弱点，直到崩溃才显影。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="panel" id="assessment-public">
+    <!-- EN -->
+    <div class="lang-block active" data-lang="en">
+      <h2>Professional Next Step</h2>
+      <p class="muted">We do not simply deploy automation. We ensure your automation is welcoming — not closing the door.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:info@gfiintel.com?subject=Governance%20Legitimacy%20Assessment%20Request">Request Governance Legitimacy Assessment</a>
+        <a class="btn" href="#assessment-enterprise">I’m an Enterprise / CFO / COO</a>
+      </div>
+    </div>
+
+    <!-- ZH-HANT -->
+    <div class="lang-block" data-lang="zh-hant">
+      <h2>下一步：專業診斷</h2>
+      <p class="muted">我們不只是提供自動化，我們確保您的自動化是在迎賓，而非關門。</p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:info@gfiintel.com?subject=%E6%B2%BB%E7%90%86%E5%90%88%E6%B3%95%E6%80%A7%E6%AA%A2%E6%B8%AC%E7%94%B3%E8%AB%8B">申請治理合法性檢測</a>
+        <a class="btn" href="#assessment-enterprise">我是企業 / CFO / COO</a>
+      </div>
+    </div>
+
+    <!-- ZH-HANS -->
+    <div class="lang-block" data-lang="zh-hans">
+      <h2>下一步：专业诊断</h2>
+      <p class="muted">我们不只是提供自动化，我们确保您的自动化是在迎宾，而非关门。</p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:info@gfiintel.com?subject=%E6%B2%BB%E7%90%86%E5%90%88%E6%B3%95%E6%80%A7%E6%A3%80%E6%B5%8B%E7%94%B3%E8%AF%B7">申请治理合法性检测</a>
+        <a class="btn" href="#assessment-enterprise">我是企业 / CFO / COO</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="assessment-enterprise">
+    <!-- EN -->
+    <div class="lang-block active" data-lang="en">
+      <h2>Enterprise Track</h2>
+      <p class="muted">Detect operational capital erosion from post-automation friction — and convert it into decision-ready priorities.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:info@gfiintel.com?subject=Enterprise%20Friction%20Diagnostics%20Request">Request Enterprise Diagnostics</a>
+        <a class="btn" href="#case-studies">View Case Diagnostics</a>
+      </div>
+    </div>
+
+    <!-- ZH-HANT -->
+    <div class="lang-block" data-lang="zh-hant">
+      <h2>企業路線</h2>
+      <p class="muted">找出自動化後的摩擦耗損，轉成可決策、可排序、可落地的改善優先順序。</p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:info@gfiintel.com?subject=%E4%BC%81%E6%A5%AD%E6%91%A9%E6%93%A6%E8%A8%BA%E6%96%B7%E7%94%B3%E8%AB%8B">申請企業摩擦診斷</a>
+        <a class="btn" href="#case-studies">查看案例診斷</a>
+      </div>
+    </div>
+
+    <!-- ZH-HANS -->
+    <div class="lang-block" data-lang="zh-hans">
+      <h2>企业路线</h2>
+      <p class="muted">找出自动化后的摩擦耗损，转成可决策、可排序、可落地的改进优先顺序。</p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:info@gfiintel.com?subject=%E4%BC%81%E4%B8%9A%E6%91%A9%E6%93%A6%E8%AF%8A%E6%96%AD%E7%94%B3%E8%AF%B7">申请企业摩擦诊断</a>
+        <a class="btn" href="#case-studies">查看案例诊断</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div style="font-weight:900;color:rgba(255,255,255,.9)">GFI Flow Intelligence</div>
+        <div class="small">GL Framework · GFI Index · Structural Friction Diagnostics</div>
+      </div>
+      <div class="small">
+        <a href="mailto:info@gfiintel.com" style="text-decoration:none;border-bottom:1px solid rgba(255,255,255,.18)">info@gfiintel.com</a><br/>
+        <span class="small">© <span id="y"></span> GFI Flow Intelligence</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const buttons = document.querySelectorAll('.lang button');
+    const blocks = document.querySelectorAll('.lang-block');
+
+    function setLang(lang){
+      // buttons
+      buttons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      // blocks
+      blocks.forEach(el => el.classList.toggle('active', el.dataset.lang === lang));
+      // html lang
+      document.documentElement.lang = (lang === 'en') ? 'en' : (lang === 'zh-hant' ? 'zh-Hant' : 'zh-Hans');
+      // store
+      try{ localStorage.setItem('gfi_lang', lang); }catch(e){}
+    }
+
+    buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+    // init
+    let saved = null;
+    try{ saved = localStorage.getItem('gfi_lang'); }catch(e){}
+    setLang(saved || 'en');
+
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
