@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nine International Case Studies | GFI Flow Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141d2e;--surf:#1c2740;--surf2:#22304e;
+  --border:rgba(255,255,255,0.08);--text:#edf0f8;
+  --muted:#8fa3c0;--dim:#4a6080;--accent:#c8f542;--blue:#4da3ff;
+  --red:#ff6b6b;--gold:#f5c842;
+  --serif:'DM Serif Display',Georgia,serif;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden}
+
+/* HEADER */
+header{position:fixed;inset:0 0 auto 0;z-index:100;height:60px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(20,29,46,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.logo img{height:44px;width:auto;mix-blend-mode:lighten;border-radius:6px}
+nav{display:flex;align-items:center;gap:4px}
+nav a{font-size:13px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;transition:color .2s,background .2s}
+nav a:hover{color:var(--text);background:rgba(255,255,255,0.05)}
+nav a.active{color:var(--accent)}
+.lang-grp{display:flex;gap:3px;margin-left:8px}
+.lb-btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:5px 9px;border:1px solid var(--border);border-radius:4px;background:none;color:var(--muted);cursor:pointer;transition:all .2s}
+.lb-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.18)}
+.lb-btn.on{color:var(--accent);border-color:rgba(200,245,66,0.35);background:rgba(200,245,66,0.06)}
+.nav-cta{display:inline-block;padding:8px 16px;background:var(--accent);color:#0d1117;font-size:13px;font-weight:600;border-radius:6px;text-decoration:none;margin-left:8px;white-space:nowrap;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+.ham{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;padding:6px;background:none;border:none;cursor:pointer}
+.ham span{display:block;height:2px;background:var(--text);border-radius:2px;transition:transform .25s,opacity .2s}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer{display:none;position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(20,29,46,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:16px 24px 24px;flex-direction:column}
+.drawer.open{display:flex}
+.drawer a{font-size:17px;color:var(--muted);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--border);transition:color .2s}
+.drawer-lang{display:flex;gap:8px;padding:16px 0 0}
+.drawer-cta{display:block;text-align:center;padding:16px;background:var(--accent);color:#0d1117;font-weight:600;font-size:16px;border-radius:8px;text-decoration:none;margin-top:16px;border-bottom:none!important}
+.mobile-lang{display:none;position:fixed;top:60px;left:0;right:0;z-index:98;background:rgba(20,29,46,0.97);border-bottom:1px solid var(--border);padding:8px 20px;gap:8px;align-items:center}
+@media(max-width:768px){.mobile-lang{display:flex}}
+
+/* LANG */
+.lb{display:none}.lb.on{display:block}
+
+/* LAYOUT */
+.wrap{max-width:1060px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+
+/* HERO */
+.hero{padding:clamp(100px,16vh,160px) 0 clamp(40px,6vh,60px)}
+.hero-title{font-family:var(--serif);font-size:clamp(32px,5vw,60px);line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
+.hero-sub{font-size:clamp(15px,1.9vw,17px);color:var(--muted);max-width:600px;line-height:1.7;margin-bottom:clamp(28px,4vh,44px)}
+
+/* SCORE LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(40px,6vh,60px)}
+.legend-item{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* CASES GRID */
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(310px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:clamp(40px,7vh,70px)}
+
+/* CASE CARD */
+.case-card{background:var(--surf);padding:clamp(20px,3vw,32px);cursor:pointer;transition:background .2s;text-decoration:none;display:block;position:relative}
+.case-card:hover{background:var(--surf2)}
+.case-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:12px}
+.case-flag{font-size:28px;line-height:1}
+.gl-badge{font-family:var(--mono);font-size:12px;font-weight:500;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.gl-outstanding{background:rgba(200,245,66,0.12);color:var(--accent);border:1px solid rgba(200,245,66,0.25)}
+.gl-excellent{background:rgba(77,163,255,0.12);color:var(--blue);border:1px solid rgba(77,163,255,0.25)}
+.gl-good{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid var(--border)}
+.gl-violence{background:rgba(255,107,107,0.12);color:var(--red);border:1px solid rgba(255,107,107,0.25)}
+.case-country{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.case-title{font-family:var(--serif);font-size:clamp(16px,2vw,20px);color:var(--text);line-height:1.25;margin-bottom:8px}
+.case-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:3px 8px;border-radius:3px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--dim)}
+.case-verdict{font-size:13px;color:var(--muted);line-height:1.5}
+.case-arrow{position:absolute;bottom:clamp(16px,2vw,24px);right:clamp(16px,2vw,24px);font-family:var(--mono);font-size:12px;color:var(--dim);transition:color .2s,transform .2s}
+.case-card:hover .case-arrow{color:var(--accent);transform:translateX(4px)}
+
+/* FORMULA BAR */
+.formula-bar{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:clamp(20px,3vw,32px);margin-bottom:clamp(40px,6vh,60px);display:flex;align-items:center;gap:clamp(16px,3vw,32px);flex-wrap:wrap}
+.formula-eq{font-family:var(--mono);font-size:clamp(14px,2vw,18px);color:var(--accent);letter-spacing:.05em;white-space:nowrap}
+.formula-vars{display:flex;flex-wrap:wrap;gap:clamp(12px,2vw,24px)}
+.fv{font-size:13px;color:var(--muted)}
+.fv strong{color:var(--text);font-family:var(--mono)}
+
+/* FOOTER */
+footer{padding:clamp(28px,5vh,44px) clamp(20px,5vw,60px);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:13px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.reveal.vis{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav{display:none}.ham{display:flex}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo"><img src="GFILOGO.png" alt="GFI"></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="cases.html" class="active">Cases</a>
+    <a href="about.html">Founder</a>
+    <div class="lang-grp">
+      <button class="lb-btn on"  onclick="setLang('en',this)">EN</button>
+      <button class="lb-btn"     onclick="setLang('tw',this)">繁</button>
+      <button class="lb-btn"     onclick="setLang('cn',this)">简</button>
+    </div>
+    <a href="https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00" class="nav-cta" target="_blank" rel="noopener">Start Verification</a>
+  </nav>
+  <button class="ham" id="ham" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-lang">
+  <span style="font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-right:4px">Lang</span>
+  <button class="lb-btn on" onclick="setLang('en',this)">EN</button>
+  <button class="lb-btn"    onclick="setLang('tw',this)">繁</button>
+  <button class="lb-btn"    onclick="setLang('cn',this)">简</button>
+</div>
+
+<div class="drawer" id="drawer">
+  <a href="index.html" onclick="closeDrawer()">Home</a>
+  <a href="cases.html" onclick="closeDrawer()">Cases</a>
+  <a href="about.html" onclick="closeDrawer()">Founder</a>
+  <div class="drawer-lang">
+    <button class="lb-btn on" onclick="setLang('en',this)">EN</button>
+    <button class="lb-btn"    onclick="setLang('tw',this)">繁</button>
+    <button class="lb-btn"    onclick="setLang('cn',this)">简</button>
+  </div>
+  <a href="https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00" class="drawer-cta" target="_blank" rel="noopener" onclick="closeDrawer()">Start Verification →</a>
+</div>
+
+<!-- ══════════ ENGLISH ══════════ -->
+<div class="lb on" data-lang="en">
+<div class="hero"><div class="wrap">
+  <div class="eyebrow reveal">Proof of Concept</div>
+  <h1 class="hero-title reveal">Nine International<br>Case Studies</h1>
+  <p class="hero-sub reveal">GL = (Fs × Vn) / (Pd × Cf) validated across education, healthcare, digital governance, housing, climate, and social protection — spanning populations from 1.3 million to 1.4 billion.</p>
+  <div class="formula-bar reveal">
+    <div class="formula-eq">GL = (Fs × Vn) / (Pd × Cf)</div>
+    <div class="formula-vars">
+      <div class="fv"><strong>Fs</strong> Flow Success Rate</div>
+      <div class="fv"><strong>Vn</strong> Strategic Value</div>
+      <div class="fv"><strong>Pd</strong> Pain Duration</div>
+      <div class="fv"><strong>Cf</strong> Cognitive Friction</div>
+    </div>
+  </div>
+  <div class="legend reveal">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div><span style="color:var(--muted)">Outstanding (GL 6+)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div><span style="color:var(--muted)">Excellent (GL 3–6)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--muted)"></div><span style="color:var(--muted)">Good (GL 1.5–3)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><span style="color:var(--muted)">Policy Violence (GL &lt;0.5)</span></div>
+  </div>
+</div></div>
+
+<div class="wrap">
+<div class="cases-grid reveal">
+
+  <a class="case-card" href="case-detail.html?c=finland">
+    <div class="case-card-top">
+      <div class="case-flag">🇫🇮</div>
+      <div class="gl-badge gl-excellent">GL 3.13 · Excellent</div>
+    </div>
+    <div class="case-country">Finland · Education</div>
+    <div class="case-title">Trust-Based Education System</div>
+    <div class="case-tags"><span class="tag">Education</span><span class="tag">Autonomy</span><span class="tag">Low Friction</span></div>
+    <div class="case-verdict">Minimal bureaucracy, maximum teacher autonomy — highest PISA scores with lowest administrative burden.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=rwanda">
+    <div class="case-card-top">
+      <div class="case-flag">🇷🇼</div>
+      <div class="gl-badge gl-excellent">GL 5.08 · Exceptional</div>
+    </div>
+    <div class="case-country">Rwanda · Healthcare</div>
+    <div class="case-title">Community Health Insurance at $4/Year</div>
+    <div class="case-tags"><span class="tag">Healthcare</span><span class="tag">Universal Coverage</span><span class="tag">Constraint-Driven</span></div>
+    <div class="case-verdict">Extreme resource constraints forced elegant simplicity. 37,000× better GL efficiency than USA healthcare.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=estonia">
+    <div class="case-card-top">
+      <div class="case-flag">🇪🇪</div>
+      <div class="gl-badge gl-outstanding">GL 10.54 · Outstanding*</div>
+    </div>
+    <div class="case-country">Estonia · Digital Governance</div>
+    <div class="case-title">World's Most Digitally Advanced State</div>
+    <div class="case-tags"><span class="tag">Digital ID</span><span class="tag">e-Government</span><span class="tag">Fragile Peak</span></div>
+    <div class="case-verdict">Peak GL=10.54 in normal operations. GL collapses to 0.0098 in 72-hour outage — outstanding but brittle.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=singapore">
+    <div class="case-card-top">
+      <div class="case-flag">🇸🇬</div>
+      <div class="gl-badge gl-violence">GL 0.020 · Policy Violence</div>
+    </div>
+    <div class="case-country">Singapore · Public Housing</div>
+    <div class="case-title">The Success Trap: HDB After 38 Years</div>
+    <div class="case-tags"><span class="tag">Housing</span><span class="tag">Complexity Trap</span><span class="tag">120hr Burden</span></div>
+    <div class="case-verdict">Initial GL 0.486 in 1985 → 0.020 in 2023. 38 years of "improvements" destroyed what worked.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=germany">
+    <div class="case-card-top">
+      <div class="case-flag">🇩🇪</div>
+      <div class="gl-badge gl-violence">GL 0.056 · Policy Violence</div>
+    </div>
+    <div class="case-country">Germany · Climate Policy</div>
+    <div class="case-title">Energiewende: Complexity Kills Transition</div>
+    <div class="case-tags"><span class="tag">Energy</span><span class="tag">Climate</span><span class="tag">28hr Permit Burden</span></div>
+    <div class="case-verdict">24 amendments to core law. Renewable permit takes 28 citizen hours. GL fell 83% in 32 years.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=newzealand">
+    <div class="case-card-top">
+      <div class="case-flag">🇳🇿</div>
+      <div class="gl-badge gl-violence">GL 0.013 · Policy Violence</div>
+    </div>
+    <div class="case-country">New Zealand · Social Policy</div>
+    <div class="case-title">Wellbeing Budget: Metric Madness</div>
+    <div class="case-tags"><span class="tag">Social Metrics</span><span class="tag">247 Indicators</span><span class="tag">Measurement Collapse</span></div>
+    <div class="case-verdict">247 new wellbeing indicators added in 4 years. GL of measurement system: 0.013. Lowest in nine cases.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=brazil">
+    <div class="case-card-top">
+      <div class="case-flag">🇧🇷</div>
+      <div class="gl-badge gl-good">GL 2.64 · Excellent</div>
+    </div>
+    <div class="case-country">Brazil · Social Protection</div>
+    <div class="case-title">Bolsa Família: Elegant Scale</div>
+    <div class="case-tags"><span class="tag">Cash Transfer</span><span class="tag">50M People</span><span class="tag">3.3hr/year Burden</span></div>
+    <div class="case-verdict">50 million beneficiaries, 3.3 hours citizen burden per year. US system imposes 5.6× more pain for same coverage.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=korea">
+    <div class="case-card-top">
+      <div class="case-flag">🇰🇷</div>
+      <div class="gl-badge gl-excellent">GL 4.12 · Excellent</div>
+    </div>
+    <div class="case-country">South Korea · Digital Identity</div>
+    <div class="case-title">High-Tech Resilience Without Fragility</div>
+    <div class="case-tags"><span class="tag">Digital ID</span><span class="tag">Analog Backup</span><span class="tag">Crisis-Proof</span></div>
+    <div class="case-verdict">189× better crisis GL than Estonia. Sacrifices 60% peak efficiency to maintain worst-case performance.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=uruguay">
+    <div class="case-card-top">
+      <div class="case-flag">🇺🇾</div>
+      <div class="gl-badge gl-outstanding">GL 6.24 · Outstanding</div>
+    </div>
+    <div class="case-country">Uruguay · Democratic Governance</div>
+    <div class="case-title">Digital Democracy: The Participation Paradox</div>
+    <div class="case-tags"><span class="tag">Digital Democracy</span><span class="tag">3.5M Population</span><span class="tag">Quality vs Efficiency</span></div>
+    <div class="case-verdict">Participation jumped to 12% — but efficiency without deliberation is not democracy. It is a survey.</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+</div><!-- /cases-grid -->
+</div><!-- /wrap -->
+</div><!-- /en -->
+
+<!-- ══════════ 繁體中文 ══════════ -->
+<div class="lb" data-lang="tw">
+<div class="hero"><div class="wrap">
+  <div class="eyebrow reveal">概念驗證</div>
+  <h1 class="hero-title reveal">九國國際<br>案例研究</h1>
+  <p class="hero-sub reveal">GL = (Fs × Vn) / (Pd × Cf) 跨教育、醫療、數位治理、住房、氣候與社會保護領域驗證——涵蓋 130 萬至 14 億人口規模。</p>
+  <div class="formula-bar reveal">
+    <div class="formula-eq">GL = (Fs × Vn) / (Pd × Cf)</div>
+    <div class="formula-vars">
+      <div class="fv"><strong>Fs</strong> 流程成功率</div>
+      <div class="fv"><strong>Vn</strong> 戰略價值</div>
+      <div class="fv"><strong>Pd</strong> 痛苦時長</div>
+      <div class="fv"><strong>Cf</strong> 認知摩擦</div>
+    </div>
+  </div>
+  <div class="legend reveal">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div><span style="color:var(--muted)">卓越 (GL 6+)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div><span style="color:var(--muted)">優良 (GL 3–6)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--muted)"></div><span style="color:var(--muted)">良好 (GL 1.5–3)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><span style="color:var(--muted)">政策暴力 (GL &lt;0.5)</span></div>
+  </div>
+</div></div>
+
+<div class="wrap">
+<div class="cases-grid reveal">
+
+  <a class="case-card" href="case-detail.html?c=finland">
+    <div class="case-card-top"><div class="case-flag">🇫🇮</div><div class="gl-badge gl-excellent">GL 3.13 · 優良</div></div>
+    <div class="case-country">芬蘭 · 教育</div>
+    <div class="case-title">信任型教育制度</div>
+    <div class="case-tags"><span class="tag">教育</span><span class="tag">自主性</span><span class="tag">低摩擦</span></div>
+    <div class="case-verdict">最低行政負擔、最高教師自主——PISA 成績全球頂尖。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=rwanda">
+    <div class="case-card-top"><div class="case-flag">🇷🇼</div><div class="gl-badge gl-excellent">GL 5.08 · 傑出</div></div>
+    <div class="case-country">盧安達 · 醫療</div>
+    <div class="case-title">每年 4 美元的社區健保</div>
+    <div class="case-tags"><span class="tag">醫療</span><span class="tag">全民覆蓋</span><span class="tag">約束驅動</span></div>
+    <div class="case-verdict">極端資源限制迫出優雅簡約。GL 效率是美國醫療的 37,000 倍。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=estonia">
+    <div class="case-card-top"><div class="case-flag">🇪🇪</div><div class="gl-badge gl-outstanding">GL 10.54 · 卓越*</div></div>
+    <div class="case-country">愛沙尼亞 · 數位治理</div>
+    <div class="case-title">全球最先進數位國家</div>
+    <div class="case-tags"><span class="tag">數位身分</span><span class="tag">電子政府</span><span class="tag">脆弱高峰</span></div>
+    <div class="case-verdict">正常運作 GL=10.54。72 小時斷線後崩至 0.0098——卓越卻脆弱。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=singapore">
+    <div class="case-card-top"><div class="case-flag">🇸🇬</div><div class="gl-badge gl-violence">GL 0.020 · 政策暴力</div></div>
+    <div class="case-country">新加坡 · 公共住房</div>
+    <div class="case-title">成功陷阱：38 年後的組屋</div>
+    <div class="case-tags"><span class="tag">住房</span><span class="tag">複雜性陷阱</span><span class="tag">120 小時負擔</span></div>
+    <div class="case-verdict">1985 年 GL 0.486 → 2023 年 0.020。38 年的「改善」摧毀了原本有效的設計。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=germany">
+    <div class="case-card-top"><div class="case-flag">🇩🇪</div><div class="gl-badge gl-violence">GL 0.056 · 政策暴力</div></div>
+    <div class="case-country">德國 · 氣候政策</div>
+    <div class="case-title">能源轉型：複雜性扼殺轉型</div>
+    <div class="case-tags"><span class="tag">能源</span><span class="tag">氣候</span><span class="tag">28 小時許可負擔</span></div>
+    <div class="case-verdict">核心法律 24 次修訂。再生能源申請需 28 小時。32 年間 GL 下降 83%。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=newzealand">
+    <div class="case-card-top"><div class="case-flag">🇳🇿</div><div class="gl-badge gl-violence">GL 0.013 · 政策暴力</div></div>
+    <div class="case-country">紐西蘭 · 社會政策</div>
+    <div class="case-title">幸福預算：指標瘋狂症</div>
+    <div class="case-tags"><span class="tag">社會指標</span><span class="tag">247 項指標</span><span class="tag">測量崩潰</span></div>
+    <div class="case-verdict">4 年內新增 247 項幸福指標。測量系統 GL：0.013。九個案例中最低。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=brazil">
+    <div class="case-card-top"><div class="case-flag">🇧🇷</div><div class="gl-badge gl-good">GL 2.64 · 優良</div></div>
+    <div class="case-country">巴西 · 社會保護</div>
+    <div class="case-title">家庭補助金：優雅的規模化</div>
+    <div class="case-tags"><span class="tag">現金轉移</span><span class="tag">5,000 萬人</span><span class="tag">每年 3.3 小時負擔</span></div>
+    <div class="case-verdict">5,000 萬受益者，每年公民負擔僅 3.3 小時。美國同規模系統施加 5.6 倍痛苦。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=korea">
+    <div class="case-card-top"><div class="case-flag">🇰🇷</div><div class="gl-badge gl-excellent">GL 4.12 · 優良</div></div>
+    <div class="case-country">南韓 · 數位身分</div>
+    <div class="case-title">高科技韌性，不以脆弱為代價</div>
+    <div class="case-tags"><span class="tag">數位身分</span><span class="tag">類比備援</span><span class="tag">危機不倒</span></div>
+    <div class="case-verdict">危機 GL 比愛沙尼亞高 189 倍。犧牲 60% 峰值效率，換取最壞情況的穩定表現。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=uruguay">
+    <div class="case-card-top"><div class="case-flag">🇺🇾</div><div class="gl-badge gl-outstanding">GL 6.24 · 卓越</div></div>
+    <div class="case-country">烏拉圭 · 民主治理</div>
+    <div class="case-title">數位民主：參與悖論</div>
+    <div class="case-tags"><span class="tag">數位民主</span><span class="tag">350 萬人</span><span class="tag">品質 vs 效率</span></div>
+    <div class="case-verdict">參與率躍升至 12%——但沒有審議的效率不是民主，而是問卷調查。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+</div></div>
+</div><!-- /tw -->
+
+<!-- ══════════ 简体中文 ══════════ -->
+<div class="lb" data-lang="cn">
+<div class="hero"><div class="wrap">
+  <div class="eyebrow reveal">概念验证</div>
+  <h1 class="hero-title reveal">九国国际<br>案例研究</h1>
+  <p class="hero-sub reveal">GL = (Fs × Vn) / (Pd × Cf) 跨教育、医疗、数字治理、住房、气候与社会保护领域验证——涵盖 130 万至 14 亿人口规模。</p>
+  <div class="formula-bar reveal">
+    <div class="formula-eq">GL = (Fs × Vn) / (Pd × Cf)</div>
+    <div class="formula-vars">
+      <div class="fv"><strong>Fs</strong> 流程成功率</div>
+      <div class="fv"><strong>Vn</strong> 战略价值</div>
+      <div class="fv"><strong>Pd</strong> 痛苦时长</div>
+      <div class="fv"><strong>Cf</strong> 认知摩擦</div>
+    </div>
+  </div>
+  <div class="legend reveal">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div><span style="color:var(--muted)">卓越 (GL 6+)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div><span style="color:var(--muted)">优良 (GL 3–6)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--muted)"></div><span style="color:var(--muted)">良好 (GL 1.5–3)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><span style="color:var(--muted)">政策暴力 (GL &lt;0.5)</span></div>
+  </div>
+</div></div>
+
+<div class="wrap">
+<div class="cases-grid reveal">
+
+  <a class="case-card" href="case-detail.html?c=finland">
+    <div class="case-card-top"><div class="case-flag">🇫🇮</div><div class="gl-badge gl-excellent">GL 3.13 · 优良</div></div>
+    <div class="case-country">芬兰 · 教育</div>
+    <div class="case-title">信任型教育制度</div>
+    <div class="case-tags"><span class="tag">教育</span><span class="tag">自主性</span><span class="tag">低摩擦</span></div>
+    <div class="case-verdict">最低行政负担、最高教师自主——PISA 成绩全球顶尖。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=rwanda">
+    <div class="case-card-top"><div class="case-flag">🇷🇼</div><div class="gl-badge gl-excellent">GL 5.08 · 杰出</div></div>
+    <div class="case-country">卢旺达 · 医疗</div>
+    <div class="case-title">每年 4 美元的社区健保</div>
+    <div class="case-tags"><span class="tag">医疗</span><span class="tag">全民覆盖</span><span class="tag">约束驱动</span></div>
+    <div class="case-verdict">极端资源限制迫出优雅简约。GL 效率是美国医疗的 37,000 倍。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=estonia">
+    <div class="case-card-top"><div class="case-flag">🇪🇪</div><div class="gl-badge gl-outstanding">GL 10.54 · 卓越*</div></div>
+    <div class="case-country">爱沙尼亚 · 数字治理</div>
+    <div class="case-title">全球最先进数字国家</div>
+    <div class="case-tags"><span class="tag">数字身份</span><span class="tag">电子政府</span><span class="tag">脆弱高峰</span></div>
+    <div class="case-verdict">正常运作 GL=10.54。72 小时断线后崩至 0.0098——卓越却脆弱。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=singapore">
+    <div class="case-card-top"><div class="case-flag">🇸🇬</div><div class="gl-badge gl-violence">GL 0.020 · 政策暴力</div></div>
+    <div class="case-country">新加坡 · 公共住房</div>
+    <div class="case-title">成功陷阱：38 年后的组屋</div>
+    <div class="case-tags"><span class="tag">住房</span><span class="tag">复杂性陷阱</span><span class="tag">120 小时负担</span></div>
+    <div class="case-verdict">1985 年 GL 0.486 → 2023 年 0.020。38 年的「改善」摧毁了原本有效的设计。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=germany">
+    <div class="case-card-top"><div class="case-flag">🇩🇪</div><div class="gl-badge gl-violence">GL 0.056 · 政策暴力</div></div>
+    <div class="case-country">德国 · 气候政策</div>
+    <div class="case-title">能源转型：复杂性扼杀转型</div>
+    <div class="case-tags"><span class="tag">能源</span><span class="tag">气候</span><span class="tag">28 小时许可负担</span></div>
+    <div class="case-verdict">核心法律 24 次修订。可再生能源申请需 28 小时。32 年间 GL 下降 83%。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=newzealand">
+    <div class="case-card-top"><div class="case-flag">🇳🇿</div><div class="gl-badge gl-violence">GL 0.013 · 政策暴力</div></div>
+    <div class="case-country">新西兰 · 社会政策</div>
+    <div class="case-title">幸福预算：指标疯狂症</div>
+    <div class="case-tags"><span class="tag">社会指标</span><span class="tag">247 项指标</span><span class="tag">测量崩溃</span></div>
+    <div class="case-verdict">4 年内新增 247 项幸福指标。测量系统 GL：0.013。九个案例中最低。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=brazil">
+    <div class="case-card-top"><div class="case-flag">🇧🇷</div><div class="gl-badge gl-good">GL 2.64 · 优良</div></div>
+    <div class="case-country">巴西 · 社会保护</div>
+    <div class="case-title">家庭补助金：优雅的规模化</div>
+    <div class="case-tags"><span class="tag">现金转移</span><span class="tag">5,000 万人</span><span class="tag">每年 3.3 小时负担</span></div>
+    <div class="case-verdict">5,000 万受益者，每年公民负担仅 3.3 小时。美国同规模系统施加 5.6 倍痛苦。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=korea">
+    <div class="case-card-top"><div class="case-flag">🇰🇷</div><div class="gl-badge gl-excellent">GL 4.12 · 优良</div></div>
+    <div class="case-country">韩国 · 数字身份</div>
+    <div class="case-title">高科技韧性，不以脆弱为代价</div>
+    <div class="case-tags"><span class="tag">数字身份</span><span class="tag">模拟备援</span><span class="tag">危机不倒</span></div>
+    <div class="case-verdict">危机 GL 比爱沙尼亚高 189 倍。牺牲 60% 峰值效率，换取最坏情况的稳定表现。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+  <a class="case-card" href="case-detail.html?c=uruguay">
+    <div class="case-card-top"><div class="case-flag">🇺🇾</div><div class="gl-badge gl-outstanding">GL 6.24 · 卓越</div></div>
+    <div class="case-country">乌拉圭 · 民主治理</div>
+    <div class="case-title">数字民主：参与悖论</div>
+    <div class="case-tags"><span class="tag">数字民主</span><span class="tag">350 万人</span><span class="tag">质量 vs 效率</span></div>
+    <div class="case-verdict">参与率跃升至 12%——但没有审议的效率不是民主，而是问卷调查。</div>
+    <div class="case-arrow">→</div>
+  </a>
+
+</div></div>
+</div><!-- /cn -->
+
+<footer>
+  <span>© 2026 GFI Flow Intelligence · Boston</span>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">Founder</a>
+    <a href="https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00" target="_blank" rel="noopener">Start Verification</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang,btn){
+  document.querySelectorAll('.lb').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('.lb[data-lang="'+lang+'"]').forEach(el=>el.classList.add('on'));
+  document.querySelectorAll('.lb-btn').forEach(b=>{
+    b.classList.toggle('on',b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+lang+"'"));
+  });
+  closeDrawer();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleDrawer(){
+  document.getElementById('ham').classList.toggle('open');
+  document.getElementById('drawer').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('ham').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+}
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')}),{threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
