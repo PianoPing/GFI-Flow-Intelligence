@@ -253,9 +253,9 @@ footer a:hover{color:var(--text)}
     <a href="about.html">Founder</a>
     <a href="ghost-gdp.html">Ghost GDP</a>
     <div class="lang-grp">
-      <button class="lb-btn on"  onclick="setLang('en',this)">EN</button>
-      <button class="lb-btn"     onclick="setLang('tw',this)">繁</button>
-      <button class="lb-btn"     onclick="setLang('cn',this)">简</button>
+      <button class="lb-btn on"  data-lang="en" onclick="setLang('en',this)">EN</button>
+      <button class="lb-btn"     data-lang="tw" onclick="setLang('tw',this)">繁</button>
+      <button class="lb-btn"     data-lang="cn" onclick="setLang('cn',this)">简</button>
     </div>
     <a href="https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00" class="nav-cta" target="_blank" rel="noopener">Start Verification</a>
   </nav>
@@ -266,9 +266,9 @@ footer a:hover{color:var(--text)}
 
 <div class="mobile-lang">
   <span style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin-right:4px">Lang</span>
-  <button class="lb-btn on"  onclick="setLang('en',this)">EN</button>
-  <button class="lb-btn"     onclick="setLang('tw',this)">繁</button>
-  <button class="lb-btn"     onclick="setLang('cn',this)">简</button>
+  <button class="lb-btn on"  data-lang="en" onclick="setLang('en',this)">EN</button>
+  <button class="lb-btn"     data-lang="tw" onclick="setLang('tw',this)">繁</button>
+  <button class="lb-btn"     data-lang="cn" onclick="setLang('cn',this)">简</button>
 </div>
 
 <div class="drawer" id="drawer">
@@ -280,9 +280,9 @@ footer a:hover{color:var(--text)}
   <a href="#pricing"    onclick="navTo('pricing',event);closeDrawer()">Pricing</a>
   <a href="about.html"  onclick="closeDrawer()">Founder</a>
   <div class="drawer-lang">
-    <button class="lb-btn on" onclick="setLang('en',this)">EN</button>
-    <button class="lb-btn"    onclick="setLang('tw',this)">繁</button>
-    <button class="lb-btn"    onclick="setLang('cn',this)">简</button>
+    <button class="lb-btn on" data-lang="en" onclick="setLang('en',this)">EN</button>
+    <button class="lb-btn"    data-lang="tw" onclick="setLang('tw',this)">繁</button>
+    <button class="lb-btn"    data-lang="cn" onclick="setLang('cn',this)">简</button>
   </div>
   <a href="https://buy.stripe.com/8x25kFbp0dM4gQl0fB3VC00" class="drawer-cta" target="_blank" rel="noopener" onclick="closeDrawer()">Start Verification →</a>
 </div>
@@ -973,7 +973,7 @@ function setLang(lang,btn){
   document.querySelectorAll('.lb').forEach(el=>el.classList.remove('on'));
   document.querySelectorAll('.lb[data-lang="'+lang+'"]').forEach(el=>el.classList.add('on'));
   document.querySelectorAll('.lb-btn').forEach(b=>{
-    b.classList.toggle('on', b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+lang+"'"));
+    b.classList.toggle('on', b.getAttribute('data-lang') === lang);
   });
   closeDrawer();
   window.scrollTo({top:0,behavior:'smooth'});
