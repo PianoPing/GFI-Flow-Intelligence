@@ -1081,73 +1081,18 @@ function selectOptLang(btn, lang, qIdx, val) {
   if (nextBtn) nextBtn.disabled = false;
 }
 function nextStepLang(lang, idx) {
-  document.querySelectorAll('#qs-wrap-' + lang + ' .qs-step').forEach(s => s.classList.remove('active'));
-  document.getElementById(lang + '-qs-' + idx).classList.add('active');
-  updateDots(lang, idx);
-}
-function prevStepLang(lang, idx) {
-  document.querySelectorAll('#qs-wrap-' + lang + ' .qs-step').forEach(s => s.classList.remove('active'));
-  document.getElementById(lang + '-qs-' + idx).classList.add('active');
-  updateDots(lang, idx);
+    document.querySelectorAll('#qs-wrap-' + lang + ' .qs-step').forEach(s => s.classList.remove('active'));
 }
 
-function calcResultLang(lang) {
-  const a = answersLang[lang];
-  const fs = a[0], vn = a[1], pd = a[2], cf = a[3];
-  if (!fs || !vn || !pd || !cf) return;
-  const gl = (fs * vn) / (pd * cf);
-  const glRounded = Math.round(gl * 100) / 100;
-  const frictionPct = Math.min(Math.round((pd * cf) / ((fs * vn) + (pd * cf)) * 100), 99);
-
-  const scoreEl   = document.getElementById(lang + '-qs-score');
-  const verdictEl = document.getElementById(lang + '-qs-verdict');
-  const findingEl = document.getElementById(lang + '-qs-finding');
-  scoreEl.textContent = glRounded;
-
-  let ghostEl = document.getElementById(lang + '-qs-ghost');
-  if (!ghostEl) {
-    ghostEl = document.createElement('div');
-    ghostEl.id = lang + '-qs-ghost';
-    ghostEl.style.cssText = 'font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--dim);margin-bottom:20px;padding:10px 16px;border:1px solid var(--border);border-radius:6px;display:inline-block';
-    verdictEl.parentNode.insertBefore(ghostEl, verdictEl.nextSibling);
-  }
-
-  if (lang === 'tw') {
-    if (gl >= 1.5) {
-      scoreEl.className = 'qs-gl-display hi';
-      verdictEl.textContent = '您的流程結構健全。';
-      ghostEl.innerHTML = '結構摩擦約佔流程產能的 <strong style="color:var(--accent)">' + frictionPct + '%</strong>——在可接受範圍內。';
-      findingEl.textContent = 'GL 高於 1.5 表示您的自動化投資正在產生真實效率。相對於摩擦，流動速度良好。完整診斷可確認這是否在所有流程層均成立，或是否有特定子流程正在拉低分數。';
-    } else if (gl >= 0.5) {
-      scoreEl.className = 'qs-gl-display mid';
-      verdictEl.textContent = '警告：您的分母正在累積。';
-      ghostEl.innerHTML = '結構摩擦約佔流程產能的 <strong style="color:#ffb347">' + frictionPct + '%</strong>——價值正在流失。';
-      findingEl.textContent = 'GL 介於 0.5 至 1.5 之間，表示摩擦正在吸收您自動化投資的相當大比例。流程仍在運作，但效率不足。返工、例外處理和手動介入的成本遠超出任何單一報告所呈現的數字。GL 測量的正是損益表看不到的分母成本——那條永遠不會出現的費用明細。';
-    } else {
-      scoreEl.className = 'qs-gl-display lo';
-      verdictEl.textContent = 'AI 正在加速您的錯誤，而非消除它們。';
-      ghostEl.innerHTML = '結構摩擦約佔流程產能的 <strong style="color:#ff6b6b">' + frictionPct + '%</strong>——這是幽靈 GDP 的典型症狀。';
-      findingEl.textContent = 'GL 低於 0.5 是組織層面「AI 烤腦症」的特徵信號。針對 1,500 名全職工作者的研究顯示，密集導入 AI 與重大失誤率上升 39%、離職率飆升 40% 高度相關——不是因為 AI 本身有問題，而是將自動化套用在結構未對齊的流程上，只會加速摩擦，而非消除它。您的團隊已從創造者變成錯誤偵測員，認知負荷正在複利累積。這就是幽靈 GDP：帳面上記錄為產出，卻沒有創造任何真實資本價值的活動。完整 GL 診斷將精確定位您的分母在哪裡膨脹，以及每季正在損耗多少資本。';
-    }
-  } else {
-    // cn
-    if (gl >= 1.5) {
-      scoreEl.className = 'qs-gl-display hi';
-      verdictEl.textContent = '您的流程结构健全。';
-      ghostEl.innerHTML = '结构摩擦约占流程产能的 <strong style="color:var(--accent)">' + frictionPct + '%</strong>——在可接受范围内。';
-      findingEl.textContent = 'GL 高于 1.5 表示您的自动化投资正在产生真实效率。相对于摩擦，流动速度良好。完整诊断可确认这是否在所有流程层均成立，或是否有特定子流程正在拉低分数。';
-    } else if (gl >= 0.5) {
-      scoreEl.className = 'qs-gl-display mid';
-      verdictEl.textContent = '警告：您的分母正在累积。';
-      ghostEl.innerHTML = '结构摩擦约占流程产能的 <strong style="color:#ffb347">' + frictionPct + '%</strong>——价值正在流失。';
-      findingEl.textContent = 'GL 介于 0.5 至 1.5 之间，表示摩擦正在吸收您自动化投资的相当大比例。流程仍在运作，但效率不足。返工、例外处理和手动介入的成本远超出任何单一报告所呈现的数字。GL 测量的正是损益表看不到的分母成本——那条永远不会出现的费用明细。';
-    } else {
-      scoreEl.className = 'qs-gl-display lo';
-      verdictEl.textContent = 'AI 正在加速您的错误，而非消除它们。';
-      ghostEl.innerHTML = '结构摩擦约占流程产能的 <strong style="color:#ff6b6b">' + frictionPct + '%</strong>——这是幽灵 GDP 的典型症状。';
-      findingEl.textContent = 'GL 低于 0.5 是组织层面"AI 烤脑症"的特征信号。针对 1,500 名全职工作者的研究显示，密集导入 AI 与重大失误率上升 39%、离职率飙升 40% 高度相关——不是因为 AI 本身有问题，而是将自动化套用在结构未对齐的流程上，只会加速摩擦，而非消除它。您的团队已从创造者变成错误侦测员，认知负荷正在复利累积。这就是幽灵 GDP：账面上记录为产出，却没有创造任何真实资本价值的活动。完整 GL 诊断将精确定位您的分母在哪里膨胀，以及每季正在损耗多少资本。';
-    }
-  }
-
-  document.getElementById(lang + '-qs-result').classList.add('show');
-  document.querySelectorAll('#qs-wrap-' + lang + ' .qs-step').forEach(s =
+function resetScanLang(lang) {
+  answersLang[lang].fill(null);
+  document.getElementById(lang + '-qs-result').classList.remove('show');
+  const ghost = document.getElementById(lang + '-qs-ghost');
+  if (ghost) ghost.remove();
+  document.querySelectorAll('#qs-wrap-' + lang + ' .qs-opt').forEach(b => b.classList.remove('selected'));
+  [0,1,2,3].forEach(i => { const b = document.getElementById(lang + '-next-' + i); if(b) b.disabled = true; });
+  nextStepLang(lang, 0);
+}
+</script>
+</body>
+</html>
