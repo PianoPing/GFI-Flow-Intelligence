@@ -41,7 +41,6 @@ nav a.active{color:var(--accent)}
 .drawer-cta{display:block;text-align:center;padding:16px;background:var(--accent);color:#0d1117;font-weight:600;font-size:16px;border-radius:8px;text-decoration:none;margin-top:16px;border-bottom:none!important}
 @media(max-width:768px){.hero{padding-top:60px}}
 
-
 .wrap{max-width:1060px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
 section{padding:clamp(60px,10vh,110px) 0}
 section.band{background:var(--surf);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -58,6 +57,14 @@ section.band{background:var(--surf);border-top:1px solid var(--border);border-bo
 
 /* PULL QUOTE */
 .pull{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.3vw,24px);color:var(--text);line-height:1.5;border-left:3px solid var(--accent);padding-left:22px;margin:clamp(24px,4vh,40px) 0}
+
+/* VIDEO SECTION */
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#0d1117;border:1px solid var(--border);margin-top:clamp(28px,4vh,44px)}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-meta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:18px}
+.video-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.video-title{font-family:var(--serif);font-size:clamp(17px,2.2vw,22px);color:var(--text);line-height:1.3;margin-top:6px}
+.video-desc{font-size:clamp(14px,1.7vw,16px);color:var(--muted);line-height:1.8;margin-top:10px;max-width:720px}
 
 /* DIAGNOSIS CARDS */
 .diag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:clamp(28px,5vh,48px)}
@@ -186,7 +193,7 @@ footer a:hover{color:var(--text)}
     <a href="government.html" class="active">Public Sector</a>
     <a href="index.html#pricing">Private Sector</a>
     <a href="about.html">Founder</a>
-    <a href="/cdn-cgi/l/email-protection#5631303f1631303f3f3822333a7835393b" class="nav-cta">Contact</a>
+    <a href="mailto:gfi@gfiintel.com" class="nav-cta">Contact</a>
   </nav>
   <button class="ham" id="ham" aria-label="Menu" onclick="toggleDrawer()">
     <span></span><span></span><span></span>
@@ -198,9 +205,8 @@ footer a:hover{color:var(--text)}
   <a href="government.html" onclick="closeDrawer()">Public Sector</a>
   <a href="index.html#pricing" onclick="closeDrawer()">Private Sector</a>
   <a href="about.html" onclick="closeDrawer()">Founder</a>
-  <a href="/cdn-cgi/l/email-protection#5a3d3c331a3d3c3333342e3f3674393537" class="drawer-cta" onclick="closeDrawer()">Contact →</a>
+  <a href="mailto:gfi@gfiintel.com" class="drawer-cta" onclick="closeDrawer()">Contact →</a>
 </div>
-
 
 <div class="hero">
   <div class="hero-grid"></div><div class="hero-glow"></div>
@@ -209,7 +215,7 @@ footer a:hover{color:var(--text)}
     <h1>GL measures how well<br>a system <em>delivers its purpose.</em></h1>
     <p class="hero-sub">GL applies a structural efficiency formula to publicly available government data — producing cross-jurisdictional measurements that individual offices are not positioned to generate.</p>
     <div class="btn-row" style="opacity:0;animation:up .6s .45s forwards">
-      <a href="/cdn-cgi/l/email-protection#7e1918173e19181717100a1b12501d1113" class="btn-solid">Get in Touch →</a>
+      <a href="mailto:gfi@gfiintel.com" class="btn-solid">Get in Touch →</a>
       <a href="about.html" class="btn-ghost">About the Researcher</a>
     </div>
   </div>
@@ -242,8 +248,32 @@ footer a:hover{color:var(--text)}
   </div>
 </section>
 
-<!-- PUBLICATION -->
+<!-- VIDEO — THE LAST POVERTY SOLUTION -->
 <section>
+  <div class="wrap">
+    <div class="eyebrow reveal">Author's Note</div>
+    <h2 class="stitle reveal">The Solution to Poverty Isn't More Money — It's Better Architecture</h2>
+    <p class="slead reveal">The intellectual foundation behind the GL Framework: why poverty persists not from lack of resources, but from failure of institutional design.</p>
+    <div class="video-wrap reveal">
+      <iframe
+        src="https://www.youtube.com/embed/qVEiNxun4XM"
+        title="The Last Poverty Solution — Ping Xu, GFI Flow Intelligence"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="video-desc reveal" style="margin-top:20px">
+      A new design for humanitarian financing — the GCSF Engine and GCV delivery architecture — that shifts the focus from reactive resource allocation to systemic resilience. Published on SSRN: <em>The Last Poverty Solution</em>.
+    </div>
+    <div class="btn-row reveal">
+      <a href="https://ssrn.com/abstract=6050695" class="btn-solid" target="_blank" rel="noopener">Read on SSRN →</a>
+      <a href="about.html" class="btn-ghost">About the Author</a>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section class="band">
   <div class="wrap">
     <div class="eyebrow reveal">Publication</div>
     <h2 class="stitle reveal">The Denominator Problem</h2>
@@ -252,13 +282,13 @@ footer a:hover{color:var(--text)}
       <div class="article-title">The Denominator Problem: Structural Efficiency Measurement in Public Administrative Systems</div>
       <p class="article-desc">Forthcoming March 13, 2026. This article introduces the GL Framework's application to public administrative systems — arguing that institutional failure is not a resource problem but a denominator design problem.</p>
       <div class="article-meta">PA Times · March 2026 · Ping Xu, GFI Flow Intelligence</div>
-      <a href="/cdn-cgi/l/email-protection#0c6b6a654c6b6a656562786960226f6361" class="btn-solid">Request Pre-Publication Copy →</a>
+      <a href="mailto:gfi@gfiintel.com" class="btn-solid">Request Pre-Publication Copy →</a>
     </div>
   </div>
 </section>
 
 <!-- GL VALIDATION -->
-<section class="band">
+<section>
   <div class="wrap">
     <div class="eyebrow reveal">Framework Validation</div>
     <h2 class="stitle reveal">GL Applied Across 18 Systems · 14 Countries</h2>
@@ -267,7 +297,7 @@ footer a:hover{color:var(--text)}
 
     <div class="val-grid reveal">
 
-      <!-- 1 -->
+      <!-- 1 Rwanda -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇷🇼</div><div class="val-country">Rwanda</div><div class="val-policy">Mutuelle de Santé — Community Health Insurance</div><div class="val-domain">Healthcare</div></div>
@@ -281,7 +311,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 2 -->
+      <!-- 2 Brazil -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇧🇷</div><div class="val-country">Brazil</div><div class="val-policy">Bolsa Família — Conditional Cash Transfer</div><div class="val-domain">Social Welfare</div></div>
@@ -295,7 +325,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 3 -->
+      <!-- 3 Uruguay -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇺🇾</div><div class="val-country">Uruguay</div><div class="val-policy">Digital Democracy Portal — Citizen Participation</div><div class="val-domain">Digital Government</div></div>
@@ -309,7 +339,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 4 -->
+      <!-- 4 Finland -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇫🇮</div><div class="val-country">Finland</div><div class="val-policy">National Education System — PISA Top Performer</div><div class="val-domain">Education</div></div>
@@ -323,7 +353,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 5 -->
+      <!-- 5 Estonia -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇪🇪</div><div class="val-country">Estonia</div><div class="val-policy">Digital Citizenship — e-Government Infrastructure</div><div class="val-domain">Digital Government</div></div>
@@ -337,7 +367,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 6 -->
+      <!-- 6 Singapore -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇸🇬</div><div class="val-country">Singapore</div><div class="val-policy">Public Housing (HDB) — National Housing Program</div><div class="val-domain">Housing Policy</div></div>
@@ -351,7 +381,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 7 -->
+      <!-- 7 South Korea -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇰🇷</div><div class="val-country">South Korea</div><div class="val-policy">Digital Government 24 — Integrated Public Services</div><div class="val-domain">Digital Government</div></div>
@@ -365,7 +395,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 8 -->
+      <!-- 8 South Africa -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇿🇦</div><div class="val-country">South Africa</div><div class="val-policy">Social Grant System — SASSA Payment Infrastructure</div><div class="val-domain">Social Welfare</div></div>
@@ -379,7 +409,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 9 -->
+      <!-- 9 New Zealand -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇳🇿</div><div class="val-country">New Zealand</div><div class="val-policy">Wellbeing Budget — Multi-Indicator Governance Framework</div><div class="val-domain">Budget / Policy Design</div></div>
@@ -393,7 +423,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 10 -->
+      <!-- 10 USA -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇺🇸</div><div class="val-country">United States</div><div class="val-policy">Public Service Loan Forgiveness (PSLF)</div><div class="val-domain">Education / Welfare</div></div>
@@ -407,7 +437,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 11 -->
+      <!-- 11 UK -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇬🇧</div><div class="val-country">United Kingdom</div><div class="val-policy">Universal Credit — Welfare Consolidation Program</div><div class="val-domain">Social Welfare</div></div>
@@ -421,7 +451,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 12 -->
+      <!-- 12 Australia -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇦🇺</div><div class="val-country">Australia</div><div class="val-policy">Flood Relief Grant System — Disaster Recovery</div><div class="val-domain">Emergency Welfare</div></div>
@@ -435,7 +465,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 13 -->
+      <!-- 13 Taiwan -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇹🇼</div><div class="val-country">Taiwan</div><div class="val-policy">COVID-19 Vaccine Booking Platform</div><div class="val-domain">Public Health / Digital</div></div>
@@ -449,7 +479,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 14 -->
+      <!-- 14 India -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇮🇳</div><div class="val-country">India</div><div class="val-policy">Demonetization — Overnight Currency Invalidation</div><div class="val-domain">Monetary Policy</div></div>
@@ -463,7 +493,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 15 -->
+      <!-- 15 Germany -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇩🇪</div><div class="val-country">Germany</div><div class="val-policy">Energiewende — National Energy Transition</div><div class="val-domain">Climate / Energy Policy</div></div>
@@ -477,7 +507,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 16 -->
+      <!-- 16 EU GDPR -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇪🇺</div><div class="val-country">European Union</div><div class="val-policy">GDPR — General Data Protection Regulation</div><div class="val-domain">Data Privacy / Regulation</div></div>
@@ -491,7 +521,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 17 -->
+      <!-- 17 Japan -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇯🇵</div><div class="val-country">Japan</div><div class="val-policy">MyNumber Card — National Digital Identity</div><div class="val-domain">Digital Government</div></div>
@@ -505,7 +535,7 @@ footer a:hover{color:var(--text)}
         </div></div>
       </div>
 
-      <!-- 18 -->
+      <!-- 18 Canada -->
       <div class="val-card" onclick="toggleVal(this)">
         <div class="val-head">
           <div><div class="val-flag">🇨🇦</div><div class="val-country">Canada</div><div class="val-policy">Passport Renewal System — Planned Wait Collapse</div><div class="val-domain">Identity / Public Administration</div></div>
@@ -524,7 +554,7 @@ footer a:hover{color:var(--text)}
 </section>
 
 <!-- REQUEST VERIFICATION -->
-<section id="request">
+<section id="request" class="band">
   <div class="wrap">
     <div class="eyebrow reveal">Research Inquiry</div>
     <h2 class="stitle reveal">A brief conversation.<br>No procurement required.<br>No obligation.</h2>
@@ -556,21 +586,20 @@ footer a:hover{color:var(--text)}
 
     <div class="request-cta-block reveal">
       <div class="request-cta-note">No payment. No vendor registration. No RFP.</div>
-      <a href="/cdn-cgi/l/email-protection#c5a2a3ac85a2a3acacabb1a0a9eba6aaa8" class="btn-solid" style="font-size:clamp(15px,1.8vw,17px);padding:clamp(15px,2.2vh,18px) clamp(28px,3.5vw,40px)">
+      <a href="mailto:gfi@gfiintel.com" class="btn-solid" style="font-size:clamp(15px,1.8vw,17px);padding:clamp(15px,2.2vh,18px) clamp(28px,3.5vw,40px)">
         Send a Research Inquiry →
       </a>
-      <div class="request-cta-sub">Opens your email client · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0463626d4463626d6d6a7061682a676b69">[email&#160;protected]</a></div>
+      <div class="request-cta-sub">gfi@gfiintel.com</div>
     </div>
   </div>
 </section>
-
 
 <footer>
   <span>© 2026 GFI Flow Intelligence · Boston</span>
   <div class="footer-links">
     <a href="index.html">Home</a>
     <a href="about.html">Founder</a>
-    <a href="/cdn-cgi/l/email-protection#4f2829260f28292626213b2a23612c2022">Contact</a>
+    <a href="mailto:gfi@gfiintel.com">Contact</a>
   </div>
 </footer>
 
