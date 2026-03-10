@@ -108,7 +108,9 @@ h2.stitle{font-family:var(--serif);font-size:clamp(22px,3.2vw,36px);line-height:
 
 /* ARTICLE HIGHLIGHT */
 .article-card{background:var(--surf);border:1px solid rgba(200,245,66,.18);border-radius:10px;padding:clamp(22px,3vw,36px);margin-top:clamp(28px,5vh,48px);display:flex;flex-direction:column;gap:14px}
+.article-card + .article-card{margin-top:clamp(16px,2vh,24px)}
 .article-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.article-tag.forthcoming{color:var(--blue)}
 .article-title{font-family:var(--serif);font-size:clamp(18px,2.5vw,28px);color:var(--text);line-height:1.3}
 .article-desc{font-size:clamp(15px,1.8vw,17px);color:var(--muted);line-height:1.75;max-width:640px}
 .article-meta{font-family:var(--mono);font-size:12px;color:var(--dim)}
@@ -275,15 +277,27 @@ footer a:hover{color:var(--text)}
 <!-- PUBLICATION -->
 <section class="band">
   <div class="wrap">
-    <div class="eyebrow reveal">Publication</div>
-    <h2 class="stitle reveal">The Denominator Problem</h2>
+    <div class="eyebrow reveal">Publications</div>
+    <h2 class="stitle reveal">PA Times · Public Administration Review</h2>
+
+    <!-- Article 1 -->
     <div class="article-card reveal">
-      <div class="article-tag">PA Times · Public Administration Review</div>
+      <div class="article-tag">PA Times · March 13, 2026</div>
       <div class="article-title">The Denominator Problem: Structural Efficiency Measurement in Public Administrative Systems</div>
-      <p class="article-desc">Forthcoming March 13, 2026. This article introduces the GL Framework's application to public administrative systems — arguing that institutional failure is not a resource problem but a denominator design problem.</p>
-      <div class="article-meta">PA Times · March 2026 · Ping Xu, GFI Flow Intelligence</div>
-      <a href="mailto:gfi@gfiintel.com" class="btn-solid">Request Pre-Publication Copy →</a>
+      <p class="article-desc">This article introduces the GL Framework's application to public administrative systems — arguing that institutional failure is not a resource problem but a denominator design problem.</p>
+      <div class="article-meta">Ping Xu, GFI Flow Intelligence</div>
+      <a href="mailto:gfi@gfiintel.com" class="btn-solid">Request Copy →</a>
     </div>
+
+    <!-- Article 2 -->
+    <div class="article-card reveal" style="border-color:rgba(77,163,255,.18)">
+      <div class="article-tag forthcoming">PA Times · April 3, 2026 · Forthcoming</div>
+      <div class="article-title">Proportional Sequencing in Long-Term Care: A Process Design Approach for U.S. HCBS</div>
+      <p class="article-desc">As states expand Medicaid Home- and Community-Based Services, access challenges often arise not from policy intent but from process sequencing. This article proposes a three-stage model that reorders safeguards — shifting comprehensive review from a precondition of access to a calibration mechanism — reducing entry friction without removing oversight.</p>
+      <div class="article-meta">Ping Xu, GFI Flow Intelligence</div>
+      <a href="mailto:gfi@gfiintel.com" class="btn-ghost">Request Pre-Publication Copy →</a>
+    </div>
+
   </div>
 </section>
 
