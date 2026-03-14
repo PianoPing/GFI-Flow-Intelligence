@@ -120,6 +120,13 @@ h2.stitle{font-family:var(--serif);font-size:clamp(22px,3.2vw,36px);line-height:
 .btn-ghost:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
 .btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(20px,3vh,32px)}
 
+/* DEMO BLOCK */
+.demo-panel{background:var(--surf);border:1px solid rgba(200,245,66,.18);border-radius:10px;padding:clamp(24px,3vw,36px);margin-top:clamp(28px,5vh,48px)}
+.demo-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.demo-title{font-family:var(--serif);font-size:clamp(18px,2.4vw,30px);line-height:1.25;margin-bottom:12px}
+.demo-desc{font-size:clamp(15px,1.8vw,17px);color:var(--muted);line-height:1.8;max-width:760px}
+.demo-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
 /* CONTACT */
 .contact-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(28px,5vh,44px)}
 .cl{display:inline-flex;align-items:center;gap:8px;padding:clamp(12px,1.8vh,14px) clamp(20px,2.5vw,28px);border:1px solid var(--border);border-radius:8px;color:var(--muted);text-decoration:none;font-size:clamp(14px,1.8vw,15px);transition:all .2s}
@@ -193,7 +200,8 @@ footer a:hover{color:var(--text)}
   <nav>
     <a href="index.html">Home</a>
     <a href="government.html" class="active">Public Sector</a>
-    <a href="index.html#pricing">Private Sector</a>
+    <a href="enterprise.html">Private Sector</a>
+    <a href="gl-framework-demo.html">GL Demo</a>
     <a href="about.html">Founder</a>
     <a href="mailto:gfi@gfiintel.com" class="nav-cta">Contact</a>
   </nav>
@@ -205,7 +213,8 @@ footer a:hover{color:var(--text)}
 <div class="drawer" id="drawer">
   <a href="index.html" onclick="closeDrawer()">Home</a>
   <a href="government.html" onclick="closeDrawer()">Public Sector</a>
-  <a href="index.html#pricing" onclick="closeDrawer()">Private Sector</a>
+  <a href="enterprise.html" onclick="closeDrawer()">Private Sector</a>
+  <a href="gl-framework-demo.html" onclick="closeDrawer()">GL Demo</a>
   <a href="about.html" onclick="closeDrawer()">Founder</a>
   <a href="mailto:gfi@gfiintel.com" class="drawer-cta" onclick="closeDrawer()">Contact →</a>
 </div>
@@ -217,7 +226,8 @@ footer a:hover{color:var(--text)}
     <h1>GL measures how well<br>a system <em>delivers its purpose.</em></h1>
     <p class="hero-sub">GL applies a structural efficiency formula to publicly available government data — producing cross-jurisdictional measurements that individual offices are not positioned to generate.</p>
     <div class="btn-row" style="opacity:0;animation:up .6s .45s forwards">
-      <a href="mailto:gfi@gfiintel.com" class="btn-solid">Get in Touch →</a>
+      <a href="gl-framework-demo.html" class="btn-solid">Launch GL Demo →</a>
+      <a href="mailto:gfi@gfiintel.com" class="btn-ghost">Get in Touch</a>
       <a href="about.html" class="btn-ghost">About the Researcher</a>
     </div>
   </div>
@@ -277,6 +287,22 @@ footer a:hover{color:var(--text)}
   </div>
 </section>
 
+<!-- DEMO SECTION -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal">Interactive Demonstration</div>
+    <div class="demo-panel reveal">
+      <div class="demo-kicker">GL Framework Demo</div>
+      <h2 class="demo-title">Explore the diagnostic engine directly.</h2>
+      <p class="demo-desc">The GL demo shows how structural efficiency is measured across process variables, sensitivity ranges, score zones, governance scorecards, friction maps, policy simulation, and ghost cost estimation. This is a public-facing demonstration environment built to explain the framework clearly.</p>
+      <div class="demo-actions">
+        <a href="gl-framework-demo.html" class="btn-solid">Open GL Demo →</a>
+        <a href="mailto:gfi@gfiintel.com" class="btn-ghost">Request a guided walkthrough</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- VIDEO — THE LAST POVERTY SOLUTION -->
 <section>
   <div class="wrap">
@@ -296,6 +322,7 @@ footer a:hover{color:var(--text)}
     </div>
     <div class="btn-row reveal">
       <a href="https://ssrn.com/abstract=6050695" class="btn-solid" target="_blank" rel="noopener">Read on SSRN →</a>
+      <a href="gl-framework-demo.html" class="btn-ghost">Try GL Demo</a>
       <a href="about.html" class="btn-ghost">About the Author</a>
     </div>
   </div>
@@ -661,6 +688,15 @@ footer a:hover{color:var(--text)}
       </div>
     </div>
 
+    <div class="demo-panel reveal">
+      <div class="demo-kicker">Before you write</div>
+      <h2 class="demo-title">You can explore the public demonstration first.</h2>
+      <p class="demo-desc">The demo provides a direct look at how the GL Framework translates structural variables into diagnosis, score ranges, bottleneck ranking, simulation, and ghost cost estimation.</p>
+      <div class="demo-actions">
+        <a href="gl-framework-demo.html" class="btn-solid">Open GL Demo →</a>
+      </div>
+    </div>
+
     <div class="request-cta-block reveal">
       <div class="request-cta-note">No payment. No vendor registration. No RFP.</div>
       <a href="mailto:gfi@gfiintel.com" class="btn-solid" style="font-size:clamp(15px,1.8vw,17px);padding:clamp(15px,2.2vh,18px) clamp(28px,3.5vw,40px)">
@@ -675,6 +711,8 @@ footer a:hover{color:var(--text)}
   <span>© 2026 GFI Flow Intelligence · Boston</span>
   <div class="footer-links">
     <a href="index.html">Home</a>
+    <a href="enterprise.html">Private Sector</a>
+    <a href="gl-framework-demo.html">GL Demo</a>
     <a href="about.html">Founder</a>
     <a href="mailto:gfi@gfiintel.com">Contact</a>
   </div>
