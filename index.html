@@ -188,7 +188,7 @@ main{
 .research-strip{
   width:100%;
   max-width:860px;
-  margin:0 auto 42px;
+  margin:0 auto 28px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -251,6 +251,38 @@ main{
   border-color:rgba(159,232,112,.38);
   box-shadow:0 12px 28px rgba(0,0,0,.22);
   background:linear-gradient(180deg, rgba(159,232,112,.18), rgba(159,232,112,.10));
+}
+
+.exec-bridge{
+  width:100%;
+  max-width:920px;
+  margin:0 auto 42px;
+  padding:24px 26px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  box-shadow:0 12px 32px rgba(0,0,0,.18);
+  text-align:center;
+  opacity:0;
+  animation:up .58s .38s forwards;
+}
+
+.exec-lines{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.exec-line{
+  font-size:clamp(18px,2.1vw,24px);
+  line-height:1.65;
+  color:#EAF1FA;
+}
+
+.exec-line strong{
+  color:#FFFFFF;
+  font-weight:500;
 }
 
 .gate-cards{
@@ -469,7 +501,7 @@ main{
   }
 
   .research-strip{
-    margin-bottom:34px;
+    margin-bottom:24px;
   }
 
   .research-note{
@@ -479,6 +511,17 @@ main{
   .research-btn{
     width:100%;
     justify-content:center;
+  }
+
+  .exec-bridge{
+    padding:20px 18px;
+    margin-bottom:28px;
+    border-radius:14px;
+  }
+
+  .exec-line{
+    font-size:18px;
+    line-height:1.7;
   }
 }
 </style>
@@ -525,6 +568,14 @@ main{
         <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
           View SSRN Research <span class="gc-arrow">→</span>
         </a>
+      </div>
+
+      <div class="exec-bridge">
+        <div class="exec-lines">
+          <div class="exec-line">You already know <strong>something is slowing down</strong>.</div>
+          <div class="exec-line">You just <strong>can't put a number on it yet</strong>.</div>
+          <div class="exec-line">GL Framework makes the invisible visible — <strong>so you can bring it to the table</strong>.</div>
+        </div>
       </div>
 
       <div class="gate-cards">
@@ -588,6 +639,14 @@ main{
         </a>
       </div>
 
+      <div class="exec-bridge">
+        <div class="exec-lines">
+          <div class="exec-line">你已經感覺到 <strong>系統在變重</strong>。</div>
+          <div class="exec-line">只是還沒有一個 <strong>數字可以拿進會議室</strong>。</div>
+          <div class="exec-line">GL Framework 把那個感覺變成 <strong>可以討論、可以決策的依據</strong>。</div>
+        </div>
+      </div>
+
       <div class="gate-cards">
         <a href="government.html" class="gate-card gov">
           <div class="gc-sector">公部門</div>
@@ -647,6 +706,14 @@ main{
         <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
           查看 SSRN 研究 <span class="gc-arrow">→</span>
         </a>
+      </div>
+
+      <div class="exec-bridge">
+        <div class="exec-lines">
+          <div class="exec-line">你已经感觉到 <strong>系统在变重</strong>。</div>
+          <div class="exec-line">只是还没有一个 <strong>数字可以拿进会议室</strong>。</div>
+          <div class="exec-line">GL Framework 把那种感觉变成 <strong>可以讨论、可以决策的依据</strong>。</div>
+        </div>
       </div>
 
       <div class="gate-cards">
