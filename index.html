@@ -1,779 +1,795 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="GFI Flow Intelligence — GL Framework for measuring structural efficiency across public and private systems.">
-<title>GFI Flow Intelligence</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg:#0b1220;
-  --bg2:#111827;
-  --card:#121b2c;
-  --card2:#162235;
-  --border:rgba(255,255,255,0.10);
-
-  --text:#f8fbff;
-  --muted:#c7d2e3;
-  --sub:#9fb0c8;
-  --dim:#8fa2bc;
-
-  --green:#9FE870;
-  --green-strong:#7CDA42;
-  --blue:#7DD3FC;
-  --blue-strong:#38BDF8;
-
-  --serif:'DM Serif Display', Georgia, serif;
-  --mono:'DM Mono', monospace;
-  --sans:'DM Sans', system-ui, sans-serif;
-}
-
-*,*::before,*::after{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-  -webkit-text-size-adjust:100%;
-}
-
-body{
-  background:
-    radial-gradient(circle at 18% 10%, rgba(159,232,112,.08), transparent 26%),
-    radial-gradient(circle at 85% 80%, rgba(56,189,248,.08), transparent 28%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-  color:var(--text);
-  font-family:var(--sans);
-  font-size:17px;
-  line-height:1.75;
-  overflow-x:hidden;
-  min-height:100vh;
-}
-
-.bg-grid{
-  position:fixed;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
-  background-size:56px 56px;
-  mask-image:radial-gradient(ellipse 85% 72% at 50% 42%, black 18%, transparent 82%);
-  pointer-events:none;
-  z-index:0;
-}
-
-.lang-bar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:100;
-  height:62px;
-  padding:0 clamp(18px,5vw,52px);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:rgba(11,18,32,.82);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo img{
-  height:40px;
-  width:auto;
-  display:block;
-}
-
-.lang-grp{
-  display:flex;
-  gap:6px;
-  align-items:center;
-}
-
-.lb-btn{
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:.08em;
-  padding:6px 11px;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:6px;
-  background:none;
-  color:var(--sub);
-  cursor:pointer;
-  transition:all .2s ease;
-}
-
-.lb-btn:hover{
-  color:var(--text);
-  border-color:rgba(255,255,255,.20);
-  background:rgba(255,255,255,.03);
-}
-
-.lb-btn.on{
-  color:var(--green);
-  border-color:rgba(159,232,112,.35);
-  background:rgba(159,232,112,.08);
-}
-
-.lb{
-  display:none;
-  position:relative;
-  z-index:1;
-}
-
-.lb.active{
-  display:block;
-}
-
-main{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:92px clamp(20px,5vw,60px) 56px;
-}
-
-.hero-wrap{
-  width:100%;
-  max-width:1120px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-.gate-eyebrow{
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:#AFC3DB;
-  text-align:center;
-  margin-bottom:20px;
-  opacity:0;
-  animation:up .55s .05s forwards;
-}
-
-.gate-title{
-  font-family:var(--serif);
-  font-size:clamp(34px,5vw,70px);
-  line-height:1.05;
-  letter-spacing:-.03em;
-  text-align:center;
-  max-width:980px;
-  margin-bottom:18px;
-  color:#FFFFFF;
-  opacity:0;
-  animation:up .55s .16s forwards;
-}
-
-.gate-sub{
-  font-size:clamp(18px,2vw,22px);
-  color:#D8E2F0;
-  text-align:center;
-  max-width:760px;
-  line-height:1.8;
-  margin-bottom:24px;
-  opacity:0;
-  animation:up .55s .28s forwards;
-}
-
-.research-strip{
-  width:100%;
-  max-width:860px;
-  margin:0 auto 28px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:16px;
-  opacity:0;
-  animation:up .58s .34s forwards;
-}
-
-.research-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 14px;
-  border-radius:999px;
-  border:1px solid rgba(159,232,112,.22);
-  background:rgba(159,232,112,.07);
-  color:#DFF7CF;
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-.research-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 10px rgba(159,232,112,.45);
-  flex-shrink:0;
-}
-
-.research-note{
-  max-width:760px;
-  text-align:center;
-  color:#C9D6E6;
-  font-size:15px;
-  line-height:1.8;
-}
-
-.research-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 20px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,.12);
-  background:linear-gradient(180deg, rgba(159,232,112,.14), rgba(159,232,112,.08));
-  color:#F5FFE9;
-  text-decoration:none;
-  font-family:var(--mono);
-  font-size:12px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s ease;
-}
-
-.research-btn:hover{
-  transform:translateY(-2px);
-  border-color:rgba(159,232,112,.38);
-  box-shadow:0 12px 28px rgba(0,0,0,.22);
-  background:linear-gradient(180deg, rgba(159,232,112,.18), rgba(159,232,112,.10));
-}
-
-.exec-bridge{
-  width:100%;
-  max-width:920px;
-  margin:0 auto 42px;
-  padding:24px 26px;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:18px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  box-shadow:0 12px 32px rgba(0,0,0,.18);
-  text-align:center;
-  opacity:0;
-  animation:up .58s .38s forwards;
-}
-
-.exec-lines{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.exec-line{
-  font-size:clamp(18px,2.1vw,24px);
-  line-height:1.65;
-  color:#EAF1FA;
-}
-
-.exec-line strong{
-  color:#FFFFFF;
-  font-weight:500;
-}
-
-.gate-cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
-  width:100%;
-  max-width:1000px;
-  opacity:0;
-  animation:up .6s .42s forwards;
-}
-
-.gate-card{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  min-height:380px;
-  border-radius:22px;
-  padding:34px 32px 30px;
-  text-decoration:none;
-  overflow:hidden;
-  border:1px solid var(--border);
-  box-shadow:0 14px 42px rgba(0,0,0,.26);
-  transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease;
-}
-
-.gate-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 18px 50px rgba(0,0,0,.34);
-}
-
-.gate-card.gov{
-  background:
-    radial-gradient(circle at top right, rgba(159,232,112,.12), transparent 34%),
-    linear-gradient(180deg, rgba(159,232,112,.06), rgba(255,255,255,.015)),
-    linear-gradient(180deg, #141F18 0%, #121B17 100%);
-  border-color:rgba(159,232,112,.28);
-}
-
-.gate-card.priv{
-  background:
-    radial-gradient(circle at top right, rgba(125,211,252,.12), transparent 34%),
-    linear-gradient(180deg, rgba(56,189,248,.06), rgba(255,255,255,.015)),
-    linear-gradient(180deg, #131C2D 0%, #111827 100%);
-  border-color:rgba(125,211,252,.26);
-}
-
-.gate-card.gov:hover{
-  border-color:rgba(159,232,112,.52);
-}
-
-.gate-card.priv:hover{
-  border-color:rgba(125,211,252,.48);
-}
-
-.gc-sector{
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  margin-bottom:18px;
-}
-
-.gate-card.gov .gc-sector{
-  color:var(--green);
-}
-
-.gate-card.priv .gc-sector{
-  color:var(--blue);
-}
-
-.gc-title{
-  font-family:var(--serif);
-  font-size:clamp(26px,2.6vw,38px);
-  line-height:1.16;
-  margin-bottom:18px;
-  max-width:430px;
-}
-
-.gate-card.gov .gc-title{
-  color:#F3FFE9;
-}
-
-.gate-card.priv .gc-title{
-  color:#ECF8FF;
-}
-
-.gc-desc{
-  color:#D7E1EE;
-  font-size:16px;
-  line-height:1.8;
-  margin-bottom:22px;
-  max-width:430px;
-}
-
-.gc-items{
-  list-style:none;
-  margin-bottom:24px;
-}
-
-.gc-items li{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-  padding:9px 0;
-  color:#E4ECF7;
-  font-size:15px;
-  line-height:1.7;
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.gc-items li::before{
-  content:"→";
-  font-family:var(--mono);
-  font-size:12px;
-  flex-shrink:0;
-  margin-top:2px;
-}
-
-.gate-card.gov .gc-items li::before{
-  color:var(--green);
-}
-
-.gate-card.priv .gc-items li::before{
-  color:var(--blue);
-}
-
-.gc-cta{
-  margin-top:auto;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--mono);
-  font-size:12px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-}
-
-.gate-card.gov .gc-cta{
-  color:var(--green);
-}
-
-.gate-card.priv .gc-cta{
-  color:var(--blue);
-}
-
-.gc-arrow{
-  font-size:18px;
-  transition:transform .22s ease;
-}
-
-.gate-card:hover .gc-arrow{
-  transform:translateX(5px);
-}
-
-.gate-footer{
-  position:relative;
-  z-index:1;
-  text-align:center;
-  padding:28px 20px 36px;
-  color:#A9BAD1;
-  font-size:12px;
-  font-family:var(--mono);
-  letter-spacing:.05em;
-}
-
-.gate-footer a{
-  color:#D9E6F7;
-  text-decoration:none;
-  transition:color .2s ease;
-}
-
-.gate-footer a:hover{
-  color:#FFFFFF;
-}
-
-@keyframes up{
-  from{opacity:0;transform:translateY(18px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-@media(max-width:860px){
-  .gate-cards{
-    grid-template-columns:1fr;
-    max-width:760px;
-  }
-  .gate-card{
-    min-height:unset;
-  }
-}
-
-@media(max-width:640px){
-  .lang-bar{
-    padding:0 16px;
-  }
-
-  .logo img{
-    height:34px;
-  }
-
-  main{
-    padding:88px 18px 42px;
-  }
-
-  .gate-card{
-    padding:28px 22px 24px;
-    border-radius:18px;
-  }
-
-  .gate-title{
-    font-size:clamp(30px,10vw,48px);
-  }
-
-  .gate-sub{
-    font-size:18px;
-  }
-
-  .research-strip{
-    margin-bottom:24px;
-  }
-
-  .research-note{
-    font-size:14px;
-  }
-
-  .research-btn{
-    width:100%;
-    justify-content:center;
-  }
-
-  .exec-bridge{
-    padding:20px 18px;
-    margin-bottom:28px;
-    border-radius:14px;
-  }
-
-  .exec-line{
-    font-size:18px;
-    line-height:1.7;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GFI Flow Intelligence — GL Framework for making structural friction visible across government and enterprise systems.">
+  <title>GFI Flow Intelligence</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --bg2:#111827;
+      --card:#121b2c;
+      --card2:#162235;
+      --border:rgba(255,255,255,.10);
+
+      --text:#f8fbff;
+      --muted:#c7d2e3;
+      --sub:#9fb0c8;
+      --dim:#8fa2bc;
+
+      --green:#9FE870;
+      --green-strong:#7CDA42;
+      --blue:#7DD3FC;
+      --blue-strong:#38BDF8;
+
+      --serif:'DM Serif Display', Georgia, serif;
+      --mono:'DM Mono', monospace;
+      --sans:'DM Sans', system-ui, sans-serif;
+    }
+
+    *,*::before,*::after{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+      -webkit-text-size-adjust:100%;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at 18% 10%, rgba(159,232,112,.08), transparent 26%),
+        radial-gradient(circle at 85% 80%, rgba(56,189,248,.08), transparent 28%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      color:var(--text);
+      font-family:var(--sans);
+      font-size:17px;
+      line-height:1.75;
+      overflow-x:hidden;
+      min-height:100vh;
+    }
+
+    .bg-grid{
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size:56px 56px;
+      mask-image:radial-gradient(ellipse 85% 72% at 50% 42%, black 18%, transparent 82%);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .lang-bar{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:100;
+      height:62px;
+      padding:0 clamp(18px,5vw,52px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:rgba(11,18,32,.82);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .logo img{
+      height:40px;
+      width:auto;
+      display:block;
+    }
+
+    .lang-grp{
+      display:flex;
+      gap:6px;
+      align-items:center;
+    }
+
+    .lb-btn{
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:.08em;
+      padding:6px 11px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:6px;
+      background:none;
+      color:var(--sub);
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+
+    .lb-btn:hover{
+      color:var(--text);
+      border-color:rgba(255,255,255,.20);
+      background:rgba(255,255,255,.03);
+    }
+
+    .lb-btn.on{
+      color:var(--green);
+      border-color:rgba(159,232,112,.35);
+      background:rgba(159,232,112,.08);
+    }
+
+    .lb{
+      display:none;
+      position:relative;
+      z-index:1;
+    }
+
+    .lb.active{
+      display:block;
+    }
+
+    main{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:96px clamp(20px,5vw,60px) 56px;
+    }
+
+    .hero-wrap{
+      width:100%;
+      max-width:1120px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    .gate-eyebrow{
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#AFC3DB;
+      text-align:center;
+      margin-bottom:20px;
+      opacity:0;
+      animation:up .55s .05s forwards;
+    }
+
+    .gate-title{
+      font-family:var(--serif);
+      font-size:clamp(36px,5vw,72px);
+      line-height:1.04;
+      letter-spacing:-.03em;
+      text-align:center;
+      max-width:980px;
+      margin-bottom:16px;
+      color:#FFFFFF;
+      opacity:0;
+      animation:up .55s .16s forwards;
+    }
+
+    .gate-sub{
+      font-size:clamp(18px,2vw,23px);
+      color:#D8E2F0;
+      text-align:center;
+      max-width:860px;
+      line-height:1.85;
+      margin-bottom:26px;
+      opacity:0;
+      animation:up .55s .28s forwards;
+    }
+
+    .research-strip{
+      width:100%;
+      max-width:860px;
+      margin:0 auto 26px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:16px;
+      opacity:0;
+      animation:up .58s .34s forwards;
+    }
+
+    .research-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(159,232,112,.22);
+      background:rgba(159,232,112,.07);
+      color:#DFF7CF;
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .research-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 10px rgba(159,232,112,.45);
+      flex-shrink:0;
+    }
+
+    .research-note{
+      max-width:760px;
+      text-align:center;
+      color:#C9D6E6;
+      font-size:15px;
+      line-height:1.8;
+    }
+
+    .research-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 20px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(159,232,112,.14), rgba(159,232,112,.08));
+      color:#F5FFE9;
+      text-decoration:none;
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s ease;
+    }
+
+    .research-btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(159,232,112,.38);
+      box-shadow:0 12px 28px rgba(0,0,0,.22);
+      background:linear-gradient(180deg, rgba(159,232,112,.18), rgba(159,232,112,.10));
+    }
+
+    .exec-bridge{
+      width:100%;
+      max-width:940px;
+      margin:0 auto 40px;
+      padding:26px 28px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      box-shadow:0 12px 32px rgba(0,0,0,.18);
+      text-align:center;
+      opacity:0;
+      animation:up .58s .40s forwards;
+    }
+
+    .exec-kicker{
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#B9CAE0;
+      margin-bottom:12px;
+    }
+
+    .exec-lines{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .exec-line{
+      font-size:clamp(19px,2.1vw,25px);
+      line-height:1.65;
+      color:#EAF1FA;
+    }
+
+    .exec-line strong{
+      color:#FFFFFF;
+      font-weight:500;
+    }
+
+    .gate-cards{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      width:100%;
+      max-width:1000px;
+      opacity:0;
+      animation:up .6s .48s forwards;
+    }
+
+    .gate-card{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      min-height:400px;
+      border-radius:22px;
+      padding:34px 32px 30px;
+      text-decoration:none;
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow:0 14px 42px rgba(0,0,0,.26);
+      transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease;
+    }
+
+    .gate-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 50px rgba(0,0,0,.34);
+    }
+
+    .gate-card.gov{
+      background:
+        radial-gradient(circle at top right, rgba(159,232,112,.12), transparent 34%),
+        linear-gradient(180deg, rgba(159,232,112,.06), rgba(255,255,255,.015)),
+        linear-gradient(180deg, #141F18 0%, #121B17 100%);
+      border-color:rgba(159,232,112,.28);
+    }
+
+    .gate-card.priv{
+      background:
+        radial-gradient(circle at top right, rgba(125,211,252,.12), transparent 34%),
+        linear-gradient(180deg, rgba(56,189,248,.06), rgba(255,255,255,.015)),
+        linear-gradient(180deg, #131C2D 0%, #111827 100%);
+      border-color:rgba(125,211,252,.26);
+    }
+
+    .gate-card.gov:hover{
+      border-color:rgba(159,232,112,.52);
+    }
+
+    .gate-card.priv:hover{
+      border-color:rgba(125,211,252,.48);
+    }
+
+    .gc-sector{
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .gate-card.gov .gc-sector{
+      color:var(--green);
+    }
+
+    .gate-card.priv .gc-sector{
+      color:var(--blue);
+    }
+
+    .gc-title{
+      font-family:var(--serif);
+      font-size:clamp(28px,2.6vw,40px);
+      line-height:1.14;
+      margin-bottom:18px;
+      max-width:430px;
+    }
+
+    .gate-card.gov .gc-title{
+      color:#F3FFE9;
+    }
+
+    .gate-card.priv .gc-title{
+      color:#ECF8FF;
+    }
+
+    .gc-desc{
+      color:#D7E1EE;
+      font-size:16px;
+      line-height:1.85;
+      margin-bottom:22px;
+      max-width:430px;
+    }
+
+    .gc-items{
+      list-style:none;
+      margin-bottom:24px;
+    }
+
+    .gc-items li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:9px 0;
+      color:#E4ECF7;
+      font-size:15px;
+      line-height:1.72;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .gc-items li::before{
+      content:"→";
+      font-family:var(--mono);
+      font-size:12px;
+      flex-shrink:0;
+      margin-top:2px;
+    }
+
+    .gate-card.gov .gc-items li::before{
+      color:var(--green);
+    }
+
+    .gate-card.priv .gc-items li::before{
+      color:var(--blue);
+    }
+
+    .gc-cta{
+      margin-top:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .gate-card.gov .gc-cta{
+      color:var(--green);
+    }
+
+    .gate-card.priv .gc-cta{
+      color:var(--blue);
+    }
+
+    .gc-arrow{
+      font-size:18px;
+      transition:transform .22s ease;
+    }
+
+    .gate-card:hover .gc-arrow{
+      transform:translateX(5px);
+    }
+
+    .gate-footer{
+      position:relative;
+      z-index:1;
+      text-align:center;
+      padding:28px 20px 36px;
+      color:#A9BAD1;
+      font-size:12px;
+      font-family:var(--mono);
+      letter-spacing:.05em;
+    }
+
+    .gate-footer a{
+      color:#D9E6F7;
+      text-decoration:none;
+      transition:color .2s ease;
+    }
+
+    .gate-footer a:hover{
+      color:#FFFFFF;
+    }
+
+    @keyframes up{
+      from{opacity:0;transform:translateY(18px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @media(max-width:860px){
+      .gate-cards{
+        grid-template-columns:1fr;
+        max-width:760px;
+      }
+
+      .gate-card{
+        min-height:unset;
+      }
+    }
+
+    @media(max-width:640px){
+      .lang-bar{
+        padding:0 16px;
+      }
+
+      .logo img{
+        height:34px;
+      }
+
+      main{
+        padding:88px 18px 42px;
+      }
+
+      .gate-card{
+        padding:28px 22px 24px;
+        border-radius:18px;
+      }
+
+      .gate-title{
+        font-size:clamp(31px,10vw,50px);
+      }
+
+      .gate-sub{
+        font-size:18px;
+      }
+
+      .research-strip{
+        margin-bottom:24px;
+      }
+
+      .research-note{
+        font-size:14px;
+      }
+
+      .research-btn{
+        width:100%;
+        justify-content:center;
+      }
+
+      .exec-bridge{
+        padding:20px 18px;
+        margin-bottom:28px;
+        border-radius:14px;
+      }
+
+      .exec-line{
+        font-size:18px;
+        line-height:1.7;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
+  <div class="bg-grid"></div>
 
-<div class="lang-bar">
-  <a href="index.html" class="logo">
-    <img src="GFILOGO.png" alt="GFI Flow Intelligence">
-  </a>
+  <div class="lang-bar">
+    <a href="index.html" class="logo">
+      <img src="GFILOGO.png" alt="GFI Flow Intelligence">
+    </a>
 
-  <div class="lang-grp">
-    <button class="lb-btn on" data-lang="en" type="button">EN</button>
-    <button class="lb-btn" data-lang="tw" type="button">繁</button>
-    <button class="lb-btn" data-lang="cn" type="button">简</button>
+    <div class="lang-grp">
+      <button class="lb-btn on" data-lang="en" type="button">EN</button>
+      <button class="lb-btn" data-lang="tw" type="button">繁</button>
+      <button class="lb-btn" data-lang="cn" type="button">简</button>
+    </div>
   </div>
-</div>
 
-<!-- EN -->
-<section class="lb active" data-lang="en">
-  <main>
-    <div class="hero-wrap">
-      <div class="gate-eyebrow">GFI Flow Intelligence · Boston</div>
+  <!-- EN -->
+  <section class="lb active" data-lang="en">
+    <main>
+      <div class="hero-wrap">
+        <div class="gate-eyebrow">GFI Flow Intelligence · Boston</div>
 
-      <h1 class="gate-title">
-        GL measures structural efficiency.<br>
-        Choose your context.
-      </h1>
+        <h1 class="gate-title">
+          You know the system is slowing down.<br>
+          GL gives you the quantitative basis to prove it.
+        </h1>
 
-      <p class="gate-sub">
-        The same GL framework applies across different institutional environments.
-      </p>
-
-      <div class="research-strip">
-        <div class="research-badge">
-          <span class="research-dot"></span>
-          SSRN Published · Distributed Research
-        </div>
-        <p class="research-note">
-          The GL framework is now published on SSRN, establishing a formal research basis for measuring administrative friction and structural delivery efficiency.
+        <p class="gate-sub">
+          What you do not yet have is a quantifiable basis strong enough to serve as evidence.
+          GL Framework turns hidden drag into a report that can be discussed, defended, and acted on.
         </p>
-        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
-          View SSRN Research <span class="gc-arrow">→</span>
-        </a>
-      </div>
 
-      <div class="exec-bridge">
-        <div class="exec-lines">
-          <div class="exec-line">You already know <strong>something is slowing down</strong>.</div>
-          <div class="exec-line">You just <strong>can't put a number on it yet</strong>.</div>
-          <div class="exec-line">GL Framework makes the invisible visible — <strong>so you can bring it to the table</strong>.</div>
+        <div class="research-strip">
+          <div class="research-badge">
+            <span class="research-dot"></span>
+            SSRN Published · Distributed Research
+          </div>
+          <p class="research-note">
+            The GL framework is now published on SSRN, establishing a formal research basis for measuring administrative friction and structural delivery efficiency.
+          </p>
+          <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
+            View SSRN Research <span class="gc-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="exec-bridge">
+          <div class="exec-kicker">For CFOs · Boards · Executive Review</div>
+          <div class="exec-lines">
+            <div class="exec-line">You know <strong>the system is slowing down</strong>.</div>
+            <div class="exec-line">What you do not yet have is <strong>a quantitative tool strong enough to serve as evidence</strong>.</div>
+            <div class="exec-line">GL Framework fills that gap with <strong>a report you can bring into the room</strong>.</div>
+          </div>
+        </div>
+
+        <div class="gate-cards">
+          <a href="government.html" class="gate-card gov">
+            <div class="gc-sector">Public Sector</div>
+            <div class="gc-title">Government &amp; Public Administration</div>
+            <div class="gc-desc">
+              Independent structural diagnosis of administrative systems and delivery friction.
+            </div>
+            <ul class="gc-items">
+              <li>Structural efficiency of administrative systems</li>
+              <li>Cross-jurisdiction comparison</li>
+              <li>Public audit dataset analysis</li>
+            </ul>
+            <div class="gc-cta">Enter <span class="gc-arrow">→</span></div>
+          </a>
+
+          <a href="enterprise.html" class="gate-card priv">
+            <div class="gc-sector">Private Sector</div>
+            <div class="gc-title">Enterprise &amp; Capital Efficiency</div>
+            <div class="gc-desc">
+              Verify whether transformation improves capital velocity or multiplies friction.
+            </div>
+            <ul class="gc-items">
+              <li>Measure operational drag after automation</li>
+              <li>Detect hidden rework loops</li>
+              <li>Compare efficiency before and after change</li>
+            </ul>
+            <div class="gc-cta">Enter <span class="gc-arrow">→</span></div>
+          </a>
         </div>
       </div>
+    </main>
+  </section>
 
-      <div class="gate-cards">
-        <a href="government.html" class="gate-card gov">
-          <div class="gc-sector">Public Sector</div>
-          <div class="gc-title">Government &amp; Public Administration</div>
-          <div class="gc-desc">
-            Independent structural diagnosis of administrative systems and delivery friction.
-          </div>
-          <ul class="gc-items">
-            <li>Structural efficiency of administrative systems</li>
-            <li>Cross-jurisdiction comparison</li>
-            <li>Public audit dataset analysis</li>
-          </ul>
-          <div class="gc-cta">Enter <span class="gc-arrow">→</span></div>
-        </a>
+  <!-- TW -->
+  <section class="lb" data-lang="tw">
+    <main>
+      <div class="hero-wrap">
+        <div class="gate-eyebrow">GFI Flow Intelligence · 波士頓</div>
 
-        <a href="enterprise.html" class="gate-card priv">
-          <div class="gc-sector">Private Sector</div>
-          <div class="gc-title">Enterprise &amp; Capital Efficiency</div>
-          <div class="gc-desc">
-            Verify whether transformation improves capital velocity or multiplies friction.
-          </div>
-          <ul class="gc-items">
-            <li>Measure operational drag after automation</li>
-            <li>Detect hidden rework loops</li>
-            <li>Compare efficiency before and after change</li>
-          </ul>
-          <div class="gc-cta">Enter <span class="gc-arrow">→</span></div>
-        </a>
-      </div>
-    </div>
-  </main>
-</section>
+        <h1 class="gate-title">
+          你知道系統正在變慢。<br>
+          GL 給你把它講清楚的量化依據。
+        </h1>
 
-<!-- TW -->
-<section class="lb" data-lang="tw">
-  <main>
-    <div class="hero-wrap">
-      <div class="gate-eyebrow">GFI Flow Intelligence · 波士頓</div>
-
-      <h1 class="gate-title">
-        GL 衡量結構效率。<br>
-        選擇你的場域。
-      </h1>
-
-      <p class="gate-sub">
-        同一套 GL 框架，可應用於不同制度環境。
-      </p>
-
-      <div class="research-strip">
-        <div class="research-badge">
-          <span class="research-dot"></span>
-          SSRN 已發布 · 正式研究成果
-        </div>
-        <p class="research-note">
-          GL 框架已正式發布於 SSRN，建立了衡量行政摩擦與制度交付效率的研究基礎。
+        <p class="gate-sub">
+          你現在缺的，不是感覺，而是一套足夠有力、可作為證據的量化依據。
+          GL Framework 把隱形阻力轉成可以討論、可以辯護、可以決策的量化報告。
         </p>
-        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
-          查看 SSRN 研究 <span class="gc-arrow">→</span>
-        </a>
-      </div>
 
-      <div class="exec-bridge">
-        <div class="exec-lines">
-          <div class="exec-line">你已經感覺到 <strong>系統在變重</strong>。</div>
-          <div class="exec-line">只是還沒有一個 <strong>數字可以拿進會議室</strong>。</div>
-          <div class="exec-line">GL Framework 把那個感覺變成 <strong>可以討論、可以決策的依據</strong>。</div>
+        <div class="research-strip">
+          <div class="research-badge">
+            <span class="research-dot"></span>
+            SSRN 已發布 · 正式研究成果
+          </div>
+          <p class="research-note">
+            GL 框架已正式發布於 SSRN，建立了衡量行政摩擦與制度交付效率的研究基礎。
+          </p>
+          <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
+            查看 SSRN 研究 <span class="gc-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="exec-bridge">
+          <div class="exec-kicker">給 CFO · 董事會 · 高層決策者</div>
+          <div class="exec-lines">
+            <div class="exec-line">你知道 <strong>系統正在變慢</strong>。</div>
+            <div class="exec-line">但你手上還沒有 <strong>足夠有力、可作為證據的量化工具</strong>。</div>
+            <div class="exec-line">GL Framework 補上這個缺口，形成 <strong>可以拿進會議室的量化報告</strong>。</div>
+          </div>
+        </div>
+
+        <div class="gate-cards">
+          <a href="government.html" class="gate-card gov">
+            <div class="gc-sector">公部門</div>
+            <div class="gc-title">政府與公共行政</div>
+            <div class="gc-desc">
+              對行政系統與政策交付摩擦進行獨立結構診斷。
+            </div>
+            <ul class="gc-items">
+              <li>行政系統的結構效率測量</li>
+              <li>跨司法管轄比較</li>
+              <li>公開審計資料分析</li>
+            </ul>
+            <div class="gc-cta">進入 <span class="gc-arrow">→</span></div>
+          </a>
+
+          <a href="enterprise.html" class="gate-card priv">
+            <div class="gc-sector">民間企業</div>
+            <div class="gc-title">企業與資本效率</div>
+            <div class="gc-desc">
+              驗證轉型究竟提升資本速度，還是放大制度摩擦。
+            </div>
+            <ul class="gc-items">
+              <li>衡量自動化後的營運拖累</li>
+              <li>找出隱藏返工迴圈</li>
+              <li>比較變革前後效率差值</li>
+            </ul>
+            <div class="gc-cta">進入 <span class="gc-arrow">→</span></div>
+          </a>
         </div>
       </div>
+    </main>
+  </section>
 
-      <div class="gate-cards">
-        <a href="government.html" class="gate-card gov">
-          <div class="gc-sector">公部門</div>
-          <div class="gc-title">政府與公共行政</div>
-          <div class="gc-desc">
-            對行政系統與政策交付摩擦進行獨立結構診斷。
-          </div>
-          <ul class="gc-items">
-            <li>行政系統的結構效率測量</li>
-            <li>跨司法管轄比較</li>
-            <li>公開審計資料分析</li>
-          </ul>
-          <div class="gc-cta">進入 <span class="gc-arrow">→</span></div>
-        </a>
+  <!-- CN -->
+  <section class="lb" data-lang="cn">
+    <main>
+      <div class="hero-wrap">
+        <div class="gate-eyebrow">GFI Flow Intelligence · 波士顿</div>
 
-        <a href="enterprise.html" class="gate-card priv">
-          <div class="gc-sector">民間企業</div>
-          <div class="gc-title">企業與資本效率</div>
-          <div class="gc-desc">
-            驗證轉型究竟提升資本速度，還是放大制度摩擦。
-          </div>
-          <ul class="gc-items">
-            <li>衡量自動化後的營運拖累</li>
-            <li>找出隱藏返工迴圈</li>
-            <li>比較變革前後效率差值</li>
-          </ul>
-          <div class="gc-cta">進入 <span class="gc-arrow">→</span></div>
-        </a>
-      </div>
-    </div>
-  </main>
-</section>
+        <h1 class="gate-title">
+          你知道系统正在变慢。<br>
+          GL 给你把它讲清楚的量化依据。
+        </h1>
 
-<!-- CN -->
-<section class="lb" data-lang="cn">
-  <main>
-    <div class="hero-wrap">
-      <div class="gate-eyebrow">GFI Flow Intelligence · 波士顿</div>
-
-      <h1 class="gate-title">
-        GL 衡量结构效率。<br>
-        选择你的场域。
-      </h1>
-
-      <p class="gate-sub">
-        同一套 GL 框架，可应用于不同制度环境。
-      </p>
-
-      <div class="research-strip">
-        <div class="research-badge">
-          <span class="research-dot"></span>
-          SSRN 已发布 · 正式研究成果
-        </div>
-        <p class="research-note">
-          GL 框架已正式发布于 SSRN，建立了衡量行政摩擦与制度交付效率的研究基础。
+        <p class="gate-sub">
+          你现在缺的，不是感觉，而是一套足够有力、可作为证据的量化依据。
+          GL Framework 把隐形阻力转成可以讨论、可以辩护、可以决策的量化报告。
         </p>
-        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
-          查看 SSRN 研究 <span class="gc-arrow">→</span>
-        </a>
-      </div>
 
-      <div class="exec-bridge">
-        <div class="exec-lines">
-          <div class="exec-line">你已经感觉到 <strong>系统在变重</strong>。</div>
-          <div class="exec-line">只是还没有一个 <strong>数字可以拿进会议室</strong>。</div>
-          <div class="exec-line">GL Framework 把那种感觉变成 <strong>可以讨论、可以决策的依据</strong>。</div>
+        <div class="research-strip">
+          <div class="research-badge">
+            <span class="research-dot"></span>
+            SSRN 已发布 · 正式研究成果
+          </div>
+          <p class="research-note">
+            GL 框架已正式发布于 SSRN，建立了衡量行政摩擦与制度交付效率的研究基础。
+          </p>
+          <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6178024" target="_blank" rel="noopener" class="research-btn">
+            查看 SSRN 研究 <span class="gc-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="exec-bridge">
+          <div class="exec-kicker">给 CFO · 董事会 · 高层决策者</div>
+          <div class="exec-lines">
+            <div class="exec-line">你知道 <strong>系统正在变慢</strong>。</div>
+            <div class="exec-line">但你手上还没有 <strong>足够有力、可作为证据的量化工具</strong>。</div>
+            <div class="exec-line">GL Framework 补上这个缺口，形成 <strong>可以拿进会议室的量化报告</strong>。</div>
+          </div>
+        </div>
+
+        <div class="gate-cards">
+          <a href="government.html" class="gate-card gov">
+            <div class="gc-sector">公共部门</div>
+            <div class="gc-title">政府与公共行政</div>
+            <div class="gc-desc">
+              对行政系统与政策交付摩擦进行独立结构诊断。
+            </div>
+            <ul class="gc-items">
+              <li>行政系统的结构效率测量</li>
+              <li>跨司法辖区比较</li>
+              <li>公开审计资料分析</li>
+            </ul>
+            <div class="gc-cta">进入 <span class="gc-arrow">→</span></div>
+          </a>
+
+          <a href="enterprise.html" class="gate-card priv">
+            <div class="gc-sector">民间企业</div>
+            <div class="gc-title">企业与资本效率</div>
+            <div class="gc-desc">
+              验证转型究竟提升资本速度，还是放大制度摩擦。
+            </div>
+            <ul class="gc-items">
+              <li>衡量自动化后的运营拖累</li>
+              <li>找出隐藏返工循环</li>
+              <li>比较变革前后效率差值</li>
+            </ul>
+            <div class="gc-cta">进入 <span class="gc-arrow">→</span></div>
+          </a>
         </div>
       </div>
+    </main>
+  </section>
 
-      <div class="gate-cards">
-        <a href="government.html" class="gate-card gov">
-          <div class="gc-sector">公共部门</div>
-          <div class="gc-title">政府与公共行政</div>
-          <div class="gc-desc">
-            对行政系统与政策交付摩擦进行独立结构诊断。
-          </div>
-          <ul class="gc-items">
-            <li>行政系统的结构效率测量</li>
-            <li>跨司法辖区比较</li>
-            <li>公开审计资料分析</li>
-          </ul>
-          <div class="gc-cta">进入 <span class="gc-arrow">→</span></div>
-        </a>
+  <div class="gate-footer">
+    © 2026 GFI Flow Intelligence · Boston &nbsp;·&nbsp;
+    <a href="about.html">About</a> &nbsp;·&nbsp;
+    <a href="mailto:gfi@gfiintel.com">gfi@gfiintel.com</a>
+  </div>
 
-        <a href="enterprise.html" class="gate-card priv">
-          <div class="gc-sector">民间企业</div>
-          <div class="gc-title">企业与资本效率</div>
-          <div class="gc-desc">
-            验证转型究竟提升资本速度，还是放大制度摩擦。
-          </div>
-          <ul class="gc-items">
-            <li>衡量自动化后的运营拖累</li>
-            <li>找出隐藏返工循环</li>
-            <li>比较变革前后效率差值</li>
-          </ul>
-          <div class="gc-cta">进入 <span class="gc-arrow">→</span></div>
-        </a>
-      </div>
-    </div>
-  </main>
-</section>
+  <script>
+    const buttons = document.querySelectorAll(".lb-btn");
+    const blocks = document.querySelectorAll(".lb");
 
-<div class="gate-footer">
-  © 2026 GFI Flow Intelligence · Boston &nbsp;·&nbsp;
-  <a href="about.html">About</a> &nbsp;·&nbsp;
-  <a href="mailto:gfi@gfiintel.com">gfi@gfiintel.com</a>
-</div>
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const lang = btn.dataset.lang;
 
-<script>
-const buttons = document.querySelectorAll(".lb-btn");
-const blocks = document.querySelectorAll(".lb");
+        buttons.forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
 
-buttons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const lang = btn.dataset.lang;
+        blocks.forEach((block) => {
+          block.classList.toggle("active", block.dataset.lang === lang);
+        });
 
-    buttons.forEach((b) => b.classList.remove("on"));
-    btn.classList.add("on");
-
-    blocks.forEach((block) => {
-      block.classList.toggle("active", block.dataset.lang === lang);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
     });
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
-</script>
+  </script>
 
 </body>
 </html>
