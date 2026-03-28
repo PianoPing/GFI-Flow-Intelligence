@@ -1,652 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Public Sector | GFI Flow Intelligence</title>
-  <meta name="description" content="GL helps public agencies evaluate delivery performance using public or operational data only — without internal system access, installation, or integration." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GL helps public agencies evaluate delivery performance using public or operational data only — without internal system access, installation, or integration.">
+<title>Public Sector | GFI Flow Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141d2e;--surf:#1c2740;--surf2:#22304e;
+  --border:rgba(255,255,255,0.08);--text:#edf0f8;
+  --muted:#8fa3c0;--dim:#4a6080;--accent:#c8f542;--blue:#4da3ff;
+  --serif:'DM Serif Display',Georgia,serif;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+/* NAV */
+header{position:fixed;inset:0 0 auto 0;z-index:100;height:60px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(20,29,46,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.logo img{height:44px;width:auto}
+nav{display:flex;align-items:center;gap:4px}
+nav a{font-size:13px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;transition:color .2s,background .2s}
+nav a:hover{color:var(--text);background:rgba(255,255,255,0.05)}
+nav a.active{color:var(--accent)}
+.nav-cta{display:inline-block;padding:8px 16px;background:var(--accent);color:#0d1117;font-size:13px;font-weight:600;border-radius:6px;text-decoration:none;margin-left:8px;white-space:nowrap;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+.ham{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;padding:6px;background:none;border:none;cursor:pointer}
+.ham span{display:block;height:2px;background:var(--text);border-radius:2px;transition:transform .25s,opacity .2s}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer{display:none;position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(20,29,46,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:16px 24px 24px;flex-direction:column}
+.drawer.open{display:flex}
+.drawer a{font-size:17px;color:var(--muted);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--border);transition:color .2s}
+.drawer a:hover{color:var(--text)}
+.drawer-cta{display:block;text-align:center;padding:16px;background:var(--accent);color:#0d1117;font-weight:600;font-size:16px;border-radius:8px;text-decoration:none;margin-top:16px;border-bottom:none!important}
 
-  <style>
-    :root{
-      --bg:#08111f;
-      --bg2:#0d1728;
-      --panel:#0f1b2d;
-      --panel2:#12233a;
-      --line:rgba(255,255,255,.08);
-      --text:#f4f7fb;
-      --muted:#b8c6d9;
-      --soft:#8ea3bf;
-      --lime:#c7f000;
-      --lime2:#e7ff82;
-      --white:#ffffff;
-      --max:1180px;
-      --radius:22px;
-      --shadow:0 20px 50px rgba(0,0,0,.28);
-    }
+/* LAYOUT */
+.wrap{max-width:1060px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+section{padding:clamp(60px,9vh,100px) 0}
+section.band{background:var(--surf);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
+h2.stitle{font-family:var(--serif);font-size:clamp(22px,2.8vw,34px);line-height:1.12;letter-spacing:-.02em;margin-bottom:14px}
+.slead{font-size:clamp(16px,1.9vw,18px);color:var(--muted);max-width:680px;line-height:1.8}
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(67,97,238,.14), transparent 30%),
-        radial-gradient(circle at top right, rgba(199,240,0,.06), transparent 25%),
-        linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
-      color:var(--text);
-      line-height:1.55;
-    }
+/* BUTTONS */
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,4vh,36px)}
+.btn-solid{display:inline-flex;align-items:center;padding:13px clamp(20px,2.5vw,30px);background:var(--accent);color:#0d1117;font-weight:600;font-size:clamp(14px,1.6vw,15px);border-radius:8px;text-decoration:none;white-space:nowrap;transition:opacity .2s,transform .2s}
+.btn-solid:hover{opacity:.87;transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;padding:13px clamp(20px,2.5vw,30px);border:1px solid var(--border);color:var(--muted);font-size:clamp(14px,1.6vw,15px);border-radius:8px;text-decoration:none;white-space:nowrap;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
 
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-    .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
+/* ── HERO: two-column ── */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:60px}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 50% at 50% 0%,black 20%,transparent 75%);pointer-events:none}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(200,245,66,.05) 0%,transparent 70%);top:-150px;right:-150px;pointer-events:none}
+.hero-inner{position:relative;width:100%;padding:clamp(60px,10vh,100px) 0}
+.hero-cols{display:grid;grid-template-columns:1.1fr 0.9fr;gap:clamp(32px,5vw,64px);align-items:center}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,3.8vw,50px);line-height:1.08;letter-spacing:-.025em;margin-bottom:16px;opacity:0;animation:up .6s .1s forwards}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:clamp(16px,1.9vw,19px);color:var(--muted);line-height:1.75;margin-bottom:10px;opacity:0;animation:up .6s .28s forwards}
+.hero-norisk{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--dim);opacity:0;animation:up .6s .38s forwards}
+.hero-aside{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:20px;padding:clamp(22px,3vw,32px);opacity:0;animation:up .6s .48s forwards}
+.hero-aside-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.aside-pts{display:flex;flex-direction:column;gap:12px}
+.aside-pt{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 18px}
+.aside-pt strong{display:block;font-size:15px;color:var(--text);margin-bottom:4px}
+.aside-pt span{font-size:14px;color:var(--muted);line-height:1.55}
+@media(max-width:840px){.hero-cols{grid-template-columns:1fr}.hero-aside{display:none}}
 
-    .site-header{
-      position:sticky;
-      top:0;
-      z-index:100;
-      backdrop-filter:blur(12px);
-      background:rgba(8,17,31,.72);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
+/* ── 3 FIELDS ── */
+.fields-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2vw,18px);margin-top:clamp(28px,4vh,40px)}
+.field-card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:clamp(20px,3vw,30px);transition:border-color .2s,background .2s}
+.field-card:hover{background:var(--surf2);border-color:rgba(200,245,66,.2)}
+.field-num{font-family:var(--serif);font-style:italic;font-size:clamp(40px,5vw,56px);color:rgba(200,245,66,.18);line-height:1;margin-bottom:10px}
+.field-label{font-family:var(--serif);font-size:clamp(16px,2vw,20px);color:var(--text);margin-bottom:7px;line-height:1.2}
+.field-desc{font-size:clamp(13px,1.5vw,14px);color:var(--muted);line-height:1.6}
+.info-strip{margin-top:clamp(18px,3vh,26px);padding:16px 22px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.025);font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.05em;line-height:1.7}
+@media(max-width:600px){.fields-grid{grid-template-columns:1fr}}
 
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      min-height:76px;
-    }
+/* ── ROOM CARDS ── */
+.room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2vw,18px);margin-top:clamp(28px,4vh,40px)}
+.room-card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:clamp(20px,3vw,30px);transition:border-color .2s,background .2s}
+.room-card:hover{background:var(--surf2);border-color:rgba(200,245,66,.18)}
+.room-scenario{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.room-quote{font-family:var(--serif);font-size:clamp(15px,1.9vw,19px);color:var(--text);line-height:1.4;font-style:italic}
+.room-tag{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.55}
+.room-shift{margin-top:clamp(22px,3vh,32px);padding:clamp(16px,2.5vh,22px) clamp(20px,3vw,32px);border:1px solid var(--border);border-radius:12px;text-align:center;font-family:var(--serif);font-style:italic;font-size:clamp(16px,2vw,20px);color:var(--muted)}
+.room-shift em{color:var(--text);font-style:normal}
+@media(max-width:600px){.room-grid{grid-template-columns:1fr}}
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:700;
-      letter-spacing:.01em;
-    }
+/* ── PUBLICATIONS: large type ── */
+.pub-item{padding:clamp(28px,4vh,44px) 0;border-bottom:1px solid var(--border)}
+.pub-item:first-child{border-top:1px solid var(--border)}
+.pub-meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.pub-venue{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.pub-venue.fc{color:var(--blue)}
+.pub-date{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim)}
+.pub-status{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:4px}
+.pub-status.published{background:rgba(200,245,66,.1);color:var(--accent);border:1px solid rgba(200,245,66,.2)}
+.pub-status.forthcoming{background:rgba(77,163,255,.1);color:var(--blue);border:1px solid rgba(77,163,255,.2)}
+.pub-title{font-family:var(--serif);font-size:clamp(18px,2vw,24px);line-height:1.25;letter-spacing:-.01em;color:var(--text);margin-bottom:10px}
+.pub-desc{font-size:clamp(14px,1.6vw,16px);color:var(--muted);line-height:1.75;max-width:700px;margin-bottom:16px}
 
-    .brand-mark{
-      width:12px;
-      height:12px;
-      border-radius:999px;
-      background:var(--lime);
-      box-shadow:0 0 18px rgba(199,240,0,.65);
-    }
+/* ── FINAL CTA ── */
+.cta-panel{background:radial-gradient(circle at top right,rgba(200,245,66,.08),transparent 30%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(200,245,66,.15);border-radius:20px;padding:clamp(32px,5vw,52px);margin-top:clamp(28px,5vh,44px)}
+.cta-panel h3{font-family:var(--serif);font-size:clamp(22px,3vw,36px);line-height:1.15;letter-spacing:-.02em;margin-bottom:12px}
+.cta-panel p{font-size:clamp(15px,1.8vw,17px);color:var(--muted);max-width:540px;line-height:1.8;margin-bottom:0}
+.cta-privacy{margin-top:clamp(14px,2vh,20px);font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim)}
 
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:24px;
-      flex-wrap:wrap;
-      color:var(--soft);
-      font-size:15px;
-    }
+/* VIDEO */
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:14px;overflow:hidden;background:#0d1117;border:1px solid var(--border);margin-top:clamp(24px,3vh,36px)}
+.video-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain}
 
-    .nav-links a.active{
-      color:var(--lime);
-      font-weight:700;
-    }
+footer{padding:clamp(28px,5vh,44px) clamp(20px,5vw,60px);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:13px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap}
 
-    section{
-      padding:82px 0;
-      border-top:1px solid rgba(255,255,255,.04);
-    }
-
-    .eyebrow{
-      display:inline-block;
-      margin-bottom:18px;
-      color:var(--lime);
-      font-size:13px;
-      font-weight:700;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-
-    .hero{
-      padding:84px 0 72px;
-      border-top:none;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:34px;
-      align-items:center;
-    }
-
-    .hero h1{
-      margin:0 0 22px;
-      font-family:"DM Serif Display", serif;
-      font-size:clamp(44px, 7vw, 82px);
-      line-height:.98;
-      letter-spacing:-.03em;
-      max-width:820px;
-    }
-
-    .hero h1 .accent{
-      color:var(--lime2);
-      font-style:italic;
-    }
-
-    .hero-lead{
-      max-width:760px;
-      font-size:clamp(18px, 2.2vw, 24px);
-      color:var(--muted);
-      margin:0 0 28px;
-    }
-
-    .hero-sub{
-      max-width:760px;
-      color:var(--soft);
-      font-size:17px;
-      margin:0;
-    }
-
-    .cta-row{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-top:34px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:54px;
-      padding:0 22px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:transparent;
-      color:var(--text);
-      font-weight:700;
-      font-size:15px;
-      transition:.2s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-      border-color:rgba(255,255,255,.18);
-    }
-
-    .btn-primary{
-      background:linear-gradient(180deg, #eaff8f 0%, #c7f000 100%);
-      color:#111;
-      border:none;
-      box-shadow:0 10px 30px rgba(199,240,0,.18);
-    }
-
-    .hero-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:28px;
-      box-shadow:var(--shadow);
-    }
-
-    .hero-card h3{
-      margin:0 0 16px;
-      font-size:16px;
-      color:var(--lime);
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
-    .hero-points{
-      display:grid;
-      gap:14px;
-    }
-
-    .hero-point{
-      padding:16px 18px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:18px;
-    }
-
-    .hero-point strong{
-      display:block;
-      margin-bottom:6px;
-      font-size:16px;
-      color:var(--white);
-    }
-
-    .hero-point span{
-      color:var(--muted);
-      font-size:15px;
-    }
-
-    .section-title{
-      margin:0 0 14px;
-      font-family:"DM Serif Display", serif;
-      font-size:clamp(32px, 4vw, 54px);
-      line-height:1.04;
-      letter-spacing:-.02em;
-    }
-
-    .section-lead{
-      max-width:760px;
-      margin:0 0 30px;
-      color:var(--muted);
-      font-size:18px;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:22px;
-    }
-
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.025));
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:28px;
-      box-shadow:var(--shadow);
-    }
-
-    .card h3{
-      margin:0 0 12px;
-      font-size:25px;
-      font-family:"DM Serif Display", serif;
-      line-height:1.08;
-    }
-
-    .card p{
-      margin:0;
-      color:var(--muted);
-      font-size:16px;
-    }
-
-    .num{
-      display:block;
-      margin-bottom:16px;
-      font-family:"DM Serif Display", serif;
-      font-size:44px;
-      line-height:1;
-      color:var(--lime2);
-      font-style:italic;
-    }
-
-    .info-strip{
-      margin-top:22px;
-      padding:18px 22px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-size:16px;
-    }
-
-    .pub-list{
-      display:grid;
-      gap:20px;
-    }
-
-    .pub-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:28px;
-    }
-
-    .pub-meta{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      color:var(--lime);
-      font-size:13px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-weight:700;
-      margin-bottom:14px;
-    }
-
-    .pub-card h3{
-      margin:0 0 12px;
-      font-family:"DM Serif Display", serif;
-      font-size:clamp(28px, 3vw, 42px);
-      line-height:1.08;
-      letter-spacing:-.02em;
-    }
-
-    .pub-card p{
-      margin:0 0 22px;
-      color:var(--muted);
-      font-size:18px;
-      max-width:900px;
-    }
-
-    .pub-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .cta-panel{
-      padding:34px;
-      border-radius:28px;
-      background:
-        radial-gradient(circle at top right, rgba(199,240,0,.12), transparent 25%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-    }
-
-    .cta-panel h2{
-      margin:0 0 12px;
-      font-family:"DM Serif Display", serif;
-      font-size:clamp(30px, 4vw, 52px);
-      line-height:1.06;
-      letter-spacing:-.02em;
-    }
-
-    .cta-panel p{
-      margin:0 0 24px;
-      color:var(--muted);
-      font-size:18px;
-      max-width:760px;
-    }
-
-    .footer{
-      padding:28px 0 40px;
-      color:var(--soft);
-      font-size:14px;
-      border-top:1px solid rgba(255,255,255,.05);
-    }
-
-    @media (max-width: 980px){
-      .hero-grid,
-      .grid-3{
-        grid-template-columns:1fr;
-      }
-
-      .hero{
-        padding-top:64px;
-      }
-
-      .hero h1{
-        max-width:none;
-      }
-    }
-
-    @media (max-width: 640px){
-      .container{
-        width:min(var(--max), calc(100% - 24px));
-      }
-
-      .nav{
-        min-height:auto;
-        padding:16px 0;
-        align-items:flex-start;
-        flex-direction:column;
-      }
-
-      .nav-links{
-        gap:16px;
-      }
-
-      section{
-        padding:64px 0;
-      }
-
-      .card,
-      .pub-card,
-      .hero-card,
-      .cta-panel{
-        padding:22px;
-      }
-
-      .btn{
-        width:100%;
-      }
-
-      .cta-row,
-      .pub-actions{
-        flex-direction:column;
-      }
-    }
-  </style>
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s,transform .65s}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:768px){nav{display:none}.ham{display:flex}footer{flex-direction:column;text-align:center}}
+</style>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="index.html">
-        <span class="brand-mark"></span>
-        <span>GFI Flow Intelligence</span>
-      </a>
+<header>
+  <a href="index.html" class="logo"><img src="GFILOGO.png" alt="GFI"></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="government.html" class="active">Public Sector</a>
+    <a href="enterprise.html">Private Sector</a>
+    <a href="gl-demo.html">GL Demo</a>
+    <a href="about.html">Founder</a>
+    <a href="/cdn-cgi/l/email-protection#6502030c2502030c0c0b1100094b060a08" class="nav-cta">Contact</a>
+  </nav>
+  <button class="ham" id="ham" aria-label="Menu" onclick="toggleDrawer()">
+    <span></span><span></span><span></span>
+  </button>
+</header>
 
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="government.html" class="active">Public Sector</a>
-        <a href="private.html">Private Sector</a>
-        <a href="gl-demo.html">GL Demo</a>
-        <a href="about.html">Researcher</a>
-        <a href="contact.html">Contact</a>
-      </nav>
+<div class="drawer" id="drawer">
+  <a href="index.html" onclick="closeDrawer()">Home</a>
+  <a href="government.html" onclick="closeDrawer()">Public Sector</a>
+  <a href="enterprise.html" onclick="closeDrawer()">Private Sector</a>
+  <a href="gl-demo.html" onclick="closeDrawer()">GL Demo</a>
+  <a href="about.html" onclick="closeDrawer()">Founder</a>
+  <a href="/cdn-cgi/l/email-protection#9afdfcf3dafdfcf3f3f4eefff6b4f9f5f7" class="drawer-cta" onclick="closeDrawer()">Contact →</a>
+</div>
+
+<!-- ① HERO: two-column -->
+<div class="hero">
+  <div class="hero-grid"></div><div class="hero-glow"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-cols">
+      <div>
+        <span class="eyebrow" style="opacity:0;animation:up .6s .05s forwards">Public Sector · Government</span>
+        <h1>GL measures how well<br>a system <em>delivers its purpose.</em></h1>
+        <p class="hero-sub">A structural diagnostic built from public administrative data, enabling cross-jurisdictional comparison.</p>
+        <p class="hero-norisk">No internal access &nbsp;·&nbsp; No installation &nbsp;·&nbsp; No system integration</p>
+        <div class="btn-row" style="opacity:0;animation:up .6s .48s forwards">
+          <a href="gl-demo.html" class="btn-solid">Launch GL Demo →</a>
+          <a href="/cdn-cgi/l/email-protection#c7a0a1ae87a0a1aeaea9b3a2abe9a4a8aa" class="btn-ghost">Get in Touch</a>
+          <a href="about.html" class="btn-ghost">About the Researcher</a>
+        </div>
+      </div>
+      <aside class="hero-aside">
+        <div class="hero-aside-label">What this page is for</div>
+        <div class="aside-pts">
+          <div class="aside-pt">
+            <strong>Compare delivery performance</strong>
+            <span>Across programs, agencies, or jurisdictions using publicly available data.</span>
+          </div>
+          <div class="aside-pt">
+            <strong>Identify structural friction</strong>
+            <span>Without entering internal systems or triggering IT integration concerns.</span>
+          </div>
+          <div class="aside-pt">
+            <strong>Support defensible discussion</strong>
+            <span>For budget hearings, oversight reviews, and internal leadership briefings.</span>
+          </div>
+        </div>
+      </aside>
     </div>
-  </header>
+  </div>
+</div>
 
-  <main>
-
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">Public Sector · Government</span>
-          <h1>
-            GL measures how well
-            a system <span class="accent">delivers its purpose.</span>
-          </h1>
-          <p class="hero-lead">
-            A structural diagnostic built from public administrative data.
-          </p>
-          <p class="hero-sub">
-            No internal access. No installation. No system integration.
-          </p>
-
-          <div class="cta-row">
-            <a class="btn btn-primary" href="gl-demo.html">Launch GL Demo →</a>
-            <a class="btn" href="contact.html">Get in Touch</a>
-            <a class="btn" href="about.html">About the Researcher</a>
-          </div>
-        </div>
-
-        <aside class="hero-card">
-          <h3>What this page is for</h3>
-          <div class="hero-points">
-            <div class="hero-point">
-              <strong>Compare delivery performance</strong>
-              <span>Across programs, agencies, or jurisdictions using operationally available data.</span>
-            </div>
-            <div class="hero-point">
-              <strong>Identify structural friction</strong>
-              <span>Without entering internal systems or triggering IT integration concerns.</span>
-            </div>
-            <div class="hero-point">
-              <strong>Support defensible discussion</strong>
-              <span>For leadership, operations teams, and policy implementation review.</span>
-            </div>
-          </div>
-        </aside>
+<!-- ② START WITH 3 FIELDS -->
+<section class="band">
+  <div class="wrap">
+    <span class="eyebrow reveal">Start Here</span>
+    <h2 class="stitle reveal">Start with 3 fields. That's it.</h2>
+    <p class="slead reveal">You can begin with only three operational inputs for an initial directional diagnostic.</p>
+    <div class="fields-grid reveal">
+      <div class="field-card">
+        <div class="field-num">1</div>
+        <div class="field-label">Total applications or cases</div>
+        <div class="field-desc">How many people entered the process in the period being measured.</div>
       </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <span class="eyebrow">Why it matters</span>
-        <h2 class="section-title">Why public agencies use GL</h2>
-        <p class="section-lead">
-          Delivery problems are often discussed as funding shortages or staffing strain. GL adds another view: whether the process itself is creating avoidable friction that weakens outcomes.
-        </p>
-
-        <div class="grid-3">
-          <div class="card">
-            <h3>Cross-jurisdiction comparison</h3>
-            <p>
-              See how similar processes perform across agencies, offices, or states using a common structural lens.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>No system exposure</h3>
-            <p>
-              Analysis can begin from public, exported, or manually assembled operational data without internal system access.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Leadership-ready framing</h3>
-            <p>
-              Produce a clearer discussion of delivery burden, delay, and process failure without turning the exercise into blame assignment.
-            </p>
-          </div>
-        </div>
+      <div class="field-card">
+        <div class="field-num">2</div>
+        <div class="field-label">Average processing time</div>
+        <div class="field-desc">Days or hours from submission to determination or next actionable step.</div>
       </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <span class="eyebrow">Start here</span>
-        <h2 class="section-title">Start with 3 fields. That’s it.</h2>
-        <p class="section-lead">
-          You can begin with only three operational inputs for an initial directional diagnostic.
-        </p>
-
-        <div class="grid-3">
-          <div class="card">
-            <span class="num">1</span>
-            <h3>Total applications<br>(or cases)</h3>
-            <p>
-              How many people entered the process in the period being measured.
-            </p>
-          </div>
-
-          <div class="card">
-            <span class="num">2</span>
-            <h3>Average processing time</h3>
-            <p>
-              Days or hours from submission to determination, approval, or next actionable step.
-            </p>
-          </div>
-
-          <div class="card">
-            <span class="num">3</span>
-            <h3>Drop-off / appeal / manual review rate</h3>
-            <p>
-              The share of cases that did not complete smoothly, required rework, escalated, or moved into review.
-            </p>
-          </div>
-        </div>
-
-        <div class="info-strip">
-          Estimates are acceptable for an initial directional diagnostic. You can start with one program, one unit, or one workflow.
-        </div>
+      <div class="field-card">
+        <div class="field-num">3</div>
+        <div class="field-label">Drop-off / appeal / manual review rate</div>
+        <div class="field-desc">Share of cases that required rework, escalation, or exceptions.</div>
       </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <span class="eyebrow">Publications</span>
-        <h2 class="section-title">Selected public administration writing</h2>
-        <p class="section-lead">
-          One publication block is enough. Keep the research proof here and remove the duplicated “featured in PA Times” card section from the bottom.
-        </p>
-
-        <div class="pub-list">
-
-          <article class="pub-card">
-            <div class="pub-meta">
-              <span>PA Times</span>
-              <span>March 13, 2026</span>
-              <span>Published</span>
-            </div>
-            <h3>The Denominator Problem: Structural Efficiency Measurement in Public Administrative Systems</h3>
-            <p>
-              Institutional failure is often not a resource problem but a delivery design problem. This piece introduces the friction lens behind GL in public administration.
-            </p>
-            <div class="pub-actions">
-              <a class="btn btn-primary" href="contact.html">Request Copy →</a>
-            </div>
-          </article>
-
-          <article class="pub-card">
-            <div class="pub-meta">
-              <span>PA Times</span>
-              <span>April 3, 2026</span>
-              <span>Forthcoming</span>
-            </div>
-            <h3>Proportional Sequencing in Long-Term Care: A Process Design Approach for U.S. HCBS</h3>
-            <p>
-              A process design argument for reordering safeguards so that access delay can be reduced without removing oversight.
-            </p>
-            <div class="pub-actions">
-              <a class="btn" href="contact.html">Request Pre-Publication Copy →</a>
-            </div>
-          </article>
-
-          <article class="pub-card">
-            <div class="pub-meta">
-              <span>PA Times</span>
-              <span>April 24, 2026</span>
-              <span>Forthcoming</span>
-            </div>
-            <h3>What Global Benefit Systems Reveal About Policy Delivery</h3>
-            <p>
-              Comparative cases show that delivery design can shape public outcomes as much as funding or formal policy intent.
-            </p>
-            <div class="pub-actions">
-              <a class="btn" href="contact.html">Request Advance Review →</a>
-            </div>
-          </article>
-
-          <article class="pub-card">
-            <div class="pub-meta">
-              <span>PA Times</span>
-              <span>May 22, 2026</span>
-              <span>Forthcoming</span>
-            </div>
-            <h3>What One-Stop Service Reveals About the Delivery Problem</h3>
-            <p>
-              When coordination burden sits with citizens, friction rises. When systems absorb coordination, service performance improves.
-            </p>
-            <div class="pub-actions">
-              <a class="btn" href="contact.html">Request Advance Review →</a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="cta-panel">
-          <span class="eyebrow">Next step</span>
-          <h2>Start with one workflow, one program, or one agency unit.</h2>
-          <p>
-            GL is designed for directional structural diagnosis using public or operational data — not internal audit exposure.
-          </p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="contact.html">Request Sample</a>
-            <a class="btn" href="gl-demo.html">Open Demo</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      © 2026 GFI Flow Intelligence. Structural diagnostics for delivery systems.
     </div>
-  </footer>
+    <div class="info-strip reveal">Estimates are acceptable for an initial directional diagnostic &nbsp;·&nbsp; You can start with one program, one unit, or one workflow &nbsp;·&nbsp; Nothing stored without your approval</div>
+    <div class="btn-row reveal">
+      <a href="gl-demo.html" class="btn-solid">Run a Quick Scan →</a>
+      <a href="/cdn-cgi/l/email-protection#b6d1d0dff6d1d0dfdfd8c2d3da98d5d9db" class="btn-ghost">Request a Private Diagnostic</a>
+    </div>
+  </div>
+</section>
 
-</body>
-</html>
+<!-- ③ USE IT IN THE ROOM -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow reveal">Use It in the Room</span>
+    <h2 class="stitle reveal">Walk into the meeting with numbers.</h2>
+    <p class="slead reveal">When you're asked why things are delayed, you need something you can point to — not an explanation.</p>
+    <div class="room-grid reveal">
+      <div class="room-card">
+        <div class="room-scenario">Budget Hearing</div>
+        <div class="room-quote">"We are not underfunded. We are overloaded at step 3."</div>
+        <div class="room-tag">Turns a resource argument into a structural diagnosis.</div>
+      </div>
+      <div class="room-card">
+        <div class="room-scenario">Oversight Review</div>
+        <div class="room-quote">"Drop-off is happening before eligibility — not after."</div>
+        <div class="room-tag">Shows where the system breaks before anyone assigns fault.</div>
+      </div>
+      <div class="room-card">
+        <div class="room-scenario">Internal Briefing</div>
+        <div class="room-quote">"This is where the process breaks, not where people fail."</div>
+        <div class="room-tag">Protects staff. Focuses leadership on fixable structure.</div>
+      </div>
+    </div>
+    <div class="room-shift reveal">Shifts the conversation from <em>blame</em> to structure.</div>
+
+    <div class="video-wrap reveal" id="one-stop-video">
+      <video controls playsinline preload="metadata">
+        <source src="one-stop-service.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p style="font-size:14px;color:var(--muted);margin-top:12px;max-width:680px;line-height:1.75" class="reveal">China's one-stop service model: when systems absorb coordination work, access becomes faster and less fragile. The same principle applies to any public delivery system.</p>
+  </div>
+</section>
+
+<!-- ④ PUBLICATIONS: large type, one block -->
+<section class="band">
+  <div class="wrap">
+    <span class="eyebrow reveal">Publications</span>
+    <h2 class="stitle reveal">PA Times · Public Administration Review</h2>
+
+    <div class="pub-item reveal">
+      <div class="pub-meta">
+        <span class="pub-venue">PA Times</span>
+        <span class="pub-date">March 13, 2026</span>
+        <span class="pub-status published">Published</span>
+      </div>
+      <div class="pub-title">The Denominator Problem: Structural Efficiency Measurement in Public Administrative Systems</div>
+      <p class="pub-desc">Institutional failure is not a resource problem — it is a denominator design problem.</p>
+      <a href="/cdn-cgi/l/email-protection#98fffef1d8fffef1f1f6ecfdf4b6fbf7f5" class="btn-solid">Request Copy →</a>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-meta">
+        <span class="pub-venue fc">PA Times</span>
+        <span class="pub-date">April 3, 2026</span>
+        <span class="pub-status forthcoming">Forthcoming</span>
+      </div>
+      <div class="pub-title">Proportional Sequencing in Long-Term Care: A Process Design Approach for U.S. HCBS</div>
+      <p class="pub-desc">Reordering safeguards reduces entry friction without removing oversight.</p>
+      <a href="/cdn-cgi/l/email-protection#5d3a3b341d3a3b343433293831733e3230" class="btn-ghost">Request Pre-Publication Copy →</a>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-meta">
+        <span class="pub-venue fc">PA Times</span>
+        <span class="pub-date">April 24, 2026</span>
+        <span class="pub-status forthcoming">Forthcoming</span>
+      </div>
+      <div class="pub-title">What Global Benefit Systems Reveal About Policy Delivery</div>
+      <p class="pub-desc">Delivery design shapes public outcomes as much as funding or policy intent.</p>
+      <a href="/cdn-cgi/l/email-protection#e0878689a0878689898e94858cce838f8d" class="btn-ghost">Request Advance Review →</a>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-meta">
+        <span class="pub-venue fc">PA Times</span>
+        <span class="pub-date">May 22, 2026</span>
+        <span class="pub-status forthcoming">Forthcoming</span>
+      </div>
+      <div class="pub-title">What One-Stop Service Reveals About the Delivery Problem</div>
+      <p class="pub-desc">Coordination burden should sit with systems, not citizens.</p>
+      <a href="/cdn-cgi/l/email-protection#3156575871565758585f45545d1f525e5c" class="btn-ghost">Request Advance Review →</a>
+    </div>
+
+    <div class="pub-item reveal" style="border-bottom:none">
+      <div class="pub-meta">
+        <span class="pub-venue">SSRN</span>
+        <span class="pub-date">March 2026</span>
+        <span class="pub-status published">Peer Review</span>
+      </div>
+      <div class="pub-title">The Last Poverty Solution</div>
+      <p class="pub-desc">GCSF Engine and GCV delivery architecture — the policy implementation blueprint behind the GL Framework.</p>
+      <a href="https://ssrn.com/abstract=6050695" target="_blank" rel="noopener" class="btn-ghost">Read on SSRN →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ FINAL CTA -->
+<section>
+  <div class="wrap">
+    <div class="cta-panel reveal">
+      <span class="eyebrow">Next Step</span>
+      <h3>Start with one workflow, one program, or one agency unit.</h3>
+      <p>GL is designed for directional structural diagnosis using public or operational data — not internal audit exposure. No commitment. No integration.</p>
+      <div class="btn-row">
+        <a href="/cdn-cgi/l/email-protection#ee898887ae89888787809a8b82c08d8183" class="btn-solid">Request a Private Diagnostic →</a>
+        <a href="gl-demo.html" class="btn-ghost">Open GL Demo</a>
+      </div>
+      <div class="cta-privacy">Nothing is shared without your approval &nbsp;·&nbsp; No payment &nbsp;·&nbsp; No vendor registration &nbsp;·&nbsp; No RFP</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 GFI Flow Intelligence · Boston</span>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="enterprise.html">Private Sector</a>
+    <a href="gl-demo.html">GL Demo</a>
+    <a href="about.html">Founder</a>
+    <a href="/cdn-cgi/l/email-protection#0661606f4661606f6f6872636a2865696b">Contact</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><scrip
