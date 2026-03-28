@@ -120,67 +120,58 @@ footer a:hover{color:var(--text)}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s,transform .65s}
 .reveal.vis{opacity:1;transform:none}
 @media(max-width:768px){nav{display:none}.ham{display:flex}.val-comps{grid-template-columns:1fr}footer{flex-direction:column;text-align:center}}
-/* PA TIMES STRIP */
-.pa-strip{
-  width:100%; max-width:1000px;
-  margin:32px auto 0;
-}
-.pa-strip-label{
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:#7a90aa;
-  margin-bottom:14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.pa-strip-label::after{
-  content:'';
-  flex:1;
-  height:1px;
-  background:rgba(255,255,255,.08);
-}
-.pa-articles{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.pa-article{
-  padding:16px 18px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,.07);
-  background:rgba(255,255,255,.025);
-  text-decoration:none;
-  transition:border-color .2s ease, background .2s ease;
-}
-.pa-article:hover{
-  border-color:rgba(200,245,66,.25);
-  background:rgba(200,245,66,.04);
-}
-.pa-date{
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.12em;
-  color:#7a90aa;
-  margin-bottom:6px;
-}
-.pa-title{
-  font-size:13px;
-  font-weight:500;
-  color:#E8F0FA;
-  line-height:1.4;
-  margin-bottom:6px;
-}
-.pa-summary{
-  font-size:12px;
-  color:#7a90aa;
-  line-height:1.6;
-}
-@media(max-width:640px){
-  .pa-articles{ grid-template-columns:1fr; }
-}
+
+/* ── PA TIMES STRIP ── */
+.pa-strip{width:100%;max-width:1000px;margin:32px auto 0;}
+.pa-strip-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#7a90aa;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.pa-strip-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);}
+.pa-articles{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pa-article{padding:16px 18px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);text-decoration:none;transition:border-color .2s ease,background .2s ease;}
+.pa-article:hover{border-color:rgba(200,245,66,.25);background:rgba(200,245,66,.04);}
+.pa-date{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:#7a90aa;margin-bottom:6px;}
+.pa-title{font-size:13px;font-weight:500;color:#E8F0FA;line-height:1.4;margin-bottom:6px;}
+.pa-summary{font-size:12px;color:#7a90aa;line-height:1.6;}
+@media(max-width:640px){.pa-articles{grid-template-columns:1fr;}}
+
+/* ── 3 FIELDS SECTION ── */
+.fields-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,20px);margin-top:clamp(28px,5vh,48px)}
+.field-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:clamp(22px,3vw,34px);transition:border-color .25s,background .25s}
+.field-card:hover{background:var(--surf2);border-color:rgba(200,245,66,.25)}
+.field-num{font-family:var(--serif);font-style:italic;font-size:clamp(36px,5vw,52px);color:rgba(200,245,66,.2);line-height:1;margin-bottom:12px}
+.field-label{font-family:var(--serif);font-size:clamp(16px,2vw,20px);color:var(--text);margin-bottom:8px;line-height:1.25}
+.field-desc{font-size:clamp(13px,1.6vw,15px);color:var(--muted);line-height:1.65}
+.estimate-note{margin-top:clamp(24px,4vh,36px);padding:clamp(18px,2.5vw,26px);background:rgba(200,245,66,.03);border:1px solid rgba(200,245,66,.12);border-radius:10px}
+.estimate-note p{font-size:clamp(15px,1.8vw,17px);color:var(--muted);line-height:1.8}
+.estimate-note p strong{color:var(--text)}
+.privacy-note{margin-top:clamp(16px,2vh,22px);font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.7;letter-spacing:.04em}
+@media(max-width:640px){.fields-grid{grid-template-columns:1fr}}
+
+/* ── WHAT YOU GET ── */
+.get-list{list-style:none;margin-top:clamp(24px,4vh,40px)}
+.get-list li{display:flex;gap:16px;padding:clamp(16px,2.5vh,22px) 0;border-bottom:1px solid var(--border);font-size:clamp(15px,1.8vw,17px);color:var(--muted);line-height:1.65;align-items:start}
+.get-list li::before{content:'·';color:var(--accent);flex-shrink:0;font-family:var(--serif);font-size:24px;line-height:1.2}
+.get-list li strong{color:var(--text)}
+.internal-note{margin-top:clamp(24px,4vh,36px);padding:clamp(18px,2.5vw,26px) clamp(20px,3vw,32px);background:rgba(77,163,255,.04);border:1px solid rgba(77,163,255,.15);border-radius:10px;font-family:var(--mono);font-size:12px;color:var(--blue);letter-spacing:.06em;text-align:center}
+.no-blame{margin-top:clamp(20px,3vh,28px);text-align:center;font-family:var(--mono);font-size:clamp(12px,1.5vw,14px);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+/* ── USE IT IN THE ROOM ── */
+.room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,20px);margin-top:clamp(28px,5vh,48px)}
+.room-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:clamp(22px,3vw,34px);transition:border-color .25s,background .25s}
+.room-card:hover{background:var(--surf2);border-color:rgba(200,245,66,.2)}
+.room-scenario{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.room-quote{font-family:var(--serif);font-size:clamp(15px,1.9vw,19px);color:var(--text);line-height:1.45;font-style:italic}
+.room-tag{margin-top:14px;font-size:clamp(12px,1.5vw,13px);color:var(--muted);line-height:1.6}
+.room-shift{margin-top:clamp(28px,4vh,40px);text-align:center;font-family:var(--serif);font-style:italic;font-size:clamp(16px,2vw,20px);color:var(--muted);padding:clamp(20px,3vh,28px);border:1px solid var(--border);border-radius:10px}
+.room-shift em{color:var(--text);font-style:normal}
+.you-need{margin-top:clamp(20px,3vh,28px);text-align:center;font-size:clamp(15px,1.8vw,17px);color:var(--muted);line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto}
+.you-need strong{color:var(--text)}
+@media(max-width:640px){.room-grid{grid-template-columns:1fr}}
+
+/* ── FINAL CTA ── */
+.final-cta-wrap{margin-top:clamp(36px,6vh,52px);background:rgba(200,245,66,.04);border:1px solid rgba(200,245,66,.15);border-radius:14px;padding:clamp(32px,5vw,52px);text-align:center}
+.final-cta-title{font-family:var(--serif);font-size:clamp(22px,3vw,34px);color:var(--text);margin-bottom:12px;line-height:1.2}
+.final-cta-sub{font-size:clamp(15px,1.8vw,17px);color:var(--muted);line-height:1.8;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.final-cta-privacy{margin-top:clamp(16px,2vh,22px);font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em}
 </style>
 </head>
 <body>
@@ -209,6 +200,7 @@ footer a:hover{color:var(--text)}
   <a href="mailto:gfi@gfiintel.com" class="drawer-cta" onclick="closeDrawer()">Contact →</a>
 </div>
 
+<!-- ① HERO -->
 <div class="hero">
   <div class="hero-grid"></div><div class="hero-glow"></div>
   <div class="wrap hero-inner">
@@ -223,6 +215,101 @@ footer a:hover{color:var(--text)}
   </div>
 </div>
 
+<!-- ② START WITH 3 FIELDS -->
+<section style="padding:clamp(60px,10vh,100px) 0;border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="eyebrow reveal">Start Here</div>
+    <h2 class="stitle reveal">Start with 3 fields. That's it.</h2>
+    <p class="slead reveal">No system integration. No internal access.<br>Just a simple CSV or manual input.</p>
+    <div class="fields-grid reveal">
+      <div class="field-card">
+        <div class="field-num">1</div>
+        <div class="field-label">Total applications<br>(or cases)</div>
+        <div class="field-desc">How many people entered the process in the period you're measuring.</div>
+      </div>
+      <div class="field-card">
+        <div class="field-num">2</div>
+        <div class="field-label">Average processing<br>time</div>
+        <div class="field-desc">Days or hours from submission to decision. Estimates are fine.</div>
+      </div>
+      <div class="field-card">
+        <div class="field-num">3</div>
+        <div class="field-label">Drop-off /<br>appeal rate</div>
+        <div class="field-desc">What share of cases didn't complete, were appealed, or required manual review.</div>
+      </div>
+    </div>
+    <div class="estimate-note reveal">
+      <p><strong>If you don't have perfect data, estimates work.</strong><br>This is a directional diagnostic — not an audit. You can start with one program, one unit, or one workflow.</p>
+    </div>
+    <p class="privacy-note reveal">Nothing is connected. Nothing is stored without your approval.</p>
+    <div class="btn-row reveal">
+      <a href="gl-demo.html" class="btn-solid">Run a Quick Scan →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ③ WHAT YOU GET -->
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow reveal">What You Get</div>
+    <h2 class="stitle reveal">What you get in 2 weeks.</h2>
+    <p class="slead reveal">Clear, comparable, and yours to use — or not use.</p>
+    <ul class="get-list reveal">
+      <li><strong>A single GL score</strong> — clear, comparable across programs and jurisdictions</li>
+      <li><strong>Where the system is losing flow</strong> — the exact stage where throughput collapses</li>
+      <li><strong>Which step creates the most friction</strong> — ranked by leverage, not by volume</li>
+      <li><strong>A defensible explanation for delays or backlog</strong> — structural, not personal</li>
+    </ul>
+    <div class="internal-note reveal">Designed for internal clarity — not external reporting.</div>
+    <div class="no-blame reveal">No naming. &nbsp;·&nbsp; No blaming. &nbsp;·&nbsp; No exposure.</div>
+    <div class="btn-row reveal">
+      <a href="mailto:gfi@gfiintel.com" class="btn-solid">Request a Private Diagnostic →</a>
+      <a href="gl-demo.html" class="btn-ghost">See the Demo First</a>
+    </div>
+  </div>
+</section>
+
+<!-- ④ USE IT IN THE ROOM -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal">Use It in the Room</div>
+    <h2 class="stitle reveal">Walk into the meeting with numbers.</h2>
+    <p class="slead reveal">When you're asked why things are delayed, you don't need explanations.<br>You need something you can point to.</p>
+    <div class="room-grid reveal">
+      <div class="room-card">
+        <div class="room-scenario">Budget Hearing</div>
+        <div class="room-quote">"We are not underfunded. We are overloaded at step 3."</div>
+        <div class="room-tag">Turns a resource argument into a structural diagnosis.</div>
+      </div>
+      <div class="room-card">
+        <div class="room-scenario">Oversight Review</div>
+        <div class="room-quote">"Drop-off is happening before eligibility — not after."</div>
+        <div class="room-tag">Shows exactly where the system breaks — before anyone assigns fault.</div>
+      </div>
+      <div class="room-card">
+        <div class="room-scenario">Internal Briefing</div>
+        <div class="room-quote">"This is where the process breaks, not where people fail."</div>
+        <div class="room-tag">Protects staff. Focuses leadership on fixable structure.</div>
+      </div>
+    </div>
+    <div class="room-shift reveal">Shifts the conversation from <em>blame</em> to structure.</div>
+    <p class="you-need reveal">You don't need to defend yourself.<br><strong>You need something that explains the system.</strong></p>
+  </div>
+</section>
+
+<!-- ⑤ FINAL CTA -->
+<section class="band">
+  <div class="wrap">
+    <div class="final-cta-wrap reveal">
+      <div class="final-cta-title">Start with one workflow.</div>
+      <p class="final-cta-sub">No commitment. No integration.<br>Just a diagnostic you control.</p>
+      <a href="mailto:gfi@gfiintel.com" class="btn-solid" style="font-size:clamp(15px,1.8vw,17px);padding:clamp(15px,2.2vh,18px) clamp(32px,4vw,48px);margin:0 auto">Request a Private Diagnostic →</a>
+      <div class="final-cta-privacy">Nothing is shared without your approval.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXISTING SECTIONS BELOW -->
 
 <section class="band">
   <div class="wrap">
@@ -314,29 +401,20 @@ footer a:hover{color:var(--text)}
           <div class="pa-title">The Denominator Problem</div>
           <div class="pa-summary">Why policy failures stem from broken delivery design, not insufficient funding.</div>
         </a>
-        <div class="pa-article" style="cursor:default; opacity:.75;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-            <div class="pa-date">Apr 3, 2026</div>
-            <span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#9FE870;background:rgba(159,232,112,.1);border:1px solid rgba(159,232,112,.2);padding:2px 8px;border-radius:4px;">Coming Soon</span>
-          </div>
+        <div class="pa-article" style="cursor:default;opacity:.75;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><div class="pa-date">Apr 3, 2026</div><span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#9FE870;background:rgba(159,232,112,.1);border:1px solid rgba(159,232,112,.2);padding:2px 8px;border-radius:4px;">Coming Soon</span></div>
           <div class="pa-title">Proportional Sequencing in Long-Term Care</div>
           <div class="pa-summary">How reordering safeguards — without removing them — reduces access delays in HCBS programs.</div>
           <div style="font-family:var(--mono);font-size:10px;color:#9FE870;margin-top:8px;">Available for advance review → ping@gfiintel.com</div>
         </div>
-        <div class="pa-article" style="cursor:default; opacity:.75;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-            <div class="pa-date">Apr 24, 2026</div>
-            <span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#9FE870;background:rgba(159,232,112,.1);border:1px solid rgba(159,232,112,.2);padding:2px 8px;border-radius:4px;">Coming Soon</span>
-          </div>
+        <div class="pa-article" style="cursor:default;opacity:.75;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><div class="pa-date">Apr 24, 2026</div><span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#9FE870;background:rgba(159,232,112,.1);border:1px solid rgba(159,232,112,.2);padding:2px 8px;border-radius:4px;">Coming Soon</span></div>
           <div class="pa-title">What Global Benefit Systems Reveal About Policy Delivery</div>
           <div class="pa-summary">Rwanda, Estonia, Singapore, and Canada show that delivery design determines outcomes as much as policy design.</div>
           <div style="font-family:var(--mono);font-size:10px;color:#9FE870;margin-top:8px;">Available for advance review → ping@gfiintel.com</div>
         </div>
-        <div class="pa-article" style="cursor:default; opacity:.75;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-            <div class="pa-date">May 22, 2026</div>
-            <span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#9FE870;background:rgba(159,232,112,.1);border:1px solid rgba(159,232,112,.2);padding:2px 8px;border-radius:4px;">Coming Soon</span>
-          </div>
+        <div class="pa-article" style="cursor:default;opacity:.75;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><div class="pa-date">May 22, 2026</div><span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#9FE870;background:rgba(159,232,112,.1);border:1px solid rgba(159,232,112,.2);padding:2px 8px;border-radius:4px;">Coming Soon</span></div>
           <div class="pa-title">What One-Stop Service Reveals About Delivery Problem</div>
           <div class="pa-summary">China's one-stop model illustrates a universal principle: coordination burden should sit with systems, not citizens.</div>
           <div style="font-family:var(--mono);font-size:10px;color:#9FE870;margin-top:8px;">Available for advance review → ping@gfiintel.com</div>
@@ -412,9 +490,9 @@ footer a:hover{color:var(--text)}
 </footer>
 
 <script>
-function toggleVal(c){ c.classList.toggle("open"); }
-function toggleDrawer(){ document.getElementById("ham").classList.toggle("open"); document.getElementById("drawer").classList.toggle("open"); }
-function closeDrawer(){ document.getElementById("ham").classList.remove("open"); document.getElementById("drawer").classList.remove("open"); }
+function toggleVal(c){c.classList.toggle("open");}
+function toggleDrawer(){document.getElementById("ham").classList.toggle("open");document.getElementById("drawer").classList.toggle("open");}
+function closeDrawer(){document.getElementById("ham").classList.remove("open");document.getElementById("drawer").classList.remove("open");}
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("vis")}),{threshold:0.08});
 document.querySelectorAll(".reveal").forEach(el=>ro.observe(el));
 </script>
