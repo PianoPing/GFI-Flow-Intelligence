@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Government | GFI Flow Intelligence</title>
   <meta name="description" content="GL Framework for public sector delivery diagnostics. A single metric for system delivery performance.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -248,6 +249,58 @@
 
     .btn:hover .arrow{transform:translateX(4px)}
 
+    .video-block{
+      width:100%;
+      max-width:900px;
+      margin:0 auto 30px;
+      opacity:0;
+      animation:up .58s .38s forwards;
+    }
+
+    .section-label{
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#7a90aa;
+      margin-bottom:12px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .section-label::after{
+      content:'';
+      flex:1;
+      height:1px;
+      background:rgba(255,255,255,.08);
+    }
+
+    .video-wrap{
+      position:relative;
+      width:100%;
+      padding-top:56.25%;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 10px 28px rgba(0,0,0,.16);
+      background:rgba(255,255,255,.03);
+    }
+
+    .video-wrap iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+    }
+
+    .video-note{
+      margin-top:10px;
+      font-size:14px;
+      color:#9fb0c8;
+      line-height:1.7;
+    }
+
     .entry-box{
       width:100%;
       max-width:780px;
@@ -331,25 +384,6 @@
       margin:0 auto 34px;
       opacity:0;
       animation:up .6s .54s forwards;
-    }
-
-    .section-label{
-      font-family:var(--mono);
-      font-size:10px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:#7a90aa;
-      margin-bottom:12px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-
-    .section-label::after{
-      content:'';
-      flex:1;
-      height:1px;
-      background:rgba(255,255,255,.08);
     }
 
     .section-head{
@@ -541,6 +575,19 @@
         <a href="index.html" class="btn">Back to Home <span class="arrow">→</span></a>
       </div>
 
+      <div class="video-block" id="one-stop-video">
+        <div class="section-label">One-Stop Service Example</div>
+        <div class="video-wrap">
+          <iframe id="videoFrame-en"
+            src="https://www.youtube.com/embed/KHhfAa4jliY"
+            title="One-Stop Service Example"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <div class="video-note">A practical example of how coordination burden can be absorbed by the system rather than pushed onto citizens.</div>
+      </div>
+
       <div class="entry-box">
         <div class="entry-kicker">Entry Diagnostic</div>
         <div class="entry-mini">1-page GL diagnostic · Directional first-pass review</div>
@@ -549,21 +596,9 @@
       </div>
 
       <div class="grid">
-        <div class="card">
-          <div class="card-num">01</div>
-          <div class="card-title">Compare delivery performance</div>
-          <div class="card-text">See how similar public processes perform across programs, units, or jurisdictions.</div>
-        </div>
-        <div class="card">
-          <div class="card-num">02</div>
-          <div class="card-title">See friction without system exposure</div>
-          <div class="card-text">Start with public data, CSV exports, or manually assembled operating figures.</div>
-        </div>
-        <div class="card">
-          <div class="card-num">03</div>
-          <div class="card-title">Support leadership discussion</div>
-          <div class="card-text">Discuss delay, burden, rework, and process design risk with a common metric.</div>
-        </div>
+        <div class="card"><div class="card-num">01</div><div class="card-title">Compare delivery performance</div><div class="card-text">See how similar public processes perform across programs, units, or jurisdictions.</div></div>
+        <div class="card"><div class="card-num">02</div><div class="card-title">See friction without system exposure</div><div class="card-text">Start with public data, CSV exports, or manually assembled operating figures.</div></div>
+        <div class="card"><div class="card-num">03</div><div class="card-title">Support leadership discussion</div><div class="card-text">Discuss delay, burden, rework, and process design risk with a common metric.</div></div>
       </div>
 
       <div class="section-block">
@@ -580,37 +615,23 @@
 
       <div class="pub-list">
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · Published</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · Published</div></div>
           <div class="pub-title">The Denominator Problem: How Administrative Friction Derails Policy</div>
           <div class="pub-summary">Introduces the implementation burden lens behind GL and explains why delay and process drag weaken outcomes even in well-funded programs.</div>
           <a class="pub-link" href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener">Read Article →</a>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · Apr 3, 2026</div>
-            <div class="tag">Forthcoming</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · Apr 3, 2026</div><div class="tag">Forthcoming</div></div>
           <div class="pub-title">Proportional Sequencing in Long-Term Care</div>
           <div class="pub-summary">Examines how process ordering affects access and why safeguards do not need to be removed in order to reduce delay.</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · Apr 24, 2026</div>
-            <div class="tag">Forthcoming</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · Apr 24, 2026</div><div class="tag">Forthcoming</div></div>
           <div class="pub-title">What Global Benefit Systems Reveal About Policy Delivery</div>
           <div class="pub-summary">Looks at how administrative design shapes outcomes across national systems and what implementation structure reveals beyond formal policy intent.</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · May 22, 2026</div>
-            <div class="tag">Forthcoming</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · May 22, 2026</div><div class="tag">Forthcoming</div></div>
           <div class="pub-title">What One-Stop Service Reveals About the Delivery Problem</div>
           <div class="pub-summary">Shows why coordination burden should sit with systems rather than citizens.</div>
         </div>
@@ -640,6 +661,19 @@
         <a href="index.html" class="btn">回首頁 <span class="arrow">→</span></a>
       </div>
 
+      <div class="video-block" id="one-stop-video">
+        <div class="section-label">一站式服務案例</div>
+        <div class="video-wrap">
+          <iframe id="videoFrame-tw"
+            src="https://www.youtube.com/embed/Hpb8fibUdYw"
+            title="One-Stop Service Example"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <div class="video-note">一個實際例子：協調負擔由系統吸收，而不是推回給公民。</div>
+      </div>
+
       <div class="entry-box">
         <div class="entry-kicker">入門診斷</div>
         <div class="entry-mini">1頁 GL 診斷 · 方向性初步檢視</div>
@@ -648,21 +682,9 @@
       </div>
 
       <div class="grid">
-        <div class="card">
-          <div class="card-num">01</div>
-          <div class="card-title">比較交付表現</div>
-          <div class="card-text">比較相似公共流程在不同方案、單位或轄區中的表現。</div>
-        </div>
-        <div class="card">
-          <div class="card-num">02</div>
-          <div class="card-title">不碰內部系統也能看見摩擦</div>
-          <div class="card-text">可以從公開資料、CSV 匯出或人工整理的營運數字開始。</div>
-        </div>
-        <div class="card">
-          <div class="card-num">03</div>
-          <div class="card-title">支撐領導層討論</div>
-          <div class="card-text">用共同指標討論延遲、負擔、返工與流程設計風險。</div>
-        </div>
+        <div class="card"><div class="card-num">01</div><div class="card-title">比較交付表現</div><div class="card-text">比較相似公共流程在不同方案、單位或轄區中的表現。</div></div>
+        <div class="card"><div class="card-num">02</div><div class="card-title">不碰內部系統也能看見摩擦</div><div class="card-text">可以從公開資料、CSV 匯出或人工整理的營運數字開始。</div></div>
+        <div class="card"><div class="card-num">03</div><div class="card-title">支撐領導層討論</div><div class="card-text">用共同指標討論延遲、負擔、返工與流程設計風險。</div></div>
       </div>
 
       <div class="section-block">
@@ -679,37 +701,23 @@
 
       <div class="pub-list">
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 已刊登</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 已刊登</div></div>
           <div class="pub-title">分母問題：行政摩擦如何拖垮政策交付</div>
           <div class="pub-summary">介紹 GL 背後的執行負擔視角，說明為何即使預算充足，延遲與流程拖累仍會削弱結果。</div>
           <a class="pub-link" href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener">閱讀文章 →</a>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 2026年4月3日</div>
-            <div class="tag">即將刊出</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 2026年4月3日</div><div class="tag">即將刊出</div></div>
           <div class="pub-title">長期照護中的比例排序</div>
           <div class="pub-summary">探討流程排序如何影響可近性，以及為何要減少延遲，不必然等於拿掉保障機制。</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 2026年4月24日</div>
-            <div class="tag">即將刊出</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 2026年4月24日</div><div class="tag">即將刊出</div></div>
           <div class="pub-title">全球福利制度揭示了什麼交付問題</div>
           <div class="pub-summary">觀察行政設計如何影響不同國家的結果，以及執行結構如何揭露正式政策目標之外的現實。</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 2026年5月22日</div>
-            <div class="tag">即將刊出</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 2026年5月22日</div><div class="tag">即將刊出</div></div>
           <div class="pub-title">一站式服務揭示的交付問題</div>
           <div class="pub-summary">說明為何協調負擔應由系統承擔，而不是丟給公民。</div>
         </div>
@@ -739,6 +747,19 @@
         <a href="index.html" class="btn">回首页 <span class="arrow">→</span></a>
       </div>
 
+      <div class="video-block" id="one-stop-video">
+        <div class="section-label">一站式服务案例</div>
+        <div class="video-wrap">
+          <iframe id="videoFrame-cn"
+            src="https://www.youtube.com/embed/Hpb8fibUdYw"
+            title="One-Stop Service Example"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <div class="video-note">一个实际例子：协调负担由系统吸收，而不是推回给公民。</div>
+      </div>
+
       <div class="entry-box">
         <div class="entry-kicker">入门诊断</div>
         <div class="entry-mini">1页 GL 诊断 · 方向性初步审视</div>
@@ -747,21 +768,9 @@
       </div>
 
       <div class="grid">
-        <div class="card">
-          <div class="card-num">01</div>
-          <div class="card-title">比较交付表现</div>
-          <div class="card-text">比较相似公共流程在不同项目、单位或辖区中的表现。</div>
-        </div>
-        <div class="card">
-          <div class="card-num">02</div>
-          <div class="card-title">不碰内部系统也能看见摩擦</div>
-          <div class="card-text">可以从公开数据、CSV 导出或人工整理的运营数字开始。</div>
-        </div>
-        <div class="card">
-          <div class="card-num">03</div>
-          <div class="card-title">支撑领导层讨论</div>
-          <div class="card-text">用共同指标讨论延迟、负担、返工与流程设计风险。</div>
-        </div>
+        <div class="card"><div class="card-num">01</div><div class="card-title">比较交付表现</div><div class="card-text">比较相似公共流程在不同项目、单位或辖区中的表现。</div></div>
+        <div class="card"><div class="card-num">02</div><div class="card-title">不碰内部系统也能看见摩擦</div><div class="card-text">可以从公开数据、CSV 导出或人工整理的运营数字开始。</div></div>
+        <div class="card"><div class="card-num">03</div><div class="card-title">支撑领导层讨论</div><div class="card-text">用共同指标讨论延迟、负担、返工与流程设计风险。</div></div>
       </div>
 
       <div class="section-block">
@@ -778,37 +787,23 @@
 
       <div class="pub-list">
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 已刊登</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 已刊登</div></div>
           <div class="pub-title">分母问题：行政摩擦如何拖垮政策交付</div>
           <div class="pub-summary">介绍 GL 背后的执行负担视角，说明为何即使预算充足，延迟与流程拖累仍会削弱结果。</div>
           <a class="pub-link" href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener">阅读文章 →</a>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 2026年4月3日</div>
-            <div class="tag">即将刊出</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 2026年4月3日</div><div class="tag">即将刊出</div></div>
           <div class="pub-title">长期照护中的比例排序</div>
           <div class="pub-summary">探讨流程排序如何影响可及性，以及为何要减少延迟，并不等于必须取消保障机制。</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 2026年4月24日</div>
-            <div class="tag">即将刊出</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 2026年4月24日</div><div class="tag">即将刊出</div></div>
           <div class="pub-title">全球福利制度揭示了什么交付问题</div>
           <div class="pub-summary">观察行政设计如何影响不同国家的结果，以及执行结构如何揭示正式政策目标之外的现实。</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 2026年5月22日</div>
-            <div class="tag">即将刊出</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 2026年5月22日</div><div class="tag">即将刊出</div></div>
           <div class="pub-title">一站式服务揭示的交付问题</div>
           <div class="pub-summary">说明为什么协调负担应由系统承担，而不是交给公民。</div>
         </div>
@@ -838,6 +833,19 @@
         <a href="index.html" class="btn">Volver al inicio <span class="arrow">→</span></a>
       </div>
 
+      <div class="video-block" id="one-stop-video">
+        <div class="section-label">Ejemplo de ventanilla única</div>
+        <div class="video-wrap">
+          <iframe id="videoFrame-es"
+            src="https://www.youtube.com/embed/KHhfAa4jliY"
+            title="One-Stop Service Example"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <div class="video-note">Un ejemplo práctico de cómo la carga de coordinación puede ser absorbida por el sistema en lugar de trasladarse a los ciudadanos.</div>
+      </div>
+
       <div class="entry-box">
         <div class="entry-kicker">Diagnóstico de entrada</div>
         <div class="entry-mini">Diagnóstico GL de 1 página · Revisión direccional inicial</div>
@@ -846,21 +854,9 @@
       </div>
 
       <div class="grid">
-        <div class="card">
-          <div class="card-num">01</div>
-          <div class="card-title">Comparar el desempeño de entrega</div>
-          <div class="card-text">Compare procesos públicos similares entre programas, unidades o jurisdicciones.</div>
-        </div>
-        <div class="card">
-          <div class="card-num">02</div>
-          <div class="card-title">Ver fricción sin exponer sistemas</div>
-          <div class="card-text">Comience con datos públicos, exportaciones CSV o cifras operativas organizadas manualmente.</div>
-        </div>
-        <div class="card">
-          <div class="card-num">03</div>
-          <div class="card-title">Respaldar la discusión directiva</div>
-          <div class="card-text">Discuta demoras, carga, retrabajo y riesgo de diseño con una métrica común.</div>
-        </div>
+        <div class="card"><div class="card-num">01</div><div class="card-title">Comparar el desempeño de entrega</div><div class="card-text">Compare procesos públicos similares entre programas, unidades o jurisdicciones.</div></div>
+        <div class="card"><div class="card-num">02</div><div class="card-title">Ver fricción sin exponer sistemas</div><div class="card-text">Comience con datos públicos, exportaciones CSV o cifras operativas organizadas manualmente.</div></div>
+        <div class="card"><div class="card-num">03</div><div class="card-title">Respaldar la discusión directiva</div><div class="card-text">Discuta demoras, carga, retrabajo y riesgo de diseño con una métrica común.</div></div>
       </div>
 
       <div class="section-block">
@@ -877,37 +873,23 @@
 
       <div class="pub-list">
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · Publicado</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · Publicado</div></div>
           <div class="pub-title">El problema del denominador: cómo la fricción administrativa descarrila la política pública</div>
           <div class="pub-summary">Presenta la lógica de carga de implementación detrás de GL y explica por qué la demora y la fricción del proceso debilitan los resultados incluso en programas bien financiados.</div>
           <a class="pub-link" href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener">Leer artículo →</a>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 3 abr 2026</div>
-            <div class="tag">Próximamente</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 3 abr 2026</div><div class="tag">Próximamente</div></div>
           <div class="pub-title">Secuenciación proporcional en el cuidado de largo plazo</div>
           <div class="pub-summary">Examina cómo el orden del proceso afecta el acceso y por qué no es necesario eliminar salvaguardas para reducir demoras.</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 24 abr 2026</div>
-            <div class="tag">Próximamente</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 24 abr 2026</div><div class="tag">Próximamente</div></div>
           <div class="pub-title">Lo que los sistemas globales de beneficios revelan sobre la entrega de políticas</div>
           <div class="pub-summary">Analiza cómo el diseño administrativo moldea resultados y qué revela la estructura de implementación más allá de la intención formal de la política.</div>
         </div>
-
         <div class="pub">
-          <div class="pub-top">
-            <div class="pub-date">PA Times · 22 may 2026</div>
-            <div class="tag">Próximamente</div>
-          </div>
+          <div class="pub-top"><div class="pub-date">PA Times · 22 may 2026</div><div class="tag">Próximamente</div></div>
           <div class="pub-title">Lo que la ventanilla única revela sobre el problema de entrega</div>
           <div class="pub-summary">Muestra por qué la carga de coordinación debe recaer en los sistemas y no en los ciudadanos.</div>
         </div>
