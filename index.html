@@ -538,6 +538,260 @@
       color:#0b1220;
     }
 
+    /* ── Sample Report Section ─────────────────────────────── */
+    .sample-section{
+      padding:18px 0 28px;
+    }
+
+    .sample-shell{
+      display:grid;
+      grid-template-columns:1fr 380px;
+      gap:28px;
+      align-items:start;
+      padding:32px;
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(135deg, rgba(92,132,255,.07) 0%, rgba(255,255,255,.03) 60%);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .sample-shell::before{
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:2px;
+      background:linear-gradient(90deg, rgba(214,228,255,.6) 0%, transparent 70%);
+    }
+
+    .sample-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      color:#b6cbff;
+      background:rgba(92,132,255,.15);
+      border:1px solid rgba(92,132,255,.25);
+      padding:5px 12px;
+      border-radius:999px;
+      margin-bottom:14px;
+    }
+
+    .sample-badge::before{
+      content:'';
+      width:6px; height:6px;
+      border-radius:50%;
+      background:#b6cbff;
+    }
+
+    .sample-shell h2{
+      font-family:"DM Serif Display", Georgia, serif;
+      font-weight:400;
+      font-size:clamp(26px,3vw,36px);
+      line-height:1.12;
+      margin:0 0 14px;
+    }
+
+    .sample-shell .lead{
+      font-size:16px;
+      color:var(--muted);
+      margin:0 0 20px;
+      line-height:1.65;
+    }
+
+    .sample-points{
+      list-style:none;
+      padding:0;
+      margin:0 0 26px;
+      display:grid;
+      gap:9px;
+    }
+
+    .sample-points li{
+      padding:11px 14px 11px 36px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      color:var(--muted);
+      font-size:14px;
+      position:relative;
+    }
+
+    .sample-points li::before{
+      content:'→';
+      position:absolute;
+      left:12px;
+      color:#b6cbff;
+      font-size:13px;
+    }
+
+    .sample-actions{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn-download{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:#ffffff;
+      color:#0b1220;
+      font-weight:700;
+      font-size:14px;
+      padding:13px 20px;
+      border-radius:14px;
+      border:1px solid transparent;
+      transition:.2s ease;
+    }
+
+    .btn-download:hover{
+      background:#eef3ff;
+      transform:translateY(-1px);
+    }
+
+    .btn-download svg{
+      flex-shrink:0;
+    }
+
+    .btn-link{
+      font-size:14px;
+      color:var(--muted);
+      border-bottom:1px solid rgba(199,210,227,.3);
+      padding-bottom:1px;
+      transition:.15s;
+    }
+
+    .btn-link:hover{
+      color:#fff;
+      border-color:rgba(255,255,255,.5);
+    }
+
+    /* Report preview card */
+    .report-card{
+      background:rgba(8,14,25,.7);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .report-card::before{
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:2px;
+      background:linear-gradient(90deg, #d6e4ff 0%, rgba(214,228,255,0) 100%);
+    }
+
+    .rc-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:14px;
+    }
+
+    .rc-tag{
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      color:#b6cbff;
+      background:rgba(92,132,255,.15);
+      padding:3px 9px;
+      border-radius:4px;
+    }
+
+    .rc-type{
+      font-size:10px;
+      color:var(--sub);
+      letter-spacing:.06em;
+    }
+
+    .rc-title{
+      font-family:"DM Serif Display", Georgia, serif;
+      font-size:16px;
+      line-height:1.3;
+      color:var(--text);
+      margin-bottom:6px;
+    }
+
+    .rc-meta{
+      font-size:11px;
+      color:var(--sub);
+      letter-spacing:.04em;
+      margin-bottom:18px;
+    }
+
+    .rc-scores{
+      display:flex;
+      flex-direction:column;
+      gap:11px;
+      margin-bottom:16px;
+    }
+
+    .score-row{
+      display:grid;
+      grid-template-columns:1fr 72px 52px;
+      align-items:center;
+      gap:8px;
+    }
+
+    .score-label{
+      font-size:12px;
+      color:var(--sub);
+    }
+
+    .score-bar{
+      height:5px;
+      background:rgba(255,255,255,.07);
+      border-radius:3px;
+      overflow:hidden;
+    }
+
+    .score-bar span{
+      display:block;
+      height:100%;
+      border-radius:3px;
+    }
+
+    .score-bar .bar-severe{ background:#e05c5c; }
+    .score-bar .bar-fragile{ background:#c8922a; }
+
+    .score-val{
+      font-size:11px;
+      font-weight:700;
+      text-align:right;
+      font-family:monospace;
+    }
+
+    .score-val.severe{ color:#e05c5c; }
+    .score-val.fragile{ color:#c8922a; }
+
+    .rc-finding{
+      font-size:12px;
+      color:#b6cbff;
+      background:rgba(92,132,255,.08);
+      border-left:2px solid rgba(92,132,255,.45);
+      padding:9px 12px;
+      border-radius:0 8px 8px 0;
+      line-height:1.45;
+      margin-bottom:12px;
+    }
+
+    .rc-footer{
+      font-size:11px;
+      color:rgba(151,168,195,.5);
+      letter-spacing:.05em;
+      text-align:right;
+    }
+
     .footer-cta{
       padding:26px 0 58px;
     }
@@ -578,7 +832,8 @@
       .hero-grid,
       .snapshot-shell,
       .grid-3,
-      .grid-2{
+      .grid-2,
+      .sample-shell{
         grid-template-columns:1fr;
       }
 
@@ -604,6 +859,14 @@
       .hero-bullets{
         grid-template-columns:1fr;
       }
+
+      .sample-shell{
+        padding:24px;
+      }
+
+      .report-card{
+        max-width:480px;
+      }
     }
 
     @media (max-width: 640px){
@@ -623,6 +886,16 @@
 
       .footer-cta .cta-card{
         align-items:flex-start;
+      }
+
+      .sample-actions{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .btn-download{
+        width:100%;
+        justify-content:center;
       }
     }
   </style>
@@ -893,11 +1166,92 @@
           <div class="small-kicker">Who this is for</div>
           <h3>People who already know the system is leaking</h3>
           <p>
-            Audit leaders, public officials, operations executives, reform teams, healthcare administrators, and anyone facing a process that “works” on paper but fails in lived execution.
+            Audit leaders, public officials, operations executives, reform teams, healthcare administrators, and anyone facing a process that "works" on paper but fails in lived execution.
           </p>
         </div>
       </div>
     </section>
+
+    <!-- ── FREE SAMPLE REPORT ─────────────────────────────────── -->
+    <section class="sample-section" id="sample">
+      <div class="container">
+        <div class="sample-shell">
+
+          <!-- Left: text + CTA -->
+          <div>
+            <div class="sample-badge">Free download</div>
+            <h2>See what a GL diagnostic looks like before you commit.</h2>
+            <p class="lead">
+              This process-level diagnostic of Massachusetts unemployment insurance delivery shows the full GL output format: friction scoring, bottleneck mapping, and structural leverage points — built entirely from public data.
+            </p>
+            <ul class="sample-points">
+              <li>GL formula applied to a real public system</li>
+              <li>Four friction bottlenecks identified and scored</li>
+              <li>Structural leverage point identified — no legislative change required</li>
+              <li>Shows exactly what your agency would receive</li>
+            </ul>
+            <div class="sample-actions">
+              <a href="/reports/gl-diagnostic-sample.pdf"
+                 download="GL-Framework-Sample-Diagnostic.pdf"
+                 class="btn-download">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                     stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download Free Sample
+              </a>
+              <a href="https://buy.stripe.com/cNidRb1OqazS7fL1jF3VC04"
+                 class="btn-link" target="_blank" rel="noopener">
+                Start your own for $299 →
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: report preview card -->
+          <div class="report-card" aria-hidden="true">
+            <div class="rc-header">
+              <span class="rc-tag">Sample output</span>
+              <span class="rc-type">Process-Level Diagnostic</span>
+            </div>
+            <div class="rc-title">Measuring Administrative Friction in Unemployment Insurance</div>
+            <div class="rc-meta">Massachusetts DUA · GL Framework · Public Data Only</div>
+
+            <div class="rc-scores">
+              <div class="score-row">
+                <span class="score-label">Identity Verification</span>
+                <div class="score-bar"><span class="bar-severe" style="width:18%"></span></div>
+                <span class="score-val severe">GL 0.23</span>
+              </div>
+              <div class="score-row">
+                <span class="score-label">Employer Response</span>
+                <div class="score-bar"><span class="bar-fragile" style="width:28%"></span></div>
+                <span class="score-val fragile">GL 0.41</span>
+              </div>
+              <div class="score-row">
+                <span class="score-label">Appeals Processing</span>
+                <div class="score-bar"><span class="bar-severe" style="width:22%"></span></div>
+                <span class="score-val severe">GL 0.31</span>
+              </div>
+              <div class="score-row">
+                <span class="score-label">Call Center Queue</span>
+                <div class="score-bar"><span class="bar-fragile" style="width:35%"></span></div>
+                <span class="score-val fragile">GL 0.58</span>
+              </div>
+            </div>
+
+            <div class="rc-finding">
+              Leverage point: front-end triage logic — not the automation platform
+            </div>
+            <div class="rc-footer">8-page diagnostic · PDF · Free</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ── /FREE SAMPLE REPORT ────────────────────────────────── -->
 
     <section class="footer-cta">
       <div class="container">
