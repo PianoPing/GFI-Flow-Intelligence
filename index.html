@@ -40,16 +40,12 @@
       --muted:#c7d2e3;
       --sub:#97a8c3;
       --line:rgba(255,255,255,.10);
-      --line2:rgba(255,255,255,.16);
       --accent:#d6e4ff;
-      --accent2:#ffffff;
-      --ink:#0b1220;
-      --soft:#eef4ff;
       --btn:#ffffff;
       --btnText:#0b1220;
       --btnGhost:rgba(255,255,255,.06);
-      --shadow:0 20px 60px rgba(0,0,0,.28);
-      --radius:22px;
+      --shadow:0 18px 50px rgba(0,0,0,.24);
+      --radius:20px;
       --max:1180px;
     }
 
@@ -60,14 +56,12 @@
       font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(92,132,255,.14), transparent 28%),
-        radial-gradient(circle at 85% 12%, rgba(255,255,255,.08), transparent 22%),
+        radial-gradient(circle at top left, rgba(92,132,255,.12), transparent 28%),
         linear-gradient(180deg, #09111f 0%, #0b1220 38%, #0c1425 100%);
-      line-height:1.65;
+      line-height:1.6;
     }
 
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
     .container{
       width:min(calc(100% - 32px), var(--max));
       margin:0 auto;
@@ -77,7 +71,7 @@
       position:sticky;
       top:0;
       z-index:50;
-      backdrop-filter:blur(16px);
+      backdrop-filter:blur(14px);
       background:rgba(8,14,25,.72);
       border-bottom:1px solid rgba(255,255,255,.06);
     }
@@ -87,7 +81,7 @@
       align-items:center;
       justify-content:space-between;
       gap:20px;
-      min-height:76px;
+      min-height:72px;
     }
 
     .brand{
@@ -95,31 +89,30 @@
       align-items:center;
       gap:12px;
       font-weight:700;
-      letter-spacing:.01em;
     }
 
     .brand-mark{
-      width:40px;
-      height:40px;
-      border-radius:12px;
+      width:38px;
+      height:38px;
+      border-radius:11px;
       background:linear-gradient(135deg,#ffffff,#b6cbff);
       color:#09111f;
       display:grid;
       place-items:center;
       font-weight:800;
-      box-shadow:0 10px 30px rgba(255,255,255,.18);
+      box-shadow:0 10px 26px rgba(255,255,255,.14);
     }
 
     .brand-text{
       display:flex;
       flex-direction:column;
-      line-height:1.15;
+      line-height:1.12;
     }
 
     .brand-text small{
-      color:var(--sub);
-      font-weight:500;
-      font-size:12px;
+      color:#4e77db;
+      font-weight:700;
+      font-size:11px;
       letter-spacing:.08em;
       text-transform:uppercase;
     }
@@ -127,7 +120,7 @@
     .nav-links{
       display:flex;
       align-items:center;
-      gap:18px;
+      gap:16px;
       color:var(--muted);
       font-size:14px;
       flex-wrap:wrap;
@@ -141,11 +134,11 @@
       align-items:center;
       gap:8px;
       flex-wrap:wrap;
-      margin-left:8px;
+      margin-left:10px;
     }
 
     .lang-pill{
-      padding:7px 10px;
+      padding:6px 10px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.10);
       background:rgba(255,255,255,.03);
@@ -162,43 +155,47 @@
     }
 
     .hero{
-      padding:76px 0 38px;
+      padding:52px 0 24px;
     }
 
     .hero-grid{
       display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:28px;
+      grid-template-columns:1.08fr .92fr;
+      gap:22px;
       align-items:stretch;
     }
 
     .hero-card,
-    .panel{
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+    .panel,
+    .flow-card,
+    .feature-card,
+    .proof-card,
+    .footer-box{
+      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.03));
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
     }
 
     .hero-card{
-      padding:44px 38px;
+      padding:30px 28px;
     }
 
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      font-size:12px;
+      font-size:11px;
       letter-spacing:.14em;
       text-transform:uppercase;
       font-weight:700;
       color:var(--accent);
-      margin-bottom:16px;
+      margin-bottom:14px;
     }
 
     .eyebrow:before{
       content:"";
-      width:34px;
+      width:28px;
       height:1px;
       background:rgba(255,255,255,.55);
       display:block;
@@ -207,35 +204,17 @@
     h1{
       font-family:"DM Serif Display", Georgia, serif;
       font-weight:400;
-      font-size:clamp(40px,5vw,66px);
-      line-height:1.04;
-      margin:0 0 18px;
+      font-size:clamp(30px,3.5vw,48px);
+      line-height:1.08;
+      margin:0 0 14px;
       letter-spacing:-.02em;
     }
 
     .hero-sub{
-      font-size:18px;
+      font-size:16px;
       color:var(--muted);
-      max-width:720px;
-      margin:0 0 26px;
-    }
-
-    .hero-bullets{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:12px;
-      margin:0 0 28px;
-      padding:0;
-      list-style:none;
-    }
-
-    .hero-bullets li{
-      padding:14px 15px;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:16px;
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-size:14px;
+      max-width:700px;
+      margin:0 0 18px;
     }
 
     .hero-actions{
@@ -249,12 +228,12 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-height:50px;
-      padding:0 18px;
-      border-radius:14px;
+      min-height:46px;
+      padding:0 16px;
+      border-radius:12px;
       border:1px solid transparent;
       font-weight:700;
-      font-size:15px;
+      font-size:14px;
       transition:.2s ease;
     }
 
@@ -284,12 +263,12 @@
       gap:18px;
     }
 
-    .metric-panel{
-      padding:26px 24px;
+    .panel{
+      padding:24px 22px;
     }
 
     .metric-label{
-      font-size:12px;
+      font-size:11px;
       color:var(--sub);
       text-transform:uppercase;
       letter-spacing:.12em;
@@ -299,47 +278,40 @@
 
     .metric-value{
       font-family:"DM Serif Display", Georgia, serif;
-      font-size:42px;
-      line-height:1;
-      margin-bottom:10px;
+      font-size:30px;
+      line-height:1.08;
+      margin-bottom:8px;
     }
 
     .metric-copy{
       color:var(--muted);
-      font-size:15px;
-    }
-
-    .formula{
-      padding:26px 24px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+      font-size:14px;
     }
 
     .formula-box{
-      padding:18px 18px;
-      border-radius:18px;
+      padding:16px;
+      border-radius:16px;
       background:rgba(255,255,255,.04);
       border:1px solid rgba(255,255,255,.08);
-      margin-top:8px;
+      margin-top:6px;
       overflow:auto;
     }
 
     .formula-code{
-      font-size:18px;
+      font-size:17px;
       font-weight:700;
       white-space:nowrap;
       letter-spacing:.01em;
     }
 
     .formula-note{
-      margin-top:12px;
+      margin-top:10px;
       color:var(--muted);
-      font-size:14px;
+      font-size:13px;
     }
 
     .section{
-      padding:28px 0;
+      padding:20px 0;
     }
 
     .section-head{
@@ -347,13 +319,13 @@
       align-items:end;
       justify-content:space-between;
       gap:18px;
-      margin-bottom:18px;
+      margin-bottom:16px;
     }
 
     .section-head h2{
       font-family:"DM Serif Display", Georgia, serif;
       font-weight:400;
-      font-size:clamp(28px,4vw,42px);
+      font-size:clamp(24px,3vw,34px);
       line-height:1.1;
       margin:0;
     }
@@ -361,13 +333,8 @@
     .section-head p{
       margin:0;
       color:var(--muted);
-      max-width:660px;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
+      max-width:650px;
+      font-size:15px;
     }
 
     .grid-2{
@@ -376,36 +343,20 @@
       gap:18px;
     }
 
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .flow-card,
     .feature-card,
-    .use-card,
-    .cta-card,
     .proof-card{
-      padding:24px;
-      border-radius:22px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.025));
-      box-shadow:var(--shadow);
-    }
-
-    .feature-card h3,
-    .use-card h3,
-    .cta-card h3,
-    .proof-card h3{
-      margin:0 0 10px;
-      font-size:20px;
-    }
-
-    .feature-card p,
-    .use-card p,
-    .cta-card p,
-    .proof-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:15px;
+      padding:22px;
     }
 
     .small-kicker{
-      font-size:12px;
+      font-size:11px;
       font-weight:700;
       letter-spacing:.12em;
       text-transform:uppercase;
@@ -413,391 +364,83 @@
       margin-bottom:10px;
     }
 
-    .proof-list,
-    .mini-list{
-      list-style:none;
-      padding:0;
-      margin:12px 0 0;
-      display:grid;
-      gap:10px;
+    .flow-card h3,
+    .feature-card h3,
+    .proof-card h3{
+      margin:0 0 10px;
+      font-size:20px;
     }
 
-    .proof-list li,
-    .mini-list li{
-      padding:12px 14px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;
+    .flow-card p,
+    .feature-card p,
+    .proof-card p{
+      margin:0;
       color:var(--muted);
       font-size:14px;
     }
 
-    .snapshot{
-      padding:18px 0 34px;
-    }
-
-    .snapshot-shell{
+    .mini-list{
+      list-style:none;
+      padding:0;
+      margin:14px 0 0;
       display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:18px;
-      align-items:stretch;
+      gap:10px;
     }
 
-    .snapshot-main{
-      padding:30px;
-      border-radius:24px;
+    .mini-list li{
+      padding:11px 12px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .snapshot-box{
+      padding:26px;
+      border-radius:22px;
       background:linear-gradient(135deg,#f8fbff 0%, #e9f1ff 100%);
       color:#0d1628;
-      box-shadow:0 20px 60px rgba(0,0,0,.18);
+      box-shadow:0 20px 50px rgba(0,0,0,.16);
     }
 
-    .snapshot-main h2{
+    .snapshot-box h2{
       font-family:"DM Serif Display", Georgia, serif;
       font-weight:400;
-      font-size:clamp(30px,4vw,44px);
+      font-size:clamp(26px,3vw,38px);
       line-height:1.08;
-      margin:0 0 12px;
+      margin:0 0 10px;
     }
 
-    .snapshot-main p{
-      margin:0 0 18px;
+    .snapshot-box p{
+      margin:0 0 14px;
       color:#2e3b53;
-      font-size:16px;
+      font-size:15px;
     }
 
     .snapshot-points{
       list-style:none;
       padding:0;
-      margin:0 0 22px;
+      margin:0 0 18px;
       display:grid;
       gap:10px;
     }
 
     .snapshot-points li{
-      padding:13px 14px;
-      border-radius:14px;
-      border:1px solid rgba(13,22,40,.08);
-      background:rgba(255,255,255,.65);
-      color:#253247;
-      font-size:14px;
-    }
-
-    .snapshot-side{
-      display:grid;
-      gap:18px;
-    }
-
-    .side-box{
-      padding:24px;
-      border-radius:22px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.03));
-      box-shadow:var(--shadow);
-    }
-
-    .side-box .price{
-      font-family:"DM Serif Display", Georgia, serif;
-      font-size:36px;
-      line-height:1;
-      margin:6px 0 10px;
-    }
-
-    .steps{
-      counter-reset:step;
-      list-style:none;
-      padding:0;
-      margin:0;
-      display:grid;
-      gap:12px;
-    }
-
-    .steps li{
-      counter-increment:step;
-      padding:14px 14px 14px 52px;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;
-      background:rgba(255,255,255,.03);
-      position:relative;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .steps li::before{
-      content:counter(step);
-      position:absolute;
-      left:14px;
-      top:12px;
-      width:26px;
-      height:26px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      font-size:12px;
-      font-weight:800;
-      background:#fff;
-      color:#0b1220;
-    }
-
-    /* ── Sample Report Section ─────────────────────────────── */
-    .sample-section{
-      padding:18px 0 28px;
-    }
-
-    .sample-shell{
-      display:grid;
-      grid-template-columns:1fr 380px;
-      gap:28px;
-      align-items:start;
-      padding:32px;
-      border-radius:var(--radius);
-      border:1px solid rgba(255,255,255,.10);
-      background:linear-gradient(135deg, rgba(92,132,255,.07) 0%, rgba(255,255,255,.03) 60%);
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .sample-shell::before{
-      content:'';
-      position:absolute;
-      top:0; left:0; right:0;
-      height:2px;
-      background:linear-gradient(90deg, rgba(214,228,255,.6) 0%, transparent 70%);
-    }
-
-    .sample-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.13em;
-      text-transform:uppercase;
-      color:#b6cbff;
-      background:rgba(92,132,255,.15);
-      border:1px solid rgba(92,132,255,.25);
-      padding:5px 12px;
-      border-radius:999px;
-      margin-bottom:14px;
-    }
-
-    .sample-badge::before{
-      content:'';
-      width:6px; height:6px;
-      border-radius:50%;
-      background:#b6cbff;
-    }
-
-    .sample-shell h2{
-      font-family:"DM Serif Display", Georgia, serif;
-      font-weight:400;
-      font-size:clamp(26px,3vw,36px);
-      line-height:1.12;
-      margin:0 0 14px;
-    }
-
-    .sample-shell .lead{
-      font-size:16px;
-      color:var(--muted);
-      margin:0 0 20px;
-      line-height:1.65;
-    }
-
-    .sample-points{
-      list-style:none;
-      padding:0;
-      margin:0 0 26px;
-      display:grid;
-      gap:9px;
-    }
-
-    .sample-points li{
-      padding:11px 14px 11px 36px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.08);
+      padding:12px 13px;
       border-radius:12px;
-      color:var(--muted);
-      font-size:14px;
-      position:relative;
-    }
-
-    .sample-points li::before{
-      content:'→';
-      position:absolute;
-      left:12px;
-      color:#b6cbff;
+      border:1px solid rgba(13,22,40,.08);
+      background:rgba(255,255,255,.7);
+      color:#253247;
       font-size:13px;
     }
 
-    .sample-actions{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-
-    .btn-download{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:#ffffff;
-      color:#0b1220;
-      font-weight:700;
-      font-size:14px;
-      padding:13px 20px;
-      border-radius:14px;
-      border:1px solid transparent;
-      transition:.2s ease;
-    }
-
-    .btn-download:hover{
-      background:#eef3ff;
-      transform:translateY(-1px);
-    }
-
-    .btn-download svg{
-      flex-shrink:0;
-    }
-
-    .btn-link{
-      font-size:14px;
-      color:var(--muted);
-      border-bottom:1px solid rgba(199,210,227,.3);
-      padding-bottom:1px;
-      transition:.15s;
-    }
-
-    .btn-link:hover{
-      color:#fff;
-      border-color:rgba(255,255,255,.5);
-    }
-
-    /* Report preview card */
-    .report-card{
-      background:rgba(8,14,25,.7);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;
-      padding:22px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .report-card::before{
-      content:'';
-      position:absolute;
-      top:0; left:0; right:0;
-      height:2px;
-      background:linear-gradient(90deg, #d6e4ff 0%, rgba(214,228,255,0) 100%);
-    }
-
-    .rc-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:14px;
-    }
-
-    .rc-tag{
-      font-size:10px;
-      font-weight:700;
-      letter-spacing:.11em;
-      text-transform:uppercase;
-      color:#b6cbff;
-      background:rgba(92,132,255,.15);
-      padding:3px 9px;
-      border-radius:4px;
-    }
-
-    .rc-type{
-      font-size:10px;
-      color:var(--sub);
-      letter-spacing:.06em;
-    }
-
-    .rc-title{
-      font-family:"DM Serif Display", Georgia, serif;
-      font-size:16px;
-      line-height:1.3;
-      color:var(--text);
-      margin-bottom:6px;
-    }
-
-    .rc-meta{
-      font-size:11px;
-      color:var(--sub);
-      letter-spacing:.04em;
-      margin-bottom:18px;
-    }
-
-    .rc-scores{
-      display:flex;
-      flex-direction:column;
-      gap:11px;
-      margin-bottom:16px;
-    }
-
-    .score-row{
-      display:grid;
-      grid-template-columns:1fr 72px 52px;
-      align-items:center;
-      gap:8px;
-    }
-
-    .score-label{
-      font-size:12px;
-      color:var(--sub);
-    }
-
-    .score-bar{
-      height:5px;
-      background:rgba(255,255,255,.07);
-      border-radius:3px;
-      overflow:hidden;
-    }
-
-    .score-bar span{
-      display:block;
-      height:100%;
-      border-radius:3px;
-    }
-
-    .score-bar .bar-severe{ background:#e05c5c; }
-    .score-bar .bar-fragile{ background:#c8922a; }
-
-    .score-val{
-      font-size:11px;
-      font-weight:700;
-      text-align:right;
-      font-family:monospace;
-    }
-
-    .score-val.severe{ color:#e05c5c; }
-    .score-val.fragile{ color:#c8922a; }
-
-    .rc-finding{
-      font-size:12px;
-      color:#b6cbff;
-      background:rgba(92,132,255,.08);
-      border-left:2px solid rgba(92,132,255,.45);
-      padding:9px 12px;
-      border-radius:0 8px 8px 0;
-      line-height:1.45;
-      margin-bottom:12px;
-    }
-
-    .rc-footer{
-      font-size:11px;
-      color:rgba(151,168,195,.5);
-      letter-spacing:.05em;
-      text-align:right;
-    }
-
     .footer-cta{
-      padding:26px 0 58px;
+      padding:20px 0 50px;
     }
 
-    .footer-cta .cta-card{
-      padding:30px;
+    .footer-box{
+      padding:26px;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -807,9 +450,9 @@
 
     .site-footer{
       border-top:1px solid rgba(255,255,255,.08);
-      padding:28px 0 42px;
+      padding:24px 0 38px;
       color:var(--sub);
-      font-size:14px;
+      font-size:13px;
     }
 
     .footer-row{
@@ -830,10 +473,8 @@
 
     @media (max-width: 980px){
       .hero-grid,
-      .snapshot-shell,
-      .grid-3,
       .grid-2,
-      .sample-shell{
+      .grid-3{
         grid-template-columns:1fr;
       }
 
@@ -851,52 +492,21 @@
         width:100%;
         align-items:flex-start;
       }
-
-      .hero-card{
-        padding:32px 24px;
-      }
-
-      .hero-bullets{
-        grid-template-columns:1fr;
-      }
-
-      .sample-shell{
-        padding:24px;
-      }
-
-      .report-card{
-        max-width:480px;
-      }
     }
 
     @media (max-width: 640px){
-      h1{font-size:40px}
-      .hero{padding-top:48px}
-      .section{padding:20px 0}
-      .snapshot-main,
+      .hero-card,
+      .panel,
+      .flow-card,
       .feature-card,
-      .use-card,
-      .cta-card,
       .proof-card,
-      .side-box,
-      .metric-panel,
-      .formula{
-        padding:22px 18px;
+      .snapshot-box,
+      .footer-box{
+        padding:20px 16px;
       }
 
-      .footer-cta .cta-card{
-        align-items:flex-start;
-      }
-
-      .sample-actions{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-
-      .btn-download{
-        width:100%;
-        justify-content:center;
-      }
+      h1{font-size:34px}
+      .hero{padding-top:34px}
     }
   </style>
 </head>
@@ -914,7 +524,7 @@
 
       <div class="nav-links">
         <a href="#framework">Framework</a>
-        <a href="#use-cases">Use Cases</a>
+        <a href="#pathways">Pathways</a>
         <a href="#proof">Proof</a>
         <a href="workbook.html">Snapshot</a>
         <a href="contact.html">Contact</a>
@@ -934,42 +544,71 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-card">
-          <div class="eyebrow">Administrative friction diagnostics</div>
-          <h1>Measure how systems actually deliver.</h1>
+          <div class="eyebrow">GL framework</div>
+          <h1>Measure delivery before failure becomes normal.</h1>
           <p class="hero-sub">
-            Budgets measure inputs. Reports measure outputs. The GL Framework measures delivery itself — where delay, friction, and failure quietly destroy value.
+            GL Framework helps leaders identify where delay, friction, and badly sequenced process design are destroying value.
           </p>
 
-          <ul class="hero-bullets">
-            <li>No internal system access required</li>
-            <li>Designed for executive and audit-level interpretation</li>
-            <li>Identifies denominator-driven implementation loss</li>
-            <li>Useful across public systems and complex service operations</li>
-          </ul>
-
           <div class="hero-actions">
-            <a class="btn btn-primary" href="workbook.html">Start 3-Minute Snapshot</a>
-            <a class="btn btn-secondary" href="contact.html">Request Full Diagnostic</a>
+            <a class="btn btn-primary" href="government.html">For Government</a>
+            <a class="btn btn-secondary" href="enterprise.html">For Enterprise</a>
           </div>
         </div>
 
         <div class="hero-side">
-          <div class="panel metric-panel">
+          <div class="panel">
             <div class="metric-label">Core claim</div>
             <div class="metric-value">The denominator matters.</div>
             <div class="metric-copy">
-              Most systems evaluate money spent and outputs reported, but ignore the cost of delay and cognitive burden. That is where delivery breaks.
+              Many systems measure budgets and outputs but ignore the burden of time delay and cognitive friction. That is where delivery quality collapses.
             </div>
           </div>
 
-          <div class="panel formula">
-            <div class="metric-label">GL framework</div>
+          <div class="panel">
+            <div class="metric-label">Diagnostic ratio</div>
             <div class="formula-box">
               <div class="formula-code">GL = (Fs × Vn) / (Pd × Cf)</div>
               <div class="formula-note">
                 Fs = Flow Success Rate · Vn = Strategic Value · Pd = Pain Duration · Cf = Cognitive Friction
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pathways">
+      <div class="container grid-2">
+        <div class="flow-card">
+          <div class="small-kicker">Public sector</div>
+          <h3>Government delivery systems</h3>
+          <p>
+            For unemployment systems, benefits delivery, long-term care intake, audit review, appeals, and public-facing administrative processes.
+          </p>
+          <ul class="mini-list">
+            <li>Structural friction in benefits and service delivery</li>
+            <li>Front-end sequencing and documentation burden</li>
+            <li>Audit-ready framing for implementation failure</li>
+          </ul>
+          <div class="hero-actions" style="margin-top:16px;">
+            <a class="btn btn-secondary" href="government.html">Go to Government Page</a>
+          </div>
+        </div>
+
+        <div class="flow-card">
+          <div class="small-kicker">Private sector</div>
+          <h3>Enterprise process efficiency</h3>
+          <p>
+            For CFOs, healthcare operators, education systems, and complex workflows where friction quietly erodes throughput, margin, and execution quality.
+          </p>
+          <ul class="mini-list">
+            <li>Hidden throughput loss across multi-step operations</li>
+            <li>Customer burden, rework, and coordination drag</li>
+            <li>Executive framing for operational waste</li>
+          </ul>
+          <div class="hero-actions" style="margin-top:16px;">
+            <a class="btn btn-secondary" href="enterprise.html">Go to Enterprise Page</a>
           </div>
         </div>
       </div>
@@ -1012,50 +651,11 @@
       </div>
     </section>
 
-    <section class="section" id="use-cases">
+    <section class="section">
       <div class="container">
-        <div class="section-head">
-          <h2>Where it applies</h2>
-          <p>
-            GL is useful anywhere the visible budget hides invisible delivery loss.
-          </p>
-        </div>
-
-        <div class="grid-2">
-          <div class="use-card">
-            <div class="small-kicker">Public sector</div>
-            <h3>Government and benefits delivery</h3>
-            <p>
-              Unemployment systems, benefits access, long-term care intake, case review pipelines, appeals, and multi-step public-facing service processes.
-            </p>
-            <ul class="mini-list">
-              <li>Identify structurally slow front-end sequencing</li>
-              <li>Compare process burden against intended value</li>
-              <li>Support audit, reform, and redesign conversations</li>
-            </ul>
-          </div>
-
-          <div class="use-card">
-            <div class="small-kicker">Complex operations</div>
-            <h3>Healthcare, education, and enterprise workflows</h3>
-            <p>
-              Any system where completion rates, customer burden, rework, delay, and fragmented touchpoints quietly erode performance and confidence.
-            </p>
-            <ul class="mini-list">
-              <li>Expose hidden throughput loss</li>
-              <li>Clarify where simplification creates the most value</li>
-              <li>Translate operational pain into executive language</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="snapshot" id="snapshot">
-      <div class="container snapshot-shell">
-        <div class="snapshot-main">
+        <div class="snapshot-box">
           <div class="small-kicker" style="color:#27497d;">Fast entry</div>
-          <h2>Get a 3-Minute GL Snapshot</h2>
+          <h2>Start with a 3-Minute Snapshot</h2>
           <p>
             A fast diagnostic entry point for leaders who already suspect something is leaking value but need a cleaner way to frame it.
           </p>
@@ -1064,30 +664,11 @@
             <li>No software installation required</li>
             <li>Useful for agencies, audit teams, and operational leaders</li>
             <li>Built to surface where friction is structurally embedded</li>
-            <li>Designed to open a higher-level diagnostic conversation</li>
           </ul>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="workbook.html">Run Snapshot</a>
             <a class="btn btn-secondary" href="contact.html" style="border-color:rgba(13,22,40,.12); background:#fff; color:#0d1628;">Talk to GFI</a>
-          </div>
-        </div>
-
-        <div class="snapshot-side">
-          <div class="side-box">
-            <div class="small-kicker">Positioning</div>
-            <h3 style="margin:0 0 10px;">From intuition to briefing language</h3>
-            <p style="margin:0;color:var(--muted);">
-              Many leaders already know the system feels heavy. GL turns that intuition into a structure they can present, compare, and act on.
-            </p>
-          </div>
-
-          <div class="side-box">
-            <div class="small-kicker">Typical next step</div>
-            <div class="price">$999+</div>
-            <p style="margin:0;color:var(--muted);">
-              Snapshot findings can lead into a deeper diagnostic review for process mapping, sequencing analysis, and friction estimation.
-            </p>
           </div>
         </div>
       </div>
@@ -1130,137 +711,14 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="container grid-2">
-        <div class="feature-card">
-          <div class="small-kicker">What this is not</div>
-          <h3>Not another dashboard vanity layer</h3>
-          <p>
-            GL is not designed to produce more surface metrics. It is designed to show where the structure itself is slowing, confusing, or defeating delivery.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="small-kicker">What this helps leaders ask</div>
-          <h3>Where is the value actually being lost?</h3>
-          <p>
-            Which steps are placed too early? Which safeguards are sequenced badly? Where is burden being mistaken for rigor? Where is throughput quietly collapsing?
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container grid-2">
-        <div class="cta-card">
-          <div class="small-kicker">How to use this site</div>
-          <h3>Start simple</h3>
-          <ol class="steps">
-            <li>Open the Snapshot and enter the basic process assumptions.</li>
-            <li>See where friction may be structurally overwhelming value.</li>
-            <li>Use the result to decide whether a deeper review is justified.</li>
-          </ol>
-        </div>
-
-        <div class="cta-card">
-          <div class="small-kicker">Who this is for</div>
-          <h3>People who already know the system is leaking</h3>
-          <p>
-            Audit leaders, public officials, operations executives, reform teams, healthcare administrators, and anyone facing a process that "works" on paper but fails in lived execution.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FREE SAMPLE REPORT ─────────────────────────────────── -->
-    <section class="sample-section" id="sample">
-      <div class="container">
-        <div class="sample-shell">
-
-          <!-- Left: text + CTA -->
-          <div>
-            <div class="sample-badge">Free download</div>
-            <h2>See what a GL diagnostic looks like before you commit.</h2>
-            <p class="lead">
-              This process-level diagnostic of Massachusetts unemployment insurance delivery shows the full GL output format: friction scoring, bottleneck mapping, and structural leverage points — built entirely from public data.
-            </p>
-            <ul class="sample-points">
-              <li>GL formula applied to a real public system</li>
-              <li>Four friction bottlenecks identified and scored</li>
-              <li>Structural leverage point identified — no legislative change required</li>
-              <li>Shows exactly what your agency would receive</li>
-            </ul>
-            <div class="sample-actions">
-              <a href="/reports/gl-diagnostic-sample.pdf"
-                 download="GL-Framework-Sample-Diagnostic.pdf"
-                 class="btn-download">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                     stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                Download Free Sample
-              </a>
-              <a href="https://buy.stripe.com/cNidRb1OqazS7fL1jF3VC04"
-                 class="btn-link" target="_blank" rel="noopener">
-                Start your own for $299 →
-              </a>
-            </div>
-          </div>
-
-          <!-- Right: report preview card -->
-          <div class="report-card" aria-hidden="true">
-            <div class="rc-header">
-              <span class="rc-tag">Sample output</span>
-              <span class="rc-type">Process-Level Diagnostic</span>
-            </div>
-            <div class="rc-title">Measuring Administrative Friction in Unemployment Insurance</div>
-            <div class="rc-meta">Massachusetts DUA · GL Framework · Public Data Only</div>
-
-            <div class="rc-scores">
-              <div class="score-row">
-                <span class="score-label">Identity Verification</span>
-                <div class="score-bar"><span class="bar-severe" style="width:18%"></span></div>
-                <span class="score-val severe">GL 0.23</span>
-              </div>
-              <div class="score-row">
-                <span class="score-label">Employer Response</span>
-                <div class="score-bar"><span class="bar-fragile" style="width:28%"></span></div>
-                <span class="score-val fragile">GL 0.41</span>
-              </div>
-              <div class="score-row">
-                <span class="score-label">Appeals Processing</span>
-                <div class="score-bar"><span class="bar-severe" style="width:22%"></span></div>
-                <span class="score-val severe">GL 0.31</span>
-              </div>
-              <div class="score-row">
-                <span class="score-label">Call Center Queue</span>
-                <div class="score-bar"><span class="bar-fragile" style="width:35%"></span></div>
-                <span class="score-val fragile">GL 0.58</span>
-              </div>
-            </div>
-
-            <div class="rc-finding">
-              Leverage point: front-end triage logic — not the automation platform
-            </div>
-            <div class="rc-footer">8-page diagnostic · PDF · Free</div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-    <!-- ── /FREE SAMPLE REPORT ────────────────────────────────── -->
-
     <section class="footer-cta">
       <div class="container">
-        <div class="cta-card">
+        <div class="footer-box">
           <div>
             <div class="small-kicker">Next step</div>
-            <h3 style="margin:0 0 8px;">Start with the Snapshot. Escalate if the pattern is real.</h3>
-            <p style="margin:0;color:var(--muted);max-width:700px;">
-              Clean signal first. Deep diagnosis second. That is the point of the framework.
+            <h3 style="margin:0 0 8px; font-size:24px;">Clean signal first. Deep diagnosis second.</h3>
+            <p style="margin:0;color:var(--muted);max-width:680px;font-size:14px;">
+              Start with the Snapshot. Escalate to a fuller diagnostic review if the pattern is real.
             </p>
           </div>
           <div class="hero-actions" style="margin-top:0;">
@@ -1278,6 +736,8 @@
       <div>© 2026 GFI Flow Intelligence. All rights reserved.</div>
       <div class="footer-links">
         <a href="index.html">Home</a>
+        <a href="government.html">Government</a>
+        <a href="enterprise.html">Enterprise</a>
         <a href="workbook.html">Workbook</a>
         <a href="contact.html">Contact</a>
         <a href="tw.html">繁中</a>
