@@ -484,6 +484,205 @@
     .gate-card.gov .gc-cta{color:var(--green)}
     .gate-card.priv .gc-cta{color:var(--blue)}
 
+    /* ── Comparison Chart ── */
+    .cmp-wrap{
+      width:100%;
+      max-width:1000px;
+      margin:32px auto 0;
+      opacity:0;
+      animation:up .6s .58s forwards;
+    }
+
+    .cmp-label{
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#7a90aa;
+      margin-bottom:14px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .cmp-label::after{
+      content:'';
+      flex:1;
+      height:1px;
+      background:rgba(255,255,255,.08);
+    }
+
+    .cmp-card{
+      width:100%;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(159,232,112,.15);
+      border-radius:18px;
+      padding:36px 40px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .cmp-card::before{
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;
+      height:2px;
+      background:linear-gradient(90deg,#9FE870,transparent);
+      border-radius:18px 18px 0 0;
+    }
+
+    .cmp-header{
+      margin-bottom:32px;
+    }
+
+    .cmp-eyebrow{
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:.2em;
+      color:#9FE870;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+
+    .cmp-title{
+      font-family:var(--serif);
+      font-size:clamp(20px,2vw,28px);
+      color:#ffffff;
+      line-height:1.2;
+      font-weight:400;
+    }
+
+    .cmp-title span{color:#9FE870}
+
+    .cmp-table{width:100%}
+
+    .cmp-thead{
+      display:grid;
+      grid-template-columns:160px 1fr 1fr 1fr;
+      margin-bottom:4px;
+    }
+
+    .cmp-th{
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.30);
+      padding:0 14px 10px 14px;
+    }
+
+    .cmp-th:first-child{padding-left:0}
+
+    .cmp-row{
+      display:grid;
+      grid-template-columns:160px 1fr 1fr 1fr;
+      border-top:1px solid rgba(255,255,255,.06);
+      padding:16px 0;
+    }
+
+    .cmp-row:last-child{
+      border-bottom:1px solid rgba(159,232,112,.18);
+      border-top:1px solid rgba(159,232,112,.18);
+      background:rgba(159,232,112,.03);
+      margin:0 -40px;
+      padding:16px 40px;
+    }
+
+    .cmp-cell{
+      padding:0 14px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .cmp-cell:first-child{padding-left:0}
+
+    .cmp-tool{
+      font-size:13px;
+      font-weight:500;
+      color:#ffffff;
+    }
+
+    .cmp-row:last-child .cmp-tool{
+      color:#9FE870;
+      font-size:14px;
+    }
+
+    .cmp-sub{
+      font-size:11px;
+      color:rgba(255,255,255,.28);
+      margin-top:1px;
+    }
+
+    .cmp-text{
+      font-size:12px;
+      color:rgba(255,255,255,.45);
+      line-height:1.5;
+    }
+
+    .cmp-row:last-child .cmp-text{color:rgba(255,255,255,.7)}
+
+    .cmp-reality{
+      font-family:var(--mono);
+      font-size:11px;
+      color:rgba(255,255,255,.22);
+      line-height:1.5;
+      letter-spacing:.02em;
+    }
+
+    .cmp-answer{
+      font-family:var(--mono);
+      font-size:11px;
+      color:#9FE870;
+      letter-spacing:.03em;
+      line-height:1.5;
+    }
+
+    .cmp-answer::before{content:'→ '}
+
+    .cmp-footer{
+      margin-top:28px;
+      padding-top:20px;
+      border-top:1px solid rgba(255,255,255,.06);
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .cmp-footer-q{
+      font-family:var(--serif);
+      font-size:15px;
+      color:rgba(255,255,255,.45);
+      font-weight:400;
+    }
+
+    .cmp-footer-a{
+      font-family:var(--serif);
+      font-size:19px;
+      color:#ffffff;
+      font-weight:400;
+    }
+
+    .cmp-footer-a span{color:#9FE870}
+
+    .cmp-brand{
+      font-family:var(--mono);
+      font-size:10px;
+      color:rgba(159,232,112,.4);
+      letter-spacing:.1em;
+      white-space:nowrap;
+    }
+
+    @media(max-width:760px){
+      .cmp-thead,.cmp-row{grid-template-columns:120px 1fr 1fr}
+      .cmp-th:nth-child(3),.cmp-cell:nth-child(3){display:none}
+      .cmp-card{padding:24px 20px}
+      .cmp-row:last-child{margin:0 -20px;padding:16px 20px}
+    }
+    /* ── end Comparison Chart ── */
+
     .pa-strip{
       width:100%;
       max-width:1000px;
@@ -644,6 +843,60 @@
         <a href="government.html#one-stop-video" class="research-btn">See Government One-Stop Example <span class="gc-arrow">→</span></a>
       </div>
 
+
+      <!-- Comparison Chart -->
+      <div class="cmp-wrap">
+        <div class="cmp-label">GL Framework · Where It Fits</div>
+        <div class="cmp-card">
+          <div class="cmp-header">
+            <div class="cmp-eyebrow">GL Framework · Decision Diagnostic</div>
+            <div class="cmp-title">What Most Teams Use —<br>And What Still <span>Doesn&#39;t Work.</span></div>
+          </div>
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don&#39;t lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
+
       <div class="free-bridge">
         <div class="free-kicker">Free First Step</div>
         <div class="free-line">See what a GL diagnostic looks like before paying.</div>
@@ -685,11 +938,56 @@
           <div class="gc-cta">Enter <span class="gc-arrow">→</span></div>
         </a>
       </div>
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don't lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
+      <!-- end Comparison Chart -->
 
       <div class="pa-strip">
         <div class="pa-strip-label">Featured in PA Times · American Society for Public Administration</div>
         <div class="pa-articles">
-          <a href="https://patimes.org/the-denominator-problem/" target="_blank" rel="noopener" class="pa-article">
+          <a href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener" class="pa-article">
             <div class="pa-date">Mar 13, 2026</div>
             <div class="pa-title">The Denominator Problem</div>
             <div class="pa-summary">Why policy failures stem from broken delivery design, not insufficient funding.</div>
@@ -738,6 +1036,60 @@
         <a href="government.html#one-stop-video" class="research-btn">查看政府一站式案例 <span class="gc-arrow">→</span></a>
       </div>
 
+
+      <!-- Comparison Chart -->
+      <div class="cmp-wrap">
+        <div class="cmp-label">GL Framework · Where It Fits</div>
+        <div class="cmp-card">
+          <div class="cmp-header">
+            <div class="cmp-eyebrow">GL Framework · Decision Diagnostic</div>
+            <div class="cmp-title">What Most Teams Use —<br>And What Still <span>Doesn&#39;t Work.</span></div>
+          </div>
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don&#39;t lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
+
       <div class="free-bridge">
         <div class="free-kicker">免費入口</div>
         <div class="free-line">先看 GL 診斷長什麼樣，再決定是否付費。</div>
@@ -780,10 +1132,56 @@
         </a>
       </div>
 
+      <!-- Comparison Chart (EN only — visible to all language switchers via same block) -->
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don't lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
+
       <div class="pa-strip">
         <div class="pa-strip-label">刊登於 PA Times · 美國公共行政學會</div>
         <div class="pa-articles">
-          <a href="https://patimes.org/the-denominator-problem/" target="_blank" rel="noopener" class="pa-article">
+          <a href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener" class="pa-article">
             <div class="pa-date">2026年3月13日</div>
             <div class="pa-title">分母問題</div>
             <div class="pa-summary">政策失敗源於交付系統設計失效，而非資源不足。</div>
@@ -832,6 +1230,60 @@
         <a href="government.html#one-stop-video" class="research-btn">查看政府一站式案例 <span class="gc-arrow">→</span></a>
       </div>
 
+
+      <!-- Comparison Chart -->
+      <div class="cmp-wrap">
+        <div class="cmp-label">GL Framework · Where It Fits</div>
+        <div class="cmp-card">
+          <div class="cmp-header">
+            <div class="cmp-eyebrow">GL Framework · Decision Diagnostic</div>
+            <div class="cmp-title">What Most Teams Use —<br>And What Still <span>Doesn&#39;t Work.</span></div>
+          </div>
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don&#39;t lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
+
       <div class="free-bridge">
         <div class="free-kicker">免费入口</div>
         <div class="free-line">先看 GL 诊断长什么样，再决定是否付费。</div>
@@ -873,11 +1325,55 @@
           <div class="gc-cta">进入 <span class="gc-arrow">→</span></div>
         </a>
       </div>
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don't lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
 
       <div class="pa-strip">
         <div class="pa-strip-label">刊登于 PA Times · 美国公共行政学会</div>
         <div class="pa-articles">
-          <a href="https://patimes.org/the-denominator-problem/" target="_blank" rel="noopener" class="pa-article">
+          <a href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener" class="pa-article">
             <div class="pa-date">2026年3月13日</div>
             <div class="pa-title">分母问题</div>
             <div class="pa-summary">政策失败源于交付系统设计失效，而非资源不足。</div>
@@ -926,10 +1422,64 @@
         <a href="government.html#one-stop-video" class="research-btn">Ver ejemplo de ventanilla única <span class="gc-arrow">→</span></a>
       </div>
 
+
+      <!-- Comparison Chart -->
+      <div class="cmp-wrap">
+        <div class="cmp-label">GL Framework · Where It Fits</div>
+        <div class="cmp-card">
+          <div class="cmp-header">
+            <div class="cmp-eyebrow">GL Framework · Decision Diagnostic</div>
+            <div class="cmp-title">What Most Teams Use —<br>And What Still <span>Doesn&#39;t Work.</span></div>
+          </div>
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don&#39;t lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
+
       <div class="free-bridge">
         <div class="free-kicker">Primer paso gratuito</div>
         <div class="free-line">Vea cómo luce un diagnóstico GL antes de pagar.</div>
-        <div class="free-note">Coloque aquí una descarga o vista previa del informe de muestra. Este es el paso de confianza para tráfico frío.</div>
+        <div class="free-note">Coloque aquí una descarga o vista previa del informe de muestra.</div>
         <div class="free-actions">
           <a href="sample-diagnostic.pdf" class="btn-primary">Descargar diagnóstico de muestra <span class="gc-arrow">→</span></a>
           <a href="mailto:gfi@gfiintel.com?subject=Sample%20Diagnostic%20Request" class="research-btn">Solicitar por email <span class="gc-arrow">→</span></a>
@@ -967,11 +1517,55 @@
           <div class="gc-cta">Ingresar <span class="gc-arrow">→</span></div>
         </a>
       </div>
+          <div class="cmp-table">
+            <div class="cmp-thead">
+              <div class="cmp-th"></div>
+              <div class="cmp-th">Focuses On</div>
+              <div class="cmp-th">Produces</div>
+              <div class="cmp-th">Reality</div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">AI Tools</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Capability, automation</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Outputs, predictions</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Automation scales — but where the system breaks remains unclear</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">Dashboards</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Visibility, metrics</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Reports, trends</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Activity is visible — but it does not translate into action</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell">
+                <span class="cmp-tool">Process Methods</span>
+                <span class="cmp-sub">Lean · Six Sigma</span>
+              </div>
+              <div class="cmp-cell"><span class="cmp-text">Optimization, efficiency</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Improvements in parts</span></div>
+              <div class="cmp-cell"><span class="cmp-reality">Parts improve — but the system continues to fail</span></div>
+            </div>
+            <div class="cmp-row">
+              <div class="cmp-cell"><span class="cmp-tool">GL Framework</span></div>
+              <div class="cmp-cell"><span class="cmp-text">System behavior &amp; breakdown</span></div>
+              <div class="cmp-cell"><span class="cmp-text">Decision-ready diagnostic</span></div>
+              <div class="cmp-cell"><span class="cmp-answer">Defines where intervention actually changes outcomes</span></div>
+            </div>
+          </div>
+          <div class="cmp-footer">
+            <div>
+              <div class="cmp-footer-q">We don't lack tools.</div>
+              <div class="cmp-footer-a">We lack clarity on <span>where to act.</span></div>
+            </div>
+            <div class="cmp-brand">gfiintel.com</div>
+          </div>
+        </div>
+      </div>
 
       <div class="pa-strip">
         <div class="pa-strip-label">Publicado en PA Times · Sociedad Americana de Administración Pública</div>
         <div class="pa-articles">
-          <a href="https://patimes.org/the-denominator-problem/" target="_blank" rel="noopener" class="pa-article">
+          <a href="https://patimes.org/the-denominator-problem-how-administrative-friction-derails-policy/" target="_blank" rel="noopener" class="pa-article">
             <div class="pa-date">13 mar 2026</div>
             <div class="pa-title">El problema del denominador</div>
             <div class="pa-summary">Por qué los fallos de política se originan en el diseño roto de entrega, no en la falta de financiamiento.</div>
