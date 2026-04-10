@@ -213,6 +213,32 @@
     .footer a{color:#8faabe;text-decoration:none;}
     .footer a:hover{color:#fff}
 
+    /* ── Case Studies Table ── */
+    .cases-section{width:100%;max-width:1060px;margin:34px auto 0;opacity:0;animation:up .6s .64s forwards;}
+    .cases-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#7a90aa;margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+    .cases-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);}
+    .cases-head{font-family:var(--serif);font-size:30px;line-height:1.2;margin-bottom:8px;color:#fff;}
+    .cases-sub{font-size:14px;color:#9fb0c8;line-height:1.7;margin-bottom:22px;max-width:820px;}
+    .cases-note{font-family:var(--mono);font-size:10px;color:#6a7e96;margin-top:14px;line-height:1.6;}
+    .tbl-wrap{width:100%;overflow-x:auto;border-radius:14px;border:1px solid rgba(255,255,255,.08);}
+    table.gl-table{width:100%;border-collapse:collapse;font-size:13px;}
+    table.gl-table thead tr{background:rgba(255,255,255,.04);}
+    table.gl-table th{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9fb0c8;padding:12px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;}
+    table.gl-table td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.05);color:#C8D8EC;vertical-align:middle;line-height:1.5;}
+    table.gl-table tbody tr:last-child td{border-bottom:none;}
+    table.gl-table tbody tr:hover{background:rgba(255,255,255,.025);}
+    .gl-score{font-family:var(--mono);font-weight:500;font-size:13px;}
+    .gl-high{color:#9FE870;}
+    .gl-mid{color:#7DD3FC;}
+    .gl-low{color:#f87171;}
+    .gl-badge{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;}
+    .badge-excellent{background:rgba(159,232,112,.1);border:1px solid rgba(159,232,112,.25);color:#9FE870;}
+    .badge-exceptional{background:rgba(159,232,112,.18);border:1px solid rgba(159,232,112,.4);color:#c8f542;}
+    .badge-outstanding{background:rgba(125,211,252,.1);border:1px solid rgba(125,211,252,.25);color:#7DD3FC;}
+    .badge-good{background:rgba(125,211,252,.06);border:1px solid rgba(125,211,252,.15);color:#93c5fd;}
+    .badge-violence{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:#f87171;}
+    .badge-dysfunction{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);color:#fbbf24;}
+
     @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
     @media(max-width:900px){.grid{grid-template-columns:1fr}}
@@ -347,6 +373,41 @@
       <div class="final-text">GL is designed to help public leaders discuss delivery performance with more clarity before the problem becomes normalized as routine backlog.</div>
       <a href="#request-brief" class="btn primary">Request a Diagnostic Brief <span class="arrow">→</span></a>
     </div>
+
+    <div class="cases-section">
+      <div class="cases-label">18-Jurisdiction GL Analysis</div>
+      <div class="cases-head">GL scores across 18 policy systems</div>
+      <div class="cases-sub">Drawn from <em>Why Do Good Policies Cause So Much Pain?</em> and the Nine International Case Studies. All values calculated using public administrative data.</div>
+      <div class="tbl-wrap">
+        <table class="gl-table">
+          <thead><tr>
+            <th>Jurisdiction</th><th>Policy / System</th><th>GL Score</th><th>Rating</th><th>Source</th>
+          </tr></thead>
+          <tbody>
+          <tr><td style="color:#E2ECF8;font-weight:500">U.S.</td><td>Student Loan Forgiveness</td><td><span class="gl-score gl-low">0.006</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.1</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">UK</td><td>Universal Credit</td><td><span class="gl-score gl-low">0.06</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.2</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Taiwan</td><td>Vaccine Booking Platform</td><td><span class="gl-score gl-mid">1.50*</span></td><td><span class="gl-badge badge-dysfunction">Moderate</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.3</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">India</td><td>Demonetization</td><td><span class="gl-score gl-low">0.023</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.4</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">EU</td><td>GDPR</td><td><span class="gl-score gl-low">0.40</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.5</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Japan</td><td>MyNumber Card</td><td><span class="gl-score gl-low">0.21</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.6</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">South Africa</td><td>Social Grant System</td><td><span class="gl-score gl-mid">2.14</span></td><td><span class="gl-badge badge-good">Good</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.7</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Australia</td><td>Flood Relief Grants</td><td><span class="gl-score gl-low">0.078</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.8</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Canada</td><td>Passport Renewal</td><td><span class="gl-score gl-low">0.032</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">Beyond GDP Ch.9</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Finland</td><td>Education System</td><td><span class="gl-score gl-high">3.13</span></td><td><span class="gl-badge badge-excellent">Excellent</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Rwanda</td><td>Community Health Insurance</td><td><span class="gl-score gl-high">5.08</span></td><td><span class="gl-badge badge-exceptional">Exceptional</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Estonia</td><td>Digital Governance</td><td><span class="gl-score gl-high">10.54†</span></td><td><span class="gl-badge badge-outstanding">Outstanding†</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Singapore</td><td>Public Housing (HDB)</td><td><span class="gl-score gl-low">0.020</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Germany</td><td>Energy Transition</td><td><span class="gl-score gl-low">0.056</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">New Zealand</td><td>Wellbeing Budget</td><td><span class="gl-score gl-low">0.013</span></td><td><span class="gl-badge badge-violence">Policy Violence</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Brazil</td><td>Bolsa Família</td><td><span class="gl-score gl-high">2.64</span></td><td><span class="gl-badge badge-excellent">Excellent</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">South Korea</td><td>Digital Identity (RRN)</td><td><span class="gl-score gl-high">4.12</span></td><td><span class="gl-badge badge-excellent">Excellent</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">India</td><td>Aadhaar (Biometric ID)</td><td><span class="gl-score gl-mid">1.89</span></td><td><span class="gl-badge badge-good">Good</span></td><td style="color:#7a90aa;font-family:var(--mono);font-size:11px">9 Case Studies</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cases-note">* Taiwan overall GL 1.50; elderly cohort GL 0.16 due to digital exclusion barrier. &nbsp;† Estonia peak GL 10.54 (risk-adjusted from 18.97); crisis GL 0.0098 during 72-hr outage. &nbsp;All values are illustrative estimates derived from public data.</div>
+    </div>
+
   </div></main>
 </section>
 
@@ -439,6 +500,41 @@
       <div class="final-text">GL 的設計目的，是讓公共部門領導者能在問題被當成例行積壓之前，更清楚地討論交付表現。</div>
       <a href="#request-brief-tw" class="btn primary">申請診斷簡報 <span class="arrow">→</span></a>
     </div>
+
+    <div class="cases-section">
+      <div class="cases-label">18 個管轄區 GL 分析</div>
+      <div class="cases-head">18 個政策系統的 GL 分數</div>
+      <div class="cases-sub">資料來源：《為什麼好政策造成這麼多痛苦？》及九個跨國案例研究。所有數值均以公開行政資料計算。</div>
+      <div class="tbl-wrap">
+        <table class="gl-table">
+          <thead><tr>
+            <th>管轄區</th><th>政策 / 系統</th><th>GL 分數</th><th>評級</th>
+          </tr></thead>
+          <tbody>
+          <tr><td style="color:#E2ECF8;font-weight:500">美國</td><td>學生貸款豁免</td><td><span class="gl-score gl-low">0.006</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">英國</td><td>統一福利金 (Universal Credit)</td><td><span class="gl-score gl-low">0.06</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">台灣</td><td>疫苗預約平台</td><td><span class="gl-score gl-mid">1.50*</span></td><td><span class="gl-badge badge-dysfunction">中等</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">印度</td><td>廢鈔令</td><td><span class="gl-score gl-low">0.023</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">歐盟</td><td>GDPR</td><td><span class="gl-score gl-low">0.40</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">日本</td><td>My Number 卡</td><td><span class="gl-score gl-low">0.21</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">南非</td><td>社會補助系統</td><td><span class="gl-score gl-mid">2.14</span></td><td><span class="gl-badge badge-good">良好</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">澳洲</td><td>洪水補助金</td><td><span class="gl-score gl-low">0.078</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">加拿大</td><td>護照更新</td><td><span class="gl-score gl-low">0.032</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">芬蘭</td><td>教育系統</td><td><span class="gl-score gl-high">3.13</span></td><td><span class="gl-badge badge-excellent">優秀</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">盧旺達</td><td>社區健康保險</td><td><span class="gl-score gl-high">5.08</span></td><td><span class="gl-badge badge-exceptional">卓越</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">愛沙尼亞</td><td>數位治理</td><td><span class="gl-score gl-high">10.54†</span></td><td><span class="gl-badge badge-outstanding">傑出†</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">新加坡</td><td>公共住宅 (HDB)</td><td><span class="gl-score gl-low">0.020</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">德國</td><td>能源轉型</td><td><span class="gl-score gl-low">0.056</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">紐西蘭</td><td>福祉預算</td><td><span class="gl-score gl-low">0.013</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">巴西</td><td>家庭補助金</td><td><span class="gl-score gl-high">2.64</span></td><td><span class="gl-badge badge-excellent">優秀</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">南韓</td><td>數位身分 (RRN)</td><td><span class="gl-score gl-high">4.12</span></td><td><span class="gl-badge badge-excellent">優秀</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">印度</td><td>Aadhaar 生物辨識 ID</td><td><span class="gl-score gl-mid">1.89</span></td><td><span class="gl-badge badge-good">良好</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cases-note">* 台灣整體 GL 1.50；長者族群因數位排除障礙，GL 僅 0.16。&nbsp;† 愛沙尼亞峰值 GL 10.54（從原始值 18.97 風險調整）；72 小時停機期間危機 GL 降至 0.0098。&nbsp;所有數值為基於公開資料的估算值。</div>
+    </div>
+
   </div></main>
 </section>
 
@@ -531,6 +627,41 @@
       <div class="final-text">GL 的设计目的，是让公共部门领导者能在问题被当成例行积压之前，更清楚地讨论交付表现。</div>
       <a href="#request-brief-cn" class="btn primary">申请诊断简报 <span class="arrow">→</span></a>
     </div>
+
+    <div class="cases-section">
+      <div class="cases-label">18 个管辖区 GL 分析</div>
+      <div class="cases-head">18 个政策系统的 GL 分数</div>
+      <div class="cases-sub">数据来源：《为什么好政策造成这么多痛苦？》及九个跨国案例研究。所有数值均以公开行政数据计算。</div>
+      <div class="tbl-wrap">
+        <table class="gl-table">
+          <thead><tr>
+            <th>管辖区</th><th>政策 / 系统</th><th>GL 分数</th><th>评级</th>
+          </tr></thead>
+          <tbody>
+          <tr><td style="color:#E2ECF8;font-weight:500">美国</td><td>学生贷款豁免</td><td><span class="gl-score gl-low">0.006</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">英国</td><td>统一福利金 (Universal Credit)</td><td><span class="gl-score gl-low">0.06</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">台湾</td><td>疫苗预约平台</td><td><span class="gl-score gl-mid">1.50*</span></td><td><span class="gl-badge badge-dysfunction">中等</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">印度</td><td>废钞令</td><td><span class="gl-score gl-low">0.023</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">欧盟</td><td>GDPR</td><td><span class="gl-score gl-low">0.40</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">日本</td><td>My Number 卡</td><td><span class="gl-score gl-low">0.21</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">南非</td><td>社会补助系统</td><td><span class="gl-score gl-mid">2.14</span></td><td><span class="gl-badge badge-good">良好</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">澳大利亚</td><td>洪水补助金</td><td><span class="gl-score gl-low">0.078</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">加拿大</td><td>护照更新</td><td><span class="gl-score gl-low">0.032</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">芬兰</td><td>教育系统</td><td><span class="gl-score gl-high">3.13</span></td><td><span class="gl-badge badge-excellent">优秀</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">卢旺达</td><td>社区健康保险</td><td><span class="gl-score gl-high">5.08</span></td><td><span class="gl-badge badge-exceptional">卓越</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">爱沙尼亚</td><td>数字治理</td><td><span class="gl-score gl-high">10.54†</span></td><td><span class="gl-badge badge-outstanding">杰出†</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">新加坡</td><td>公共住宅 (HDB)</td><td><span class="gl-score gl-low">0.020</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">德国</td><td>能源转型</td><td><span class="gl-score gl-low">0.056</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">新西兰</td><td>福祉预算</td><td><span class="gl-score gl-low">0.013</span></td><td><span class="gl-badge badge-violence">政策暴力</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">巴西</td><td>家庭补助金</td><td><span class="gl-score gl-high">2.64</span></td><td><span class="gl-badge badge-excellent">优秀</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">韩国</td><td>数字身份 (RRN)</td><td><span class="gl-score gl-high">4.12</span></td><td><span class="gl-badge badge-excellent">优秀</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">印度</td><td>Aadhaar 生物识别 ID</td><td><span class="gl-score gl-mid">1.89</span></td><td><span class="gl-badge badge-good">良好</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cases-note">* 台湾整体 GL 1.50；老年群体因数字排除障碍，GL 仅 0.16。&nbsp;† 爱沙尼亚峰值 GL 10.54（从原始值 18.97 风险调整）；72 小时停机期间危机 GL 降至 0.0098。&nbsp;所有数值为基于公开数据的估算值。</div>
+    </div>
+
   </div></main>
 </section>
 
@@ -623,6 +754,41 @@
       <div class="final-text">GL está diseñado para ayudar a los líderes públicos a discutir el desempeño de entrega con mayor claridad antes de que el problema se normalice como atraso rutinario.</div>
       <a href="#request-brief-es" class="btn primary">Solicitar Diagnóstico Preliminar <span class="arrow">→</span></a>
     </div>
+
+    <div class="cases-section">
+      <div class="cases-label">Análisis GL — 18 Jurisdicciones</div>
+      <div class="cases-head">Puntuaciones GL en 18 sistemas de política</div>
+      <div class="cases-sub">Datos de <em>¿Por qué las buenas políticas causan tanto dolor?</em> y los Nueve Estudios de Caso Internacionales. Todos los valores calculados con datos administrativos públicos.</div>
+      <div class="tbl-wrap">
+        <table class="gl-table">
+          <thead><tr>
+            <th>Jurisdicción</th><th>Política / Sistema</th><th>GL</th><th>Calificación</th>
+          </tr></thead>
+          <tbody>
+          <tr><td style="color:#E2ECF8;font-weight:500">EE.UU.</td><td>Condonación de deuda estudiantil</td><td><span class="gl-score gl-low">0.006</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Reino Unido</td><td>Crédito Universal</td><td><span class="gl-score gl-low">0.06</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Taiwán</td><td>Plataforma de reserva de vacunas</td><td><span class="gl-score gl-mid">1.50*</span></td><td><span class="gl-badge badge-dysfunction">Moderado</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">India</td><td>Desmonetización</td><td><span class="gl-score gl-low">0.023</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">UE</td><td>GDPR</td><td><span class="gl-score gl-low">0.40</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Japón</td><td>Tarjeta MyNumber</td><td><span class="gl-score gl-low">0.21</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Sudáfrica</td><td>Sistema de subsidios sociales</td><td><span class="gl-score gl-mid">2.14</span></td><td><span class="gl-badge badge-good">Bueno</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Australia</td><td>Subsidios por inundaciones</td><td><span class="gl-score gl-low">0.078</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Canadá</td><td>Renovación de pasaporte</td><td><span class="gl-score gl-low">0.032</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Finlandia</td><td>Sistema educativo</td><td><span class="gl-score gl-high">3.13</span></td><td><span class="gl-badge badge-excellent">Excelente</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Ruanda</td><td>Seguro de salud comunitario</td><td><span class="gl-score gl-high">5.08</span></td><td><span class="gl-badge badge-exceptional">Excepcional</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Estonia</td><td>Gobernanza digital</td><td><span class="gl-score gl-high">10.54†</span></td><td><span class="gl-badge badge-outstanding">Destacado†</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Singapur</td><td>Vivienda pública (HDB)</td><td><span class="gl-score gl-low">0.020</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Alemania</td><td>Transición energética</td><td><span class="gl-score gl-low">0.056</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Nueva Zelanda</td><td>Presupuesto de bienestar</td><td><span class="gl-score gl-low">0.013</span></td><td><span class="gl-badge badge-violence">Violencia Política</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Brasil</td><td>Bolsa Família</td><td><span class="gl-score gl-high">2.64</span></td><td><span class="gl-badge badge-excellent">Excelente</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">Corea del Sur</td><td>Identidad digital (RRN)</td><td><span class="gl-score gl-high">4.12</span></td><td><span class="gl-badge badge-excellent">Excelente</span></td></tr>
+          <tr><td style="color:#E2ECF8;font-weight:500">India</td><td>Aadhaar (ID biométrico)</td><td><span class="gl-score gl-mid">1.89</span></td><td><span class="gl-badge badge-good">Bueno</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cases-note">* GL general de Taiwán 1.50; cohorte adultos mayores GL 0.16 por barrera de exclusión digital. &nbsp;† Estonia GL pico 10.54 (ajustado por riesgo de 18.97); GL crisis 0.0098 durante interrupción de 72 h. &nbsp;Todos los valores son estimaciones basadas en datos públicos.</div>
+    </div>
+
   </div></main>
 </section>
 
