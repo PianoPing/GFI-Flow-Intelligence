@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RBE Vs. China · 新自由主义无法理解的逻辑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f3f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: #1e1e2a;
+            padding: 2rem 1.5rem;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+        }
+        .lang-toggle {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-bottom: 1.8rem;
+        }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #d0cdc8;
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #3e3c44;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .lang-btn.active {
+            background: #1e1e2a;
+            border-color: #1e1e2a;
+            color: #fff;
+        }
+        .lang-btn:hover:not(.active) {
+            background: #eeebe7;
+        }
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+            color: #111116;
+        }
+        .subhead {
+            font-size: 1.05rem;
+            color: #5b5866;
+            border-left: 4px solid #d0cbc2;
+            padding-left: 1rem;
+            margin-bottom: 2.2rem;
+            font-weight: 400;
+        }
+        .badge {
+            display: inline-block;
+            background: #edeae6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            color: #3e3a4a;
+            margin-bottom: 1.2rem;
+        }
+        h2 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-top: 2.8rem;
+            margin-bottom: 1.2rem;
+            color: #1a1a26;
+            border-bottom: 2px solid #eae7e2;
+            padding-bottom: 0.4rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.6rem;
+            color: #26232e;
+        }
+        p {
+            margin-bottom: 1.2rem;
+            color: #2c2a36;
+        }
+        .stat-highlight {
+            background: #f5f3f0;
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #0c0b12;
+        }
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: #d0cbc2;
+            margin: 2.8rem 0 1.8rem 0;
+            border-radius: 6px;
+        }
+        .conclusion-box {
+            background: #f8f6f4;
+            padding: 1.8rem 2rem;
+            border-radius: 20px;
+            margin-top: 2.8rem;
+            border-left: 6px solid #b0aaa2;
+        }
+        .conclusion-box p:last-child {
+            margin-bottom: 0;
+        }
+        .footnote {
+            font-size: 0.9rem;
+            color: #6d6979;
+            border-top: 1px solid #e4e0da;
+            padding-top: 2rem;
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+        /* 表格样式 */
+        .cmp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            font-size: 0.95rem;
+        }
+        .cmp-table th,
+        .cmp-table td {
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #d8d4ce;
+            text-align: left;
+            vertical-align: top;
+        }
+        .cmp-table th {
+            background: #f0eee9;
+            font-weight: 600;
+        }
+        .cmp-table tr:nth-child(even) {
+            background: #f9f8f6;
+        }
+        ul, ol {
+            margin: 0.8rem 0 1.2rem 1.8rem;
+            color: #2c2a36;
+        }
+        li {
+            margin-bottom: 0.3rem;
+        }
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.8rem; }
+            .container { padding: 1.8rem 1.2rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.4rem; }
+            .lang-toggle { justify-content: center; }
+            .cmp-table { font-size: 0.82rem; }
+            .cmp-table th, .cmp-table td { padding: 0.4rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 语言切换 -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" id="btnEn">🇬🇧 English</button>
+        <button class="lang-btn" id="btnZh">🇨🇳 中文</button>
+    </div>
+
+    <!-- 标题 -->
+    <div>
+        <span class="badge" id="badge">
+            <span id="badgeEn">✧ Resonance · Divergence · Paradigm Clash</span>
+            <span id="badgeZh" style="display:none;">✧ 精神契合 · 路径分野 · 范式冲突</span>
+        </span>
+        <h1>
+            <span id="titleEn">RBE Vs. China</span>
+            <span id="titleZh" style="display:none;">RBE 与中国</span>
+        </h1>
+        <div class="subhead">
+            <span id="subEn">Resource‑Based Economy · pragmatic resonance, fundamental divergence, and the paradigm gap that neoliberalism cannot grasp</span>
+            <span id="subZh" style="display:none;">资源基础型经济 · 务实共鸣、根本分野，以及新自由主义无法理解的范式鸿沟</span>
+        </div>
+    </div>
+
+    <!-- ===== 引言 ===== -->
+    <section>
+        <p id="intro1En"><strong>Jacque Fresco's</strong> Resource‑Based Economy (RBE) envisions a socioeconomic system rooted in physical resources rather than monetary mechanisms. Though China has never adopted RBE as an official framework, its strategic planning—<strong>resource‑carrying capacity as a hard constraint</strong>, circularity as a pillar, and technology as a lever for efficiency—resonates deeply with the RBE ethos. Yet the two diverge fundamentally in institutional logic, governance scope, and driving forces.</p>
+        <p id="intro1Zh" style="display:none;"><strong>雅克·弗雷斯科</strong>（Jacque Fresco）提出的"资源基础型经济"（Resource‑Based Economy, RBE）构想了一个以地球物理资源而非货币体系为核心决策依据的社会经济体系。中国虽未曾将RBE作为官方政策框架，但近年战略规划中展现的决策逻辑——<strong>以资源承载力为硬约束</strong>、以循环利用为支柱、以科技提升效率——与RBE精神产生了深刻共鸣。但二者在制度逻辑、治理范围和驱动力上存在根本分野。</p>
+        <p id="intro2En">Beyond this comparison, there is a deeper layer: <strong>why does the neoliberal mindset so often fail to comprehend China's resource‑oriented strategy?</strong> This essay argues that the answer lies not in policy details, but in two incommensurable rationalities—<strong>market rationality versus physical rationality</strong>.</p>
+        <p id="intro2Zh" style="display:none;">在比较之外，还有一个更深层的追问：<strong>为什么新自由主义的思维方式，往往无法理解中国的资源导向战略？</strong> 本文认为，答案不在于政策细节，而在于两种不可通约的理性范式——<strong>市场理性与物理理性</strong>。</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== PART I ===== -->
+    <h2>
+        <span id="h2_1En">I. Spiritual Affinity · Shared Decision Logic</span>
+        <span id="h2_1Zh" style="display:none;">一、精神契合 · 共享的决策逻辑</span>
+    </h2>
+
+    <h3>
+        <span id="h3_1_1En">1.1 Carrying capacity as the hard constraint</span>
+        <span id="h3_1_1Zh" style="display:none;">1.1 以承载力为硬约束的空间治理</span>
+    </h3>
+    <p id="p1_1En">RBE insists that economic activity must respect the physical limits of natural systems. China's territorial spatial governance systematically embodies this logic. The Ministry of Natural Resources mandates spatial optimisation "balancing population, resources, environment, and economic‑ecological benefits," defining <strong>permanent basic farmland, ecological protection redlines, and urban development boundaries</strong> as "insurmountable red lines." By 2025, China had built <span class="stat-highlight">198</span> energy‑resource bases, with <span class="stat-highlight">14</span> minerals ranking first in global reserves and <span class="stat-highlight">17</span> in global production.</p>
+    <p id="p1_1Zh" style="display:none;">RBE强调经济活动必须服从自然系统的物理极限。中国的国土空间治理体系系统性地践行这一逻辑。自然资源部要求按照"人口资源环境相均衡、经济社会生态效益相统一"的原则优化空间格局，将<strong>永久基本农田、生态保护红线、城镇开发边界</strong>定义为"不可逾越的红线"。截至2025年，中国已建成<span class="stat-highlight">198</span>个能源资源基地，<span class="stat-highlight">14</span>种矿产储量居世界第一，<span class="stat-highlight">17</span>种矿产产量居全球首位。</p>
+
+    <h3>
+        <span id="h3_1_2En">1.2 Circular economy: from waste to "secondary resources"</span>
+        <span id="h3_1_2Zh" style="display:none;">1.2 循环经济：从废弃物到"第二资源"</span>
+    </h3>
+    <p id="p1_2En">One of RBE's most distinctive tenets: <strong>"there is no waste, only resources in the wrong place."</strong> China's <em>15th Five‑Year Plan for Circular Economy</em> is a national‑scale implementation. By 2030, the <strong>major resource output rate</strong> will rise by <span class="stat-highlight">16%</span>, comprehensive utilisation of bulk solid waste will reach <span class="stat-highlight">4.5 billion tons</span>, and recycled resources will hit <span class="stat-highlight">510 million tons</span>, with the industry value targeting <span class="stat-highlight">¥8 trillion</span>. In 2025, scrap steel and non‑ferrous metals already supplied <span class="stat-highlight">27%</span> and <span class="stat-highlight">30%</span> of production feedstocks respectively.</p>
+    <p id="p1_2Zh" style="display:none;">RBE最具辨识度的理念之一是<strong>"没有废弃物，只有放错位置的资源"</strong>。《循环经济发展"十五五"规划》正是这一理念的国家级实践。到2030年，<strong>主要资源产出率</strong>提高<span class="stat-highlight">16%</span>，大宗固废年综合利用量达<span class="stat-highlight">45亿吨</span>，主要再生资源循环利用量达<span class="stat-highlight">5.1亿吨</span>，产业产值目标高达<span class="stat-highlight">8万亿元</span>。2025年，废钢铁、废有色金属已分别贡献了生产环节原料的<span class="stat-highlight">27%</span>和<span class="stat-highlight">30%</span>。</p>
+    <p id="p1_2bEn">The plan prioritises recycling the "New Trio" — retired EV batteries, PV panels, and wind turbine blades — not merely for environmental reasons, but as a <strong>strategic resource security</strong> move: lithium, cobalt, and nickel are heavily import‑dependent. Building a domestic "secondary resource" base reduces vulnerability to global price volatility. The <strong>digital ID system</strong> for power batteries and the <strong>digital map</strong> for PV lifecycles signal a digitised, traceable circular economy.</p>
+    <p id="p1_2bZh" style="display:none;">规划特别强调补齐"新三样"——退役动力电池、光伏组件、风机叶片——的循环利用短板，这并非单纯环保考量，而是<strong>战略性资源保障</strong>：锂、钴、镍高度依赖进口，建立国内"第二资源"供应体系可降低对国际价格波动的脆弱性。动力电池<strong>"数字身份证"</strong>和光伏设备全生命周期<strong>"数字地图"</strong>的建立，标志着循环经济正向数字化、可追溯方向演进。</p>
+
+    <h3>
+        <span id="h3_1_3En">1.3 Strategic resource autonomy</span>
+        <span id="h3_1_3Zh" style="display:none;">1.3 战略性资源自主</span>
+    </h3>
+    <p id="p1_3En">China's critical mineral strategy mirrors the RBE emphasis on <strong>reducing reliance on global trade chains</strong>. As of 2025, China holds the world's largest reserves for <span class="stat-highlight">14</span> minerals including rare earths, tungsten, tin, molybdenum, antimony, gallium, germanium, indium, fluorite, and graphite. However, dependence on imports for copper, iron, lithium, cobalt, and nickel remains high — <span class="stat-highlight">11</span> minerals exceed <span class="stat-highlight">70%</span> import reliance (copper 78.8%, nickel 84.9%, lithium 72.5%). The 15th FYP exploration push focuses on these shortfalls, aiming to raise recycled lithium to <span class="stat-highlight">30%</span> by 2030, cutting overall dependence from 70% to 40%.</p>
+    <p id="p1_3Zh" style="display:none;">中国在关键矿产领域的战略布局与RBE强调的<strong>减少对全球贸易链依赖</strong>高度契合。截至2025年，中国已掌握稀土、钨、锡、钼、锑、镓、锗、铟、萤石、石墨等<span class="stat-highlight">14</span>种矿产储量的世界第一。但铜、铁、锂、钴、镍等紧缺矿产对外依存度仍然较高——<span class="stat-highlight">11</span>种矿产对外依存度超过<span class="stat-highlight">70%</span>（铜78.8%、镍84.9%、锂72.5%）。"十五五"找矿突破战略聚焦紧缺矿产，力争到2030年使回收锂占比达<span class="stat-highlight">30%</span>，将对外依存度从70%降至40%。</p>
+
+    <h3>
+        <span id="h3_1_4En">1.4 Technology as the substitute for scarcity</span>
+        <span id="h3_1_4Zh" style="display:none;">1.4 科技赋能：以技术进步替代稀缺</span>
+    </h3>
+    <p id="p1_4En">RBE posits technology as the primary solution to resource scarcity. China's <strong>"new quality productive forces"</strong> — innovation‑led, high‑tech, high‑efficiency, high‑quality — embody this thinking. The 15th FYP circular economy plan explicitly calls for "<strong>accelerating technological breakthroughs, developing major equipment, and building innovation platforms</strong>," and for the first time mandates <strong>deep AI application in sorting and recycling</strong>. This technology‑driven resource efficiency path aligns with the RBE technological orientation.</p>
+    <p id="p1_4Zh" style="display:none;">RBE认为科技是解决资源稀缺的核心路径。中国正在发展的<strong>"新质生产力"</strong>——以创新为主导，具有高科技、高效能、高质量特征——正是这一思维的体现。《循环经济发展"十五五"规划》明确提出"<strong>加快技术工艺和装备提升，开展重大技术装备攻关，建设资源循环利用技术创新平台</strong>"，并首次提出加强<strong>人工智能在回收分选领域的深度应用</strong>。这种以技术驱动资源效率的路径与RBE的技术主义取向一致。</p>
+
+    <div class="divider"></div>
+
+    <!-- ===== PART II ===== -->
+    <h2>
+        <span id="h2_2En">II. Fundamental Divergence · Path and Logic</span>
+        <span id="h2_2Zh" style="display:none;">二、本质分野 · 路径与逻辑的差异</span>
+    </h2>
+
+    <h3>
+        <span id="h3_2_1En">2.1 Institutional framework: market vs. technocratic governance</span>
+        <span id="h3_2_1Zh" style="display:none;">2.1 制度框架：市场机制 vs. 技术官僚治理</span>
+    </h3>
+    <p id="p2_1En">RBE envisions scientists and engineers directly calculating optimal resource allocation, abolishing money and markets. China operates within a <strong>socialist market economy</strong>: the state guides market actors through policy levers — subsidies, tax incentives, carbon quotas, mandatory standards — toward resource‑oriented goals. Money and markets remain the primary media for resource flows.</p>
+    <p id="p2_1Zh" style="display:none;">RBE设想由科学家和工程师直接计算资源最优配置，废除货币与市场。中国则是在<strong>社会主义市场经济</strong>框架内运作：政府通过政策杠杆——补贴、税收优惠、碳配额、强制性标准——引导市场力量响应资源导向目标。货币和市场依然是资源流动的主要媒介。</p>
+
+    <h3>
+        <span id="h3_2_2En">2.2 Governance scope: national strategy vs. global system</span>
+        <span id="h3_2_2Zh" style="display:none;">2.2 治理范围：国家战略 vs. 全球体系</span>
+    </h3>
+    <p id="p2_2En">RBE's ultimate aim is a <strong>border‑transcending global social reconfiguration</strong>. China's resource strategy operates within <strong>sovereign borders</strong>, enhancing national resource security and industrial competitiveness via technology and infrastructure. Though BRI resource cooperation exists, it remains a pragmatic state modernisation strategy, not an alternative global governance system.</p>
+    <p id="p2_2Zh" style="display:none;">RBE的终极目标是<strong>超越国界的全球社会重构</strong>。中国的资源战略则在<strong>主权国家边界内</strong>，通过科技和基建提升国家资源安全与产业竞争力。虽有"一带一路"框架下的资源合作，但其本质仍是一个主权国家务实现代化战略，而非全球治理体系的替代方案。</p>
+
+    <h3>
+        <span id="h3_2_3En">2.3 Driving force: top‑down planning vs. scientific consensus</span>
+        <span id="h3_2_3Zh" style="display:none;">2.3 驱动力：顶层规划 vs. 科学共识</span>
+    </h3>
+    <p id="p2_3En">RBE relies on global scientific consensus for coordinated governance. China's resource strategy is anchored in the legally binding <strong>Five‑Year Plans</strong>, designed at the central level and implemented via hierarchical decomposition. Terms like "<strong>capacity early warning and regulation</strong>" and "<strong>preventing disorderly entry of non‑core SOEs</strong>" reflect clear state‑led characteristics.</p>
+    <p id="p2_3Zh" style="display:none;">RBE依赖全球科学共识驱动的协同治理。中国的资源战略则依托具有法律效力的<strong>"五年规划"</strong>，由中央顶层设计、层层分解落实。"<strong>产能预警和有效调控</strong>""<strong>防范中央及地方非主责主业国有企业无序进入资源循环行业</strong>"等表述，清晰体现了国家主导特征。</p>
+
+    <h3>
+        <span id="h3_2_4En">2.4 Theoretical roots: indigenous innovation vs. Western framework</span>
+        <span id="h3_2_4Zh" style="display:none;">2.4 理论溯源：本土创新 vs. 西方框架</span>
+    </h3>
+    <p id="p2_4En">Interestingly, academic meta‑analyses (452 matched samples) reveal that classical Western resource‑based theories (RBV, resource dependence) have limited explanatory power for Chinese firms. Compared with U.S. firms, Chinese enterprises <strong>establish fewer business ties</strong> under resource dependence and transaction costs, yet <strong>extract more profit</strong> from managing generic strategic resources. This indicates a distinct indigenous resource‑management logic, unconnected to RBE theory but practically forming its own "resource‑first" approach.</p>
+    <p id="p2_4Zh" style="display:none;">有意思的是，学术元分析（452组匹配样本）表明，西方经典资源基础理论（RBV、资源依赖）在解释中国企业实践时存在局限。与美国企业相比，中国企业在面临资源依赖和交易成本时<strong>建立更少的商业关系</strong>，但在<strong>管理通用战略资源时能提取更多利润</strong>。这表明中国企业形成了独特的本土资源管理逻辑，与RBE理论并无直接关联，却在实践上形成了自己的"资源优先"路径。</p>
+
+    <div class="divider"></div>
+
+    <!-- ===== PART III ===== -->
+    <h2>
+        <span id="h2_3En">III. Why Neoliberalism Cannot Grasp This Logic</span>
+        <span id="h2_3Zh" style="display:none;">三、为什么新自由主义无法理解这套逻辑</span>
+    </h2>
+
+    <p id="p3_0En">The neoliberal framework rests on several unchallenged premises:</p>
+    <p id="p3_0Zh" style="display:none;">新自由主义的思维框架建立在几个不可动摇的预设之上：</p>
+
+    <ul id="ul3En">
+        <li><strong>Markets are the only legitimate resource allocator</strong> — price signals automatically guide optimal distribution.</li>
+        <li><strong>Government intervention inevitably distorts and reduces efficiency</strong> — "the less governance, the better."</li>
+        <li><strong>Individual rationality aggregates into collective optimality</strong> — the invisible hand self‑corrects.</li>
+        <li><strong>Short‑term profit maximisation is the sole corporate objective</strong> — shareholder value supremacy.</li>
+    </ul>
+    <ul id="ul3Zh" style="display:none;">
+        <li><strong>市场是唯一的资源配置机制</strong>——价格信号自动引导最优分配。</li>
+        <li><strong>政府干预必然导致扭曲和低效</strong>——"管得越少越好"。</li>
+        <li><strong>个体理性汇聚即为集体最优</strong>——看不见的手自动调节。</li>
+        <li><strong>短期利润最大化是企业唯一目标</strong>——股东价值至上。</li>
+    </ul>
+
+    <p id="p3_1En">China's resource‑oriented strategic planning diverges from all four of these assumptions:</p>
+    <p id="p3_1Zh" style="display:none;">而中国"资源导向型"的战略规划，在这四个维度上都走了一条截然不同的路：</p>
+
+    <table class="cmp-table" id="tableCompare">
+        <thead>
+            <tr>
+                <th id="thDimEn">Dimension</th>
+                <th id="thPremEn">Neoliberal premise</th>
+                <th id="thPracEn">China's resource‑oriented practice</th>
+                <th id="thDimZh" style="display:none;">维度</th>
+                <th id="thPremZh" style="display:none;">新自由主义预设</th>
+                <th id="thPracZh" style="display:none;">中国资源导向实践</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="td1aEn">Resource allocation</td>
+                <td id="td1bEn">Market prices dominate</td>
+                <td id="td1cEn">National strategic baselines (farmland, water, energy) take precedence</td>
+                <td id="td1aZh" style="display:none;">资源配置</td>
+                <td id="td1bZh" style="display:none;">市场价格主导</td>
+                <td id="td1cZh" style="display:none;">国家战略底线（耕地、水资源、能源）前置</td>
+            </tr>
+            <tr>
+                <td id="td2aEn">Role of the state</td>
+                <td id="td2bEn">Minimal state</td>
+                <td id="td2cEn">Top‑down design + Five‑Year Plans + policy leverage</td>
+                <td id="td2aZh" style="display:none;">政府角色</td>
+                <td id="td2bZh" style="display:none;">最小政府</td>
+                <td id="td2cZh" style="display:none;">顶层设计 + 五年规划 + 政策杠杆</td>
+            </tr>
+            <tr>
+                <td id="td3aEn">Decision logic</td>
+                <td id="td3bEn">Sum of individual rationalities</td>
+                <td id="td3cEn">National medium‑ &amp; long‑term resource security &amp; industrial competitiveness</td>
+                <td id="td3aZh" style="display:none;">决策逻辑</td>
+                <td id="td3bZh" style="display:none;">个体理性之和</td>
+                <td id="td3cZh" style="display:none;">国家中长期资源安全与产业竞争力</td>
+            </tr>
+            <tr>
+                <td id="td4aEn">Firm objective</td>
+                <td id="td4bEn">Short‑term profit maximisation</td>
+                <td id="td4cEn">SOEs bear strategic missions; policies guide private firms toward national priorities</td>
+                <td id="td4aZh" style="display:none;">企业目标</td>
+                <td id="td4bZh" style="display:none;">短期利润最大化</td>
+                <td id="td4cZh" style="display:none;">国企承担战略任务，政策引导民企响应国家方向</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>
+        <span id="h3_3_1En">3.1 Two incommensurable rationalities</span>
+        <span id="h3_3_1Zh" style="display:none;">3.1 两种不可通约的理性</span>
+    </h3>
+    <p id="p3_2En">Neoliberal "rationality" is <strong>market rationality</strong> — price signals, marginal returns, capital ROI.</p>
+    <p id="p3_2Zh" style="display:none;">新自由主义的"理性"是<strong>市场理性</strong>——价格信号、边际收益、资本回报率。</p>
+    <p id="p3_3En">China's resource‑oriented rationality is <strong>physical rationality</strong> — resource carrying capacity, energy conversion efficiency, material circularity, supply‑chain physical security.</p>
+    <p id="p3_3Zh" style="display:none;">中国资源导向战略的"理性"是<strong>物理理性</strong>——资源承载力、能量转换效率、物质循环闭合度、供应链物理安全。</p>
+    <p id="p3_4En"><strong>The former cannot comprehend the latter, because their accounting methods are fundamentally different.</strong></p>
+    <p id="p3_4Zh" style="display:none;"><strong>前者无法理解后者，因为两者的"算账方式"完全不同。</strong></p>
+
+    <ul id="ulQEn">
+        <li><strong>Market rationality asks:</strong> "Does this make money?"</li>
+        <li><strong>Physical rationality asks:</strong> "Does this do more with less physical resources? Does this make the nation more resource‑secure?"</li>
+    </ul>
+    <ul id="ulQZh" style="display:none;">
+        <li><strong>市场理性问：</strong>"这能赚钱吗？"</li>
+        <li><strong>物理理性问：</strong>"这能用更少的资源做更多的事吗？这能让国家在资源上更安全吗？"</li>
+    </ul>
+
+    <p id="p3_5En">When China's 15th FYP mandates that bulk solid waste utilisation reach <span class="stat-highlight">4.5 billion tons</span> and major resource output rate rise by <span class="stat-highlight">16%</span>, it is not calculating financial returns — it is calculating <strong>material balance</strong>. This is a mode of thinking rooted in <strong>ecological economics and engineering</strong>, not neoclassical economics.</p>
+    <p id="p3_5Zh" style="display:none;">当中国的"十五五"规划要求大宗固废年利用量达到<span class="stat-highlight">45亿吨</span>、主要资源产出率提高<span class="stat-highlight">16%</span>时，它不是在算经济账——它是在算<strong>物质平衡账</strong>。这是一种<strong>生态经济学</strong>和<strong>工程学</strong>的思维，而非<strong>新古典经济学</strong>的思维。</p>
+
+    <h3>
+        <span id="h3_3_2En">3.2 State capacity: the neglected variable</span>
+        <span id="h3_3_2Zh" style="display:none;">3.2 国家能力：被忽视的变量</span>
+    </h3>
+    <p id="p3_6En">Neoliberal theory treats the state as a "necessary evil"—as small as possible, as non‑interventionist as possible.</p>
+    <p id="p3_6Zh" style="display:none;">新自由主义理论中，国家是一个"必要的恶"——尽可能小，尽可能少干预。</p>
+    <p id="p3_7En">But China's resource‑oriented strategy presupposes that <strong>the state must possess sufficient institutional, data, and enforcement capacity to implement long‑term resource planning.</strong></p>
+    <p id="p3_7Zh" style="display:none;">但中国资源导向战略的前提是：<strong>国家必须拥有足够的制度能力、数据能力、执行能力来实施长期资源规划。</strong></p>
+    <ul id="ulCapEn">
+        <li>Unified "three‑rate" standards (mining recovery, processing recovery, comprehensive utilisation) across all 125 mineral types</li>
+        <li>Over <span class="stat-highlight">5,500</span> provincial‑level or above green mines established</li>
+        <li>National "One‑Map" big‑data platform for natural resources</li>
+        <li>Five‑Year Plans decomposing national targets down to provincial, municipal, and county levels</li>
+    </ul>
+    <ul id="ulCapZh" style="display:none;">
+        <li>覆盖全部125个矿种的"三率"标准（开采回采率、选矿回收率、综合利用率）</li>
+        <li>建成<span class="stat-highlight">5500余家</span>省级以上绿色矿山</li>
+        <li>全国统一的自然资源"一张图"大数据平台</li>
+        <li>通过"五年规划"将国家目标层层分解到省、市、县</li>
+    </ul>
+    <p id="p3_8En">All of this requires <strong>strong national data collection, administrative execution, and policy coordination capacity</strong> — capacities that neoliberalism <strong>presumes states do not or should not possess</strong>.</p>
+    <p id="p3_8Zh" style="display:none;">这一切需要<strong>强大的国家数据采集能力、行政执行能力和政策协调能力</strong>——而新自由主义恰恰<strong>预设了国家不具备或不应当具备</strong>这种能力。</p>
+
+    <h3>
+        <span id="h3_3_3En">3.3 The limits of perspective</span>
+        <span id="h3_3_3Zh" style="display:none;">3.3 视角的局限性</span>
+    </h3>
+    <p id="p3_9En">Neoliberalism fails to comprehend China not because it is unintelligent, but because:</p>
+    <p id="p3_9Zh" style="display:none;">新自由主义之所以"看不懂"中国，并非因为它不够聪明，而是因为：</p>
+    <ol id="olLimEn">
+        <li><strong>Its analytical tools are designed for market transactions</strong>, not for physical resource management.</li>
+        <li><strong>Its value premises reject state‑led long‑term planning</strong> as inherently "inefficient" and "authoritarian."</li>
+        <li><strong>Its time horizon is quarterly earnings and electoral cycles</strong>, while China's resource strategy operates on "15th FYP" (2030), "2035 Vision", and "2060 Carbon Neutrality" timelines.</li>
+    </ol>
+    <ol id="olLimZh" style="display:none;">
+        <li><strong>它的分析工具是为"市场交易"设计的</strong>，而非为"物理资源管理"设计的。</li>
+        <li><strong>它的价值预设排斥国家主导的长期规划</strong>，将其天然视为"低效"和"威权"。</li>
+        <li><strong>它的时间尺度是季度财报和选举周期</strong>，而中国资源战略的时间尺度是"十五五"（2030）、"2035远景目标"、"2060碳中和"。</li>
+    </ol>
+    <p id="p3_10En"><strong>When your ruler only measures markets, you cannot see physical resource realities. When your horizon is only four years, you cannot see resource security thirty years ahead.</strong></p>
+    <p id="p3_10Zh" style="display:none;"><strong>当你的尺子只能量市场，你就看不见资源物理现实；当你的视野只有四年，你就看不见三十年后的资源安全。</strong></p>
+
+    <div class="divider"></div>
+
+    <!-- ===== 结论 ===== -->
+    <div class="conclusion-box">
+        <h2 style="border-bottom:none; margin-top:0; padding-bottom:0; font-size:1.7rem;">
+            <span id="concH2En">IV. Conclusion · Spirit Aligned, Paths Apart, Paradigms Incommensurable</span>
+            <span id="concH2Zh" style="display:none;">四、结论 · 精神契合，路径分立，范式不可通约</span>
+        </h2>
+        <p id="conc1En">If Fresco's RBE represents the <strong>ultimate ideal</strong> of resource‑orientation, China's current practice is the <strong>most pragmatic embedding</strong> of "resource physics" into the core of decision‑making within the existing global political‑economic framework.</p>
+        <p id="conc1Zh" style="display:none;">如果说弗雷斯科的RBE是"资源导向"的<strong>终极理想形态</strong>，那么中国目前的实践，则是在现有全球政治经济框架内，<strong>最大程度将"资源物理逻辑"嵌入决策核心</strong>的务实尝试。</p>
+
+        <p id="conc2En">The resonance between China and RBE stems from a shared premise: economic decisions must be bounded by physical resource realities, boosted by technology, and sustained through circularity. But the divergence is equally profound: China does not abolish the market but steers it; it does not build a global government but focuses on national resource security; it does not rely on scientific‑consensus‑driven global coordination but on legally‑binding national planning.</p>
+        <p id="conc2Zh" style="display:none;">中国与RBE的共鸣，源于共同的认知前提：经济决策须以资源物理现实为底线、以科技提升效率、以循环构建可持续供给。但两者的分野同样深刻：中国未废除市场，而是引导市场；未建立全球政府，而是聚焦国家资源安全；不依赖科学共识主导的全球协同，而依托具有法律效力的国家规划。</p>
+
+        <p id="conc3En" style="margin-top:1rem; font-weight:500; color:#1a1a26;"><strong>China's development model is not a direct response to RBE theory, but the resonance in the fundamental spirit — "disciplining economic decisions by resource realities" — makes it an important reference for understanding China's strategic logic.</strong> If RBE is a visionary blueprint, China is translating its most pragmatic components — resource efficiency, circularity, technological substitution — into enforceable national policy, under real‑world constraints.</p>
+        <p id="conc3Zh" style="margin-top:1rem; font-weight:500; color:#1a1a26; display:none;"><strong>中国的发展模式并非对RBE理论的直接响应，但二者在"以资源现实规约经济决策"这一根本精神上的共鸣，使其成为理解中国战略逻辑的一个重要参照系。</strong> 如果说RBE是一个关于资源社会的终极构想，那么中国正在做的，是在现实约束下，将这一构想中最务实的部分——资源效率、循环利用、技术替代——转化为可执行的国策。</p>
+
+        <p id="conc4En" style="margin-top:1.2rem; font-weight:500; color:#1a1a26;">At a deeper level, <strong>what neoliberalism cannot comprehend is not a policy choice, but an entirely different rationality</strong> — one that measures success not by quarterly returns but by physical balance, resource security, and long‑term national resilience. This is not a failure of intelligence, but a failure of paradigm.</p>
+        <p id="conc4Zh" style="margin-top:1.2rem; font-weight:500; color:#1a1a26; display:none;">在更深层次上，<strong>新自由主义无法理解的不是某项政策选择，而是一种完全不同的理性范式</strong>——它衡量成功的标准不是季度回报，而是物质平衡、资源安全和长期国家韧性。这不是智识的失败，而是范式的失败。</p>
+    </div>
+
+    <div class="footnote">
+        <span id="footEn">✧  Resource‑Based Economy · comparative analysis · paradigm critique · data based on 15th FYP &amp; 2025 official releases</span>
+        <span id="footZh" style="display:none;">✧  资源基础型经济 · 比较分析 · 范式批判 · 数据基于"十五五"规划及2025年官方发布</span>
+    </div>
+
+</div>
+
+<script>
+    // ============================================================
+    // 最直接可靠的方式：通过 id 逐个控制显示/隐藏
+    // ============================================================
+
+    // ---- 所有需要切换的元素 id 列表 ----
+    var enIds = [
+        'badgeEn', 'titleEn', 'subEn',
+        'intro1En', 'intro2En',
+        'h2_1En', 'h3_1_1En', 'p1_1En', 'h3_1_2En', 'p1_2En', 'p1_2bEn',
+        'h3_1_3En', 'p1_3En', 'h3_1_4En', 'p1_4En',
+        'h2_2En', 'h3_2_1En', 'p2_1En', 'h3_2_2En', 'p2_2En',
+        'h3_2_3En', 'p2_3En', 'h3_2_4En', 'p2_4En',
+        'h2_3En', 'p3_0En', 'ul3En', 'p3_1En',
+        'thDimEn', 'thPremEn', 'thPracEn',
+        'td1aEn', 'td1bEn', 'td1cEn',
+        'td2aEn', 'td2bEn', 'td2cEn',
+        'td3aEn', 'td3bEn', 'td3cEn',
+        'td4aEn', 'td4bEn', 'td4cEn',
+        'h3_3_1En', 'p3_2En', 'p3_3En', 'p3_4En', 'ulQEn', 'p3_5En',
+        'h3_3_2En', 'p3_6En', 'p3_7En', 'ulCapEn', 'p3_8En',
+        'h3_3_3En', 'p3_9En', 'olLimEn', 'p3_10En',
+        'concH2En', 'conc1En', 'conc2En', 'conc3En', 'conc4En',
+        'footEn'
+    ];
+
+    var zhIds = [
+        'badgeZh', 'titleZh', 'subZh',
+        'intro1Zh', 'intro2Zh',
+        'h2_1Zh', 'h3_1_1Zh', 'p1_1Zh', 'h3_1_2Zh', 'p1_2Zh', 'p1_2bZh',
+        'h3_1_3Zh', 'p1_3Zh', 'h3_1_4Zh', 'p1_4Zh',
+        'h2_2Zh', 'h3_2_1Zh', 'p2_1Zh', 'h3_2_2Zh', 'p2_2Zh',
+        'h3_2_3Zh', 'p2_3Zh', 'h3_2_4Zh', 'p2_4Zh',
+        'h2_3Zh', 'p3_0Zh', 'ul3Zh', 'p3_1Zh',
+        'thDimZh', 'thPremZh', 'thPracZh',
+        'td1aZh', 'td1bZh', 'td1cZh',
+        'td2aZh', 'td2bZh', 'td2cZh',
+        'td3aZh', 'td3bZh', 'td3cZh',
+        'td4aZh', 'td4bZh', 'td4cZh',
+        'h3_3_1Zh', 'p3_2Zh', 'p3_3Zh', 'p3_4Zh', 'ulQZh', 'p3_5Zh',
+        'h3_3_2Zh', 'p3_6Zh', 'p3_7Zh', 'ulCapZh', 'p3_8Zh',
+        'h3_3_3Zh', 'p3_9Zh', 'olLimZh', 'p3_10Zh',
+        'concH2Zh', 'conc1Zh', 'conc2Zh', 'conc3Zh', 'conc4Zh',
+        'footZh'
+    ];
+
+    // ---- 工具函数：切换语言 ----
+    function setLang(lang) {
+        var enEls = enIds.map(function(id) { return document.getElementById(id); });
+        var zhEls = zhIds.map(function(id) { return document.getElementById(id); });
+
+        if (lang === 'en') {
+            enEls.forEach(function(el) { if (el) el.style.display = ''; });      // 恢复默认（block/inline）
+            zhEls.forEach(function(el) { if (el) el.style.display = 'none'; });
+            document.getElementById('btnEn').classList.add('active');
+            document.getElementById('btnZh').classList.remove('active');
+        } else {
+            enEls.forEach(function(el) { if (el) el.style.display = 'none'; });
+            zhEls.forEach(function(el) { if (el) el.style.display = ''; });      // 恢复默认
+            document.getElementById('btnZh').classList.add('active');
+            document.getElementById('btnEn').classList.remove('active');
+        }
+        localStorage.setItem('rbe_lang', lang);
+    }
+
+    // ---- 绑定按钮 ----
+    document.getElementById('btnEn').addEventListener('click', function() { setLang('en'); });
+    document.getElementById('btnZh').addEventListener('click', function() { setLang('zh'); });
+
+    // ---- 读取保存的偏好 ----
+    var saved = localStorage.getItem('rbe_lang');
+    if (saved === 'zh') {
+        setLang('zh');
+    } else {
+        setLang('en');  // 默认英文
+    }
+</script>
+
+</body>
+</html>
