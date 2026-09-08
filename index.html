@@ -330,7 +330,92 @@
       .featured-card .title { font-size: 1.1rem; }
     }
 
-    /* ===== 土地正義系列入口（簡化版） ===== */
+    /* ===== 新文章區塊：平庸之惡與新自由主義 ===== */
+    .banality-card {
+      margin: 2rem 0 1.5rem;
+      background: linear-gradient(145deg, rgba(248,113,113,.06), rgba(159,232,112,.03));
+      border: 1px solid rgba(248,113,113,.2);
+      border-radius: 20px;
+      padding: 1.8rem 2rem;
+      text-align: center;
+      transition: all .3s;
+    }
+    .banality-card:hover {
+      border-color: rgba(248,113,113,.4);
+      box-shadow: 0 8px 30px rgba(0,0,0,.2);
+      transform: translateY(-2px);
+    }
+    .banality-card .badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(248,113,113,.6);
+      margin-bottom: 6px;
+    }
+    .banality-card .title {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+      color: #f0f8f0;
+      margin-bottom: 4px;
+    }
+    .banality-card .title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .banality-card .title a:hover {
+      color: #f87171;
+    }
+    .banality-card .title a .arrow-link {
+      display: inline-block;
+      transition: transform .2s;
+      font-size: 0.6em;
+      color: rgba(255,255,255,.2);
+      margin-left: 4px;
+    }
+    .banality-card .title a:hover .arrow-link {
+      transform: translateX(4px);
+      color: #f87171;
+    }
+    .banality-card .sub {
+      font-size: .75rem;
+      color: rgba(255,255,255,.3);
+      margin-bottom: 4px;
+    }
+    .banality-card .lang-tag {
+      font-size: .6rem;
+      color: rgba(255,255,255,.12);
+      font-family: var(--mono);
+      letter-spacing: .04em;
+    }
+    .banality-card .btn-wrap {
+      margin-top: 10px;
+    }
+    .banality-card .btn-read {
+      display: inline-block;
+      padding: 6px 20px;
+      border: 1px solid rgba(248,113,113,.25);
+      border-radius: 40px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #f87171;
+      text-decoration: none;
+      transition: all .22s;
+    }
+    .banality-card .btn-read:hover {
+      background: rgba(248,113,113,.1);
+      border-color: #f87171;
+      transform: translateY(-2px);
+    }
+    @media(max-width:700px) {
+      .banality-card { padding: 1.2rem 1.2rem; }
+      .banality-card .title { font-size: 1.1rem; }
+    }
+
+    /* ===== 土地正義系列入口 ===== */
     .landjustice-entry {
       margin: 1.5rem 0 0.5rem;
       text-align: center;
@@ -489,15 +574,21 @@
       </div>
     </div>
 
-    <!-- ===== 新增：RBE Vs. China 小鈕扣（土地正義系列風格） ===== -->
-    <div class="landjustice-entry">
-      <a href="/RBE_China_Neoliberalism.html" class="link">
-        📄 RBE Vs. China — Why Neoliberalism Cannot Grasp This Logic
-        <span class="arrow">→</span>
-      </a>
-      <div class="sub">Resource‑Based Economy · paradigm critique · GL Framework diagnosis</div>
+    <!-- ===== 平庸之惡與新自由主義 · 文章區塊 ===== -->
+    <div class="banality-card">
+      <div class="badge">⚡ Structural Critique · 結構批判</div>
+      <div class="title">
+        <a href="/banality-of-evil-neoliberalism.html">
+          The Banality of Evil and Neoliberalism
+          <span class="arrow-link">→</span>
+        </a>
+      </div>
+      <div class="sub">A Structural Homology — How neoliberalism institutionalizes non-thinking, professionalizes numbness, and normalizes indifference</div>
+      <div class="lang-tag">EN · 中文 · ES</div>
+      <div class="btn-wrap">
+        <a href="/banality-of-evil-neoliberalism.html" class="btn-read">Read Full Essay →</a>
+      </div>
     </div>
-    <!-- ===== 新增結束 ===== -->
 
     <!-- ===== 土地正義系列入口 ===== -->
     <div class="landjustice-entry">
@@ -663,16 +754,23 @@
       </div>
     </div>
 
-    <!-- ===== 新增：RBE Vs. China 小鈕扣（繁體中文） ===== -->
-    <div class="landjustice-entry">
-      <a href="/RBE_China_Neoliberalism.html" class="link">
-        📄 RBE 與中國 — 為什麼新自由主義無法理解這套邏輯
-        <span class="arrow">→</span>
-      </a>
-      <div class="sub">資源基礎型經濟 · 範式批判 · GL 框架診斷</div>
+    <!-- ===== 平庸之惡與新自由主義 · 文章區塊 ===== -->
+    <div class="banality-card">
+      <div class="badge">⚡ 結構批判 · Structural Critique</div>
+      <div class="title">
+        <a href="/banality-of-evil-neoliberalism.html">
+          平庸之惡與新自由主義
+          <span class="arrow-link">→</span>
+        </a>
+      </div>
+      <div class="sub">結構性關聯 —— 新自由主義如何將「不思考」制度化、將「麻木」專業化、將「冷漠」正常化</div>
+      <div class="lang-tag">EN · 中文 · ES</div>
+      <div class="btn-wrap">
+        <a href="/banality-of-evil-neoliberalism.html" class="btn-read">閱讀全文 →</a>
+      </div>
     </div>
-    <!-- ===== 新增結束 ===== -->
 
+    <!-- ===== 土地正義系列入口 ===== -->
     <div class="landjustice-entry">
       <a href="/landjustice.html" class="link">
         📚 土地正義系列 · Land Justice Series
@@ -755,16 +853,23 @@
       </div>
     </div>
 
-    <!-- ===== 新增：RBE Vs. China 小鈕扣（簡體中文） ===== -->
-    <div class="landjustice-entry">
-      <a href="/RBE_China_Neoliberalism.html" class="link">
-        📄 RBE 与中国 — 为什么新自由主义无法理解这套逻辑
-        <span class="arrow">→</span>
-      </a>
-      <div class="sub">资源基础型经济 · 范式批判 · GL 框架诊断</div>
+    <!-- ===== 平庸之惡與新自由主義 · 文章區塊 ===== -->
+    <div class="banality-card">
+      <div class="badge">⚡ 结构批判 · Structural Critique</div>
+      <div class="title">
+        <a href="/banality-of-evil-neoliberalism.html">
+          平庸之恶与新自由主义
+          <span class="arrow-link">→</span>
+        </a>
+      </div>
+      <div class="sub">结构性关联 —— 新自由主义如何将「不思考」制度化、将「麻木」专业化、将「冷漠」正常化</div>
+      <div class="lang-tag">EN · 中文 · ES</div>
+      <div class="btn-wrap">
+        <a href="/banality-of-evil-neoliberalism.html" class="btn-read">阅读全文 →</a>
+      </div>
     </div>
-    <!-- ===== 新增結束 ===== -->
 
+    <!-- ===== 土地正義系列入口 ===== -->
     <div class="landjustice-entry">
       <a href="/landjustice.html" class="link">
         📚 土地正义系列 · Land Justice Series
@@ -847,16 +952,23 @@
       </div>
     </div>
 
-    <!-- ===== 新增：RBE Vs. China 小鈕扣（西班牙語） ===== -->
-    <div class="landjustice-entry">
-      <a href="/RBE_China_Neoliberalism.html" class="link">
-        📄 RBE Vs. China — Why Neoliberalism Cannot Grasp This Logic
-        <span class="arrow">→</span>
-      </a>
-      <div class="sub">Resource‑Based Economy · paradigm critique · GL Framework diagnosis</div>
+    <!-- ===== 平庸之惡與新自由主義 · 文章區塊 ===== -->
+    <div class="banality-card">
+      <div class="badge">⚡ Crítica Estructural · Structural Critique</div>
+      <div class="title">
+        <a href="/banality-of-evil-neoliberalism.html">
+          La Banalidad del Mal y el Neoliberalismo
+          <span class="arrow-link">→</span>
+        </a>
+      </div>
+      <div class="sub">Una homología estructural — cómo el neoliberalismo institucionaliza el no pensar, profesionaliza el entumecimiento y normaliza la indiferencia</div>
+      <div class="lang-tag">EN · 中文 · ES</div>
+      <div class="btn-wrap">
+        <a href="/banality-of-evil-neoliberalism.html" class="btn-read">Leer Ensayo →</a>
+      </div>
     </div>
-    <!-- ===== 新增結束 ===== -->
 
+    <!-- ===== 土地正義系列入口 ===== -->
     <div class="landjustice-entry">
       <a href="/landjustice.html" class="link">
         📚 Serie Justicia de la Tierra · Land Justice Series
