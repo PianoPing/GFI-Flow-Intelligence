@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>被偷走的四分之三 · 海伦·凯勒 · The Stolen 3/4</title>
+    <meta name="description" content="海伦·凯勒真实的一生——教科书只教了四分之一，隐藏了四分之三。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', 'Times New Roman', 'Palatino', serif;
+            background: #0f0c0a;
+            color: #ddd2c6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 24px 14px;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: #1c1714;
+            border-radius: 32px;
+            padding: 44px 38px 32px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.95);
+            border: 1px solid #3d322b;
+        }
+        .header {
+            border-bottom: 2px solid #5a4638;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: #eeddce;
+        }
+        .subhead {
+            font-size: 0.95rem;
+            color: #a58d7a;
+            font-style: italic;
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+        }
+        .subhead span {
+            border-left: 3px solid #b4815a;
+            padding-left: 14px;
+        }
+        .lang-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 26px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #3d322b;
+        }
+        .lang-btn {
+            background: transparent;
+            border: 2px solid #5a4638;
+            padding: 7px 26px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #c4b1a0;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: 'Segoe UI', 'Helvetica', sans-serif;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+        .lang-btn:hover {
+            background: #3d322b;
+            color: #eeddce;
+        }
+        .lang-btn.active {
+            background: #b4815a;
+            border-color: #b4815a;
+            color: #0f0c0a;
+        }
+        .story-panel {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d6c9bc;
+        }
+        .story-panel p {
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+        .story-panel .hl {
+            color: #dbb594;
+            font-weight: 700;
+            background: #2b2320;
+            padding: 0 6px;
+        }
+        .story-panel .fire {
+            color: #e07c3e;
+            font-weight: 700;
+        }
+        .story-panel .red {
+            color: #c9592e;
+            font-weight: 700;
+        }
+        .story-panel .gold {
+            color: #e8c88a;
+            font-weight: 700;
+        }
+        .story-panel .blockquote {
+            background: #2b2320;
+            padding: 20px 26px;
+            border-radius: 18px;
+            border-left: 8px solid #b4815a;
+            margin: 24px 0;
+            font-style: italic;
+            color: #e3d6c9;
+        }
+        .story-panel .blockquote strong {
+            color: #f0caa8;
+            font-weight: 700;
+        }
+        .story-panel .blockquote .source {
+            display: block;
+            margin-top: 8px;
+            font-style: normal;
+            font-size: 0.82rem;
+            color: #997f6b;
+            letter-spacing: 0.3px;
+        }
+        .story-panel .stats-box {
+            background: #1a1512;
+            border: 1px solid #4a3a30;
+            border-radius: 14px;
+            padding: 16px 22px;
+            margin: 24px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 26px;
+            font-size: 0.92rem;
+        }
+        .story-panel .stats-box .num {
+            color: #e07c3e;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+        .story-panel .footnote {
+            margin-top: 28px;
+            padding-top: 16px;
+            border-top: 1px dashed #4a3a30;
+            font-size: 0.8rem;
+            color: #8a7564;
+            letter-spacing: 0.4px;
+        }
+        .lang-block {
+            display: none;
+        }
+        .lang-block.active {
+            display: block;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 18px 12px; }
+            h1 { font-size: 1.5rem; }
+            .subhead { font-size: 0.75rem; flex-direction: column; gap: 4px; }
+            .subhead span { border-left: none; padding-left: 0; }
+            .lang-btn { padding: 5px 14px; font-size: 0.7rem; }
+            .story-panel { font-size: 0.92rem; }
+            .story-panel .blockquote { padding: 12px 14px; }
+        }
+        @media (max-width: 480px) {
+            .story-panel { font-size: 0.88rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <h1>⚒️ 被偷走的四分之三</h1>
+        <div class="subhead">
+            <span>海伦·凯勒 · 1880–1968</span>
+            <span>教科书只教了1/4 · 隐藏了3/4</span>
+            <span>The Stolen 3/4 · El 3/4 robado</span>
+        </div>
+    </div>
+
+    <div class="lang-bar">
+        <button class="lang-btn active" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="es">Español</button>
+    </div>
+
+    <div class="story-panel">
+
+        <!-- ========== 中文 ========== -->
+        <div id="lang-zh" class="lang-block active">
+
+            <p><span class="hl">海伦·凯勒（1880–1968）</span>或许是全世界最家喻户晓的残疾人。两岁失去视力和听力，七岁在安妮·沙莉文帮助下学会沟通，最终成为作家、演说家——这个故事被写入各国教科书，拍成好莱坞电影，成为“身残志坚”的代名词。</p>
+
+            <p>然而，<span class="fire">这个“海伦·凯勒”是一个谎言。</span></p>
+
+            <p>真实的凯勒活到88岁。而她被世人所知的，只有前24年。从大学毕业到1968年去世，长达<span class="hl">64年的后半生</span>——占了她生命<span class="red">四分之三</span>的篇幅——被西方主流叙事系统性地、刻意地、冷酷地<span class="fire">阉割了</span>。不是被遗忘，而是被<span class="hl">有组织地删除</span>。</p>
+
+            <p>为什么？因为24岁之后的凯勒，不再是一个“安全的励志偶像”，而变成了一个“危险的思想者”——<span class="red">一个公开的、激进的、不可收编的社会主义者</span>。</p>
+
+            <div class="stats-box">
+                <span><span class="num">1909</span> 加入社会党</span>
+                <span><span class="num">1912</span> 加入IWW</span>
+                <span><span class="num">1916–18</span> IWW记者</span>
+                <span><span class="num">1920</span> 联合创立ACLU</span>
+                <span><span class="num">1933</span> 著作被纳粹焚烧</span>
+                <span><span class="num">1964</span> 总统自由勋章</span>
+            </div>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🔍 她发现了真相：失明是一种阶级病</h3>
+
+            <p>毕业后的凯勒曾致力于帮助残疾人。但在这个过程中，她发现了一个令人震惊的事实：<span class="hl">失明者并非随机分布在各个阶层，而是高度集中于社会最底层</span>。</p>
+
+            <p>她亲自走进工厂、糖果店、棚户区，发现大量失明源于工业事故——工人因工伤失明，资本家只赔几个美元；穷人家的孩子因得不到及时治疗而永远失去视力。她在1916年写道：太多失明案例可以追溯到“由雇主的自私和贪婪造成的工业条件”。<span class="fire">她得出结论：这不是命运，这是制度在制造残疾。</span></p>
+
+            <div class="blockquote">
+                “我成为社会主义者，不是出于怜悯，而是因为<strong>理性与愤怒</strong>。我看见盲童在工厂中失明，而富人的孩子得到眼科手术——这不是命运，这是<strong>阶级屠杀</strong>。”<br>
+                <span class="source">—— 海伦·凯勒，《工人呼声》，1912年</span>
+            </div>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">⚔️ 她走上了战场——并拒绝被任何政党收编</h3>
+
+            <p>1909年，凯勒加入马萨诸塞州社会党。她积极为社会主义者尤金·德布斯竞选总统。但很快她发现议会社会主义“正在政治泥潭中下沉”。1912年，她加入<span class="hl">世界产业工人联合会（IWW）</span>——当时美国最激进、最具战斗性的工人组织，并在1916至1918年间为其撰稿。1920年，她与简·亚当斯等人共同创办了<span class="hl">美国公民自由联盟（ACLU）</span>。</p>
+
+            <p>她支持民权、反法西斯、反殖民斗争——<span class="fire">始终以她自己的方式，从不以任何政党的忠实追随者自居</span>。她是最早揭露南非种族隔离制度罪恶的公众人物之一，公开反对威尔逊的种族隔离政策，为黑人平权、妇女选举权、劳工权益大声疾呼。</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🔪 社会如何“阉割”她</h3>
+
+            <p><span class="red">第一刀：人身攻击。</span>《布鲁克林鹰报》的编辑曾对她大肆恭维，但在她投身社会主义后，转而攻击她“错误源自她生理发育的明显局限”。凯勒犀利回击：“我遇到他时他夸我的那些话，我现在想起来还会脸红。但如今我站出来支持社会主义，他就提醒我和公众——我又盲又聋，特别容易犯错。噢，可笑的《布鲁克林鹰报》！在社会问题上又盲又聋，它维护着一个令人难以忍受的制度——而这个制度恰恰是我们在努力预防的许多身体失明和失聪的根源。”</p>
+
+            <p><span class="red">第二刀：幼童化。</span>批评者要求她“把活动限制在社会服务和盲人事务上”——仿佛一个盲聋女性不配谈论政治。1957年的戏剧《奇迹创造者》及1962年的电影，将她永久定格为一个孩子。历史学家和电影制作人从她的一生中提炼出空泛的格言，却无视她的真实传记。</p>
+
+            <p><span class="red">第三刀：系统性删除。</span>美国学者詹姆斯·洛温在《老师的谎言》中指出：<span class="hl">美国历史教科书只提凯勒克服盲聋的童年，完全忽略她的激进政治活动、社会主义立场和学术研究。</span> FBI为她建立了44页的秘密档案——不是因为做了什么惊天暴动，而是因为她持续了64年不肯闭嘴。1968年她去世时，《纽约时报》讣告对她64年的政治生涯<span class="fire">只字未提</span>。</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">💀 为何阉割？——资本主义的意识形态手术</h3>
+
+            <p>为什么一个如此伟大的人物，会被如此彻底地删除？<span class="fire">因为资本主义需要一个“安全”的凯勒。</span></p>
+
+            <p>她的成功被包装成<span class="hl">个人意志的胜利</span>——家庭条件、社会资源全部隐去。媒体将她捧上神坛，总统颁给她自由奖章。<span class="red">一个完美的励志符号，被用来镇压一切对社会不公的质疑</span>——每当有人抱怨制度不公，他们就说：“你看海伦·凯勒，又盲又聋都能成功，你有什么好抱怨的？”</p>
+
+            <p>但真实的凯勒恰恰拆穿了这个神话。一个批判资本主义的凯勒，对资本主义是致命的。所以她必须被删除——不是肉体上消灭，而是<span class="fire">叙事上阉割</span>：保留她的名字和童年，摘除她的思想和成年。她被变成一个空洞的符号、一剂无害的鸡汤、一把用来锁住别人的锁。</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🕯️ 钟声仍在</h3>
+
+            <p>凯勒在1933年纳粹焚烧她的著作后写道：<span class="fire">“历史无法被焚烧，思想无法被消灭。”</span></p>
+
+            <p>西方没有烧她的书。他们做了更阴险的事——<span class="hl">烧掉了她的政治传记，却把她的名字留在封面上</span>，让世世代代的人以为自己认识她，却从未真正见过她。</p>
+
+            <p>但钟声从未停止。因为总有人会翻开旧档案，总有人会问“为什么我们只知道她的童年”，总有人会拒绝被收编。只要还有一个人愿意看见真相，海伦·凯勒的真实一生就不会被彻底抹去。</p>
+
+            <p><span class="gold">他们能阉割死者，但他们永远无法阉割活着的、正在凝视他们的眼睛。</span></p>
+
+            <p>海伦·凯勒敲了64年的钟。今天，这钟声依然在响。问题只在于——<span class="fire">你，愿意听见吗？</span></p>
+
+            <div class="footnote">※ 资料来源：凯勒书信与演讲 · FBI解密档案 · 詹姆斯·洛温《老师的谎言》 · IWW档案 · 美国国会图书馆</div>
+        </div>
+
+        <!-- ========== ENGLISH ========== -->
+        <div id="lang-en" class="lang-block">
+
+            <p><span class="hl">Helen Keller (1880–1968)</span> is perhaps the most famous disabled person in the world. Blind and deaf from age two, she learned to communicate at seven with Anne Sullivan's help, eventually becoming a writer and orator — a story retold in textbooks worldwide, turned into Hollywood films, and made synonymous with "triumph over adversity."</p>
+
+            <p>Yet <span class="fire">this "Helen Keller" is a lie.</span></p>
+
+            <p>The real Keller lived to 88. But the world only knows the first 24 years of her life. From her college graduation to her death in 1968 — <span class="hl">64 years</span>, fully <span class="red">three-quarters of her life</span> — were systematically, deliberately, and ruthlessly <span class="fire">castrated</span> by the Western mainstream narrative. Not forgotten, but <span class="hl">organizedly erased</span>.</p>
+
+            <p>Why? Because after 24, Keller was no longer a "safe inspirational icon." She had become a "dangerous thinker" — <span class="red">an open, radical, unco-optable socialist.</span></p>
+
+            <div class="stats-box">
+                <span><span class="num">1909</span> Socialist Party</span>
+                <span><span class="num">1912</span> IWW (Wobblies)</span>
+                <span><span class="num">1916–18</span> IWW journalist</span>
+                <span><span class="num">1920</span> Co-founded ACLU</span>
+                <span><span class="num">1933</span> Books burned by Nazis</span>
+                <span><span class="num">1964</span> Medal of Freedom</span>
+            </div>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🔍 She Discovered the Truth: Blindness Is a Class Disease</h3>
+
+            <p>After graduation, Keller worked to help the blind. But in the process, she discovered a shocking fact: <span class="hl">blindness was not randomly distributed across classes — it was concentrated at the very bottom of society.</span></p>
+
+            <p>She visited factories, candy shops, and slums — and found that blindness often came from industrial accidents: workers lost their sight on the job, while employers paid only a few dollars in compensation. She wrote in 1916 that too many cases of blindness traced back to "industrial conditions caused by the selfishness and greed of employers." <span class="fire">She concluded: this is not fate — this is a system that manufactures disability.</span></p>
+
+            <div class="blockquote">
+                “I became a socialist not out of pity, but out of <strong>reason and rage</strong>. I saw blind children in factories, while the children of the rich received eye surgeries — that is not fate, that is <strong>class murder</strong>.”<br>
+                <span class="source">— Helen Keller, <em>Workers' Call</em>, 1912</span>
+            </div>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">⚔️ She Took Up the Fight — and Refused to Be Co-opted by Any Party</h3>
+
+            <p>In 1909, Keller joined the Socialist Party of Massachusetts. She campaigned for socialist Eugene Debs. But she soon criticized parliamentary socialism for "sinking into the political mud." In 1912, she joined the <span class="hl">Industrial Workers of the World (IWW)</span> — the most radical and militant labor organization in America — and wrote for them from 1916 to 1918. In 1920, she co-founded the <span class="hl">American Civil Liberties Union (ACLU)</span> with Jane Addams and others.</p>
+
+            <p>She supported civil rights, anti-fascism, and anti-colonial struggles — <span class="fire">always on her own terms, never as a party loyalist.</span> She was one of the first public figures to expose the evils of South African apartheid, opposed Wilson's segregation policies, and spoke out for Black rights, women's suffrage, and labor rights.</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🔪 How Society "Castrated" Her</h3>
+
+            <p><span class="red">First cut: Personal attacks.</span> The editor of the <em>Brooklyn Eagle</em> had once praised her lavishly. But after she embraced socialism, he turned and attacked her, saying her "errors spring from her physical limitations." Keller shot back: "I used to blush when he praised me. But now that I stand for socialism, he reminds me and the public that I am blind and deaf and especially liable to error. Oh, ridiculous <em>Brooklyn Eagle</em>! Blind and deaf itself on social questions, it upholds an intolerable system — the very system that causes much of the physical blindness and deafness we are trying to prevent."</p>
+
+            <p><span class="red">Second cut: Infantilization.</span> Critics demanded she "confine her activities to social service and the blind" — as if a deaf-blind woman had no right to politics. The 1957 play <em>The Miracle Worker</em> and its 1962 film permanently froze her as a child. Historians and filmmakers extracted platitudes from her life while ignoring her real biography.</p>
+
+            <p><span class="red">Third cut: Systematic erasure.</span> American scholar James Loewen noted in <em>Lies My Teacher Told Me</em> that <span class="hl">no American history textbook mentions Keller as a voice for the poor and the working class.</span> The FBI opened a 44-page file on her — not for any violent act, but because she refused to shut up for 64 years. When she died in 1968, <em>The New York Times</em> obituary <span class="fire">mentioned not a single political act</span> of her entire political life.</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">💀 Why Castrate? — Capitalism's Ideological Surgery</h3>
+
+            <p>Why would such a great figure be so thoroughly erased? <span class="fire">Because capitalism needs a "safe" Keller.</span></p>
+
+            <p>Her success was packaged as <span class="hl">a triumph of individual will</span> — her family background and social resources were airbrushed away. The media elevated her to a pedestal, and presidents gave her medals. <span class="red">A perfect inspirational symbol, used to suppress all questions about social injustice.</span> Whenever anyone complained about an unfair system, they were told: "Look at Helen Keller — blind and deaf, and she still succeeded. What's your excuse?"</p>
+
+            <p>But the real Keller precisely debunked that myth. A Keller who criticized capitalism was lethal to capitalism. So she had to be erased — not physically, but <span class="fire">narratively castrated</span>: keep her name and childhood, remove her thoughts and adulthood. She was turned into an empty symbol, a harmless chicken soup, a lock used to chain others.</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🕯️ The Bell Still Rings</h3>
+
+            <p>Keller wrote in 1933, after the Nazis burned her books: <span class="fire">"History cannot be burned, and ideas cannot be destroyed."</span></p>
+
+            <p>The West didn't burn her books. They did something more insidious — <span class="hl">they burned her political biography, but kept her name on the cover</span>, so generations would think they knew her, yet never truly see her.</p>
+
+            <p>But the bell has never stopped. Because there are always those who open old archives, who ask "why do we only know her childhood," who refuse to be co-opted. As long as one person is willing to see the truth, Helen Keller's real life will never be completely erased.</p>
+
+            <p><span class="gold">They can castrate the dead, but they can never castrate the living eyes that stare back at them.</span></p>
+
+            <p>Helen Keller rang the bell for 64 years. Today, that bell still sounds. The question is — <span class="fire">are you willing to hear it?</span></p>
+
+            <div class="footnote">※ Sources: Keller's letters &amp; speeches · FBI declassified files · James Loewen, <em>Lies My Teacher Told Me</em> · IWW archives · Library of Congress</div>
+        </div>
+
+        <!-- ========== ESPAÑOL ========== -->
+        <div id="lang-es" class="lang-block">
+
+            <p><span class="hl">Helen Keller (1880–1968)</span> es quizás la persona con discapacidad más famosa del mundo. Ciega y sorda desde los dos años, aprendió a comunicarse a los siete con la ayuda de Anne Sullivan, y se convirtió en escritora y oradora — una historia contada en libros de texto de todo el mundo, llevada al cine, y convertida en sinónimo de "triunfo sobre la adversidad".</p>
+
+            <p>Sin embargo, <span class="fire">esta "Helen Keller" es una mentira.</span></p>
+
+            <p>La Keller real vivió hasta los 88 años. Pero el mundo solo conoce los primeros 24 años de su vida. Desde su graduación universitaria hasta su muerte en 1968 — <span class="hl">64 años</span>, es decir, <span class="red">tres cuartas partes de su vida</span> — fueron sistemática, deliberada y despiadadamente <span class="fire">castrados</span> por la narrativa dominante de Occidente. No olvidados, sino <span class="hl">borrados de manera organizada</span>.</p>
+
+            <p>¿Por qué? Porque después de los 24, Keller ya no era un "ícono inspirador seguro". Se había convertido en una "pensadora peligrosa" — <span class="red">una socialista abierta, radical e incooptable.</span></p>
+
+            <div class="stats-box">
+                <span><span class="num">1909</span> Partido Socialista</span>
+                <span><span class="num">1912</span> IWW (Wobblies)</span>
+                <span><span class="num">1916–18</span> Periodista IWW</span>
+                <span><span class="num">1920</span> Co-fundadora ACLU</span>
+                <span><span class="num">1933</span> Libros quemados por nazis</span>
+                <span><span class="num">1964</span> Medalla de la Libertad</span>
+            </div>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🔍 Descubrió la Verdad: La Ceguera es una Enfermedad de Clase</h3>
+
+            <p>Después de graduarse, Keller trabajó para ayudar a los ciegos. Pero en el proceso, descubrió un hecho impactante: <span class="hl">la ceguera no se distribuía al azar entre las clases — estaba concentrada en la base de la sociedad.</span></p>
+
+            <p>Visitó fábricas, tiendas de dulces y barrios marginales — y descubrió que la ceguera a menudo provenía de accidentes industriales: los trabajadores perdían la vista en el trabajo, mientras los empleadores pagaban solo unos pocos dólares en compensación. Escribió en 1916 que demasiados casos de ceguera se remontaban a "condiciones industriales causadas por el egoísmo y la codicia de los empleadores". <span class="fire">Concluyó: esto no es destino — esto es un sistema que fabrica discapacidad.</span></p>
+
+            <div class="blockquote">
+                “Me hice socialista no por compasión, sino por <strong>razón y rabia</strong>. Vi niños ciegos en fábricas, mientras los hijos de los ricos recibían cirugías oculares — eso no es destino, es <strong>asesinato de clase</strong>.”<br>
+                <span class="source">— Helen Keller, <em>La Voz Obrera</em>, 1912</span>
+            </div>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">⚔️ Tomó la Lucha — y se Negó a ser Cooptada por Cualquier Partido</h3>
+
+            <p>En 1909, Keller se unió al Partido Socialista de Massachusetts. Hizo campaña para el socialista Eugene Debs. Pero pronto criticó al socialismo parlamentario por "hundirse en el lodo político". En 1912, se unió a los <span class="hl">Trabajadores Industriales del Mundo (IWW)</span> — la organización laboral más radical y militante de Estados Unidos — y escribió para ellos de 1916 a 1918. En 1920, co-fundó la <span class="hl">Unión Estadounidense por las Libertades Civiles (ACLU)</span> con Jane Addams y otros.</p>
+
+            <p>Apoyó los derechos civiles, el antifascismo y las luchas anticoloniales — <span class="fire">siempre en sus propios términos, nunca como leal a un partido.</span> Fue una de las primeras figuras públicas en exponer los males del apartheid sudafricano, se opuso a las políticas segregacionistas de Wilson y habló por los derechos de los negros, el sufragio femenino y los derechos laborales.</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🔪 Cómo la Sociedad la "Castró"</h3>
+
+            <p><span class="red">Primer corte: Ataques personales.</span> El editor del <em>Brooklyn Eagle</em> la había elogiado abundantemente. Pero después de que ella abrazara el socialismo, giró y la atacó, diciendo que sus "errores provienen de sus limitaciones físicas". Keller respondió: "Solía sonrojarme cuando me elogiaba. Pero ahora que defiendo el socialismo, me recuerda a mí y al público que soy ciega y sorda y especialmente propensa a errores. ¡Oh, ridículo <em>Brooklyn Eagle</em>! Ciego y sordo en asuntos sociales, defiende un sistema intolerable — el mismo sistema que causa gran parte de la ceguera y sordera física que intentamos prevenir".</p>
+
+            <p><span class="red">Segundo corte: Infantilización.</span> Los críticos exigieron que "limitara sus actividades al servicio social y a los ciegos" — como si una mujer sordociega no tuviera derecho a la política. La obra de 1957 <em>The Miracle Worker</em> y su película de 1962 la congelaron permanentemente como una niña. Historiadores y cineastas extrajeron lugares comunes de su vida mientras ignoraban su verdadera biografía.</p>
+
+            <p><span class="red">Tercer corte: Borrado sistemático.</span> El académico estadounidense James Loewen señaló en <em>Lies My Teacher Told Me</em> que <span class="hl">ningún libro de texto de historia estadounidense menciona a Keller como voz de los pobres y la clase trabajadora.</span> El FBI abrió un expediente de 44 páginas sobre ella — no por ningún acto violento, sino porque se negó a callar durante 64 años. Cuando murió en 1968, el obituario de <em>The New York Times</em> <span class="fire">no mencionó ni un solo acto político</span> de toda su vida política.</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">💀 ¿Por qué Castrar? — La Cirugía Ideológica del Capitalismo</h3>
+
+            <p>¿Por qué una figura tan grande sería borrada tan completamente? <span class="fire">Porque el capitalismo necesita una Keller "segura".</span></p>
+
+            <p>Su éxito fue empaquetado como <span class="hl">un triunfo de la voluntad individual</span> — su origen familiar y recursos sociales fueron borrados. Los medios la elevaron a un pedestal, y los presidentes le dieron medallas. <span class="red">Un símbolo inspirador perfecto, utilizado para suprimir todas las preguntas sobre la injusticia social.</span> Cada vez que alguien se quejaba de un sistema injusto, se les decía: "Mira a Helen Keller — ciega y sorda, y aún así triunfó. ¿Cuál es tu excusa?"</p>
+
+            <p>Pero la Keller real desmontaba precisamente ese mito. Una Keller que criticaba al capitalismo era letal para el capitalismo. Así que tuvo que ser borrada — no físicamente, sino <span class="fire">narrativamente castrada</span>: conservar su nombre e infancia, eliminar sus pensamientos y su edad adulta. Fue convertida en un símbolo vacío, una sopa de pollo inofensiva, un candado usado para encadenar a otros.</p>
+
+            <h3 style="color: #e8c88a; margin: 28px 0 12px;">🕯️ La Campana Sigue Sonando</h3>
+
+            <p>Keller escribió en 1933, después de que los nazis quemaran sus libros: <span class="fire">"La historia no puede quemarse, y las ideas no pueden destruirse".</span></p>
+
+            <p>Occidente no quemó sus libros. Hizo algo más insidioso — <span class="hl">quemó su biografía política, pero mantuvo su nombre en la portada</span>, para que generaciones pensaran que la conocían, pero nunca la vieran realmente.</p>
+
+            <p>Pero la campana nunca se ha detenido. Porque siempre hay quienes abren archivos antiguos, quienes preguntan "¿por qué solo conocemos su infancia?", quienes se niegan a ser cooptados. Mientras haya una persona dispuesta a ver la verdad, la vida real de Helen Keller nunca será borrada por completo.</p>
+
+            <p><span class="gold">Pueden castrar a los muertos, pero nunca pueden castrar a los ojos vivos que les devuelven la mirada.</span></p>
+
+            <p>Helen Keller tocó la campana durante 64 años. Hoy, esa campana sigue sonando. La pregunta es — <span class="fire">¿estás dispuesto a escucharla?</span></p>
+
+            <div class="footnote">※ Fuentes: Cartas y discursos de Keller · Archivos desclasificados del FBI · James Loewen, <em>Lies My Teacher Told Me</em> · Archivos IWW · Biblioteca del Congreso</div>
+        </div>
+
+    </div><!-- .story-panel -->
+</div><!-- .container -->
+
+<script>
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            const lang = this.dataset.lang;
+            document.querySelectorAll('.lang-block').forEach(block => block.classList.remove('active'));
+            document.getElementById('lang-' + lang).classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
